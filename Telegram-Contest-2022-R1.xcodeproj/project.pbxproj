@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0E953528F4A01900177E7C /* AutolayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E953428F4A01900177E7C /* AutolayoutEngine.swift */; };
+		9F0E953B28F4B03800177E7C /* EditToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E953A28F4B03800177E7C /* EditToolbarView.swift */; };
+		9F0E953D28F4B20C00177E7C /* EditToolbarSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E953C28F4B20C00177E7C /* EditToolbarSegmentView.swift */; };
+		9F0E954028F4B3BC00177E7C /* UIViewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E953F28F4B3BC00177E7C /* UIViewHelpers.swift */; };
+		9F0E954228F4B53000177E7C /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E954128F4B53000177E7C /* Fonts.swift */; };
+		9F0E954628F4B76100177E7C /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954428F4B74800177E7C /* SF-Pro-Text-Semibold.otf */; };
+		9F0E954728F4B76100177E7C /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954528F4B75F00177E7C /* SF-Pro-Text-Medium.otf */; };
+		9F0E954928F4B77E00177E7C /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954828F4B77D00177E7C /* SF-Pro-Display-Semibold.otf */; };
+		9F0E954B28F4B88D00177E7C /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954A28F4B7A000177E7C /* SF-Pro-Text-Regular.otf */; };
 		9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */; };
 		9FCF57DC28F46A0900A9DD38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */; };
 		9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DD28F46A0900A9DD38 /* ViewController.swift */; };
@@ -18,6 +27,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F0E953428F4A01900177E7C /* AutolayoutEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutEngine.swift; sourceTree = "<group>"; };
+		9F0E953A28F4B03800177E7C /* EditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbarView.swift; sourceTree = "<group>"; };
+		9F0E953C28F4B20C00177E7C /* EditToolbarSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbarSegmentView.swift; sourceTree = "<group>"; };
+		9F0E953F28F4B3BC00177E7C /* UIViewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewHelpers.swift; sourceTree = "<group>"; };
+		9F0E954128F4B53000177E7C /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		9F0E954428F4B74800177E7C /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		9F0E954528F4B75F00177E7C /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		9F0E954828F4B77D00177E7C /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		9F0E954A28F4B7A000177E7C /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		9FCF57D628F46A0900A9DD38 /* Telegram-Contest-2022-R1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Telegram-Contest-2022-R1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +59,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F0E953928F4B02500177E7C /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				9F0E953A28F4B03800177E7C /* EditToolbarView.swift */,
+				9F0E953C28F4B20C00177E7C /* EditToolbarSegmentView.swift */,
+			);
+			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		9F0E953E28F4B3B600177E7C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9F0E953F28F4B3BC00177E7C /* UIViewHelpers.swift */,
+				9F0E954128F4B53000177E7C /* Fonts.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9F0E954328F4B61A00177E7C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9F0E954A28F4B7A000177E7C /* SF-Pro-Text-Regular.otf */,
+				9F0E954828F4B77D00177E7C /* SF-Pro-Display-Semibold.otf */,
+				9F0E954528F4B75F00177E7C /* SF-Pro-Text-Medium.otf */,
+				9F0E954428F4B74800177E7C /* SF-Pro-Text-Semibold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		9FCF57CD28F46A0900A9DD38 = {
 			isa = PBXGroup;
 			children = (
@@ -63,8 +110,12 @@
 				9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */,
 				9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */,
 				9FCF57DD28F46A0900A9DD38 /* ViewController.swift */,
+				9F0E953E28F4B3B600177E7C /* Helpers */,
+				9F0E953928F4B02500177E7C /* Toolbar */,
 				9FCF57ED28F46CF400A9DD38 /* EditImageViewController.swift */,
 				9FCF57EF28F46D3300A9DD38 /* ImageContainer.swift */,
+				9F0E953428F4A01900177E7C /* AutolayoutEngine.swift */,
+				9F0E954328F4B61A00177E7C /* Fonts */,
 				9FCF57DF28F46A0900A9DD38 /* Main.storyboard */,
 				9FCF57E228F46A0A00A9DD38 /* Assets.xcassets */,
 				9FCF57E428F46A0A00A9DD38 /* LaunchScreen.storyboard */,
@@ -89,6 +140,8 @@
 			dependencies = (
 			);
 			name = "Telegram-Contest-2022-R1";
+			packageProductDependencies = (
+			);
 			productName = "Telegram-Contest-2022-R1";
 			productReference = 9FCF57D628F46A0900A9DD38 /* Telegram-Contest-2022-R1.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +170,8 @@
 				Base,
 			);
 			mainGroup = 9FCF57CD28F46A0900A9DD38;
+			packageReferences = (
+			);
 			productRefGroup = 9FCF57D728F46A0900A9DD38 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -131,9 +186,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0E954928F4B77E00177E7C /* SF-Pro-Display-Semibold.otf in Resources */,
+				9F0E954628F4B76100177E7C /* SF-Pro-Text-Semibold.otf in Resources */,
 				9FCF57E628F46A0A00A9DD38 /* LaunchScreen.storyboard in Resources */,
 				9FCF57E328F46A0A00A9DD38 /* Assets.xcassets in Resources */,
+				9F0E954728F4B76100177E7C /* SF-Pro-Text-Medium.otf in Resources */,
 				9FCF57E128F46A0900A9DD38 /* Main.storyboard in Resources */,
+				9F0E954B28F4B88D00177E7C /* SF-Pro-Text-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,11 +203,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0E953528F4A01900177E7C /* AutolayoutEngine.swift in Sources */,
 				9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */,
+				9F0E954028F4B3BC00177E7C /* UIViewHelpers.swift in Sources */,
 				9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */,
 				9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */,
 				9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */,
+				9F0E954228F4B53000177E7C /* Fonts.swift in Sources */,
 				9FCF57DC28F46A0900A9DD38 /* SceneDelegate.swift in Sources */,
+				9F0E953D28F4B20C00177E7C /* EditToolbarSegmentView.swift in Sources */,
+				9F0E953B28F4B03800177E7C /* EditToolbarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,8 +365,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -329,8 +394,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
