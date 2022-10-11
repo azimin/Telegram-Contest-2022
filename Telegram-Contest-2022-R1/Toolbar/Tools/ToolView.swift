@@ -94,10 +94,10 @@ class ToolView: View {
     private func addClassicGradientToTip() {
         let gradient = CAGradientLayer()
         gradient.cornerRadius = 0.5
-//        let cornerColor = UIColor.black.withAlphaComponent(0.2).cgColor
-//        let innerColor = UIColor.black.withAlphaComponent(0).cgColor
-        let cornerColor = UIColor.red.cgColor
-        let innerColor = UIColor.red.withAlphaComponent(0).cgColor
+        let cornerColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        let innerColor = UIColor.black.withAlphaComponent(0).cgColor
+//        let cornerColor = UIColor.red.cgColor
+//        let innerColor = UIColor.red.withAlphaComponent(0).cgColor
         gradient.colors = [cornerColor, innerColor, innerColor, cornerColor]
         gradient.locations = [0, 0.15, 0.85, 1]
         gradient.startPoint = .init(x: 0, y: 0.5)
@@ -109,10 +109,10 @@ class ToolView: View {
     
     private func addMiddleGradientToTip() {
         let gradient = CAGradientLayer()
-//        let cornerColor = UIColor.white.withAlphaComponent(0).cgColor
-//        let innerColor = UIColor.white.withAlphaComponent(0.2).cgColor
-        let cornerColor = UIColor.red.withAlphaComponent(0).cgColor
-        let innerColor = UIColor.red.withAlphaComponent(1).cgColor
+        let cornerColor = UIColor.white.withAlphaComponent(0).cgColor
+        let innerColor = UIColor.white.withAlphaComponent(0.2).cgColor
+//        let cornerColor = UIColor.red.withAlphaComponent(0).cgColor
+//        let innerColor = UIColor.red.withAlphaComponent(1).cgColor
         gradient.colors = [UIColor.white.withAlphaComponent(0), cornerColor, innerColor, innerColor, cornerColor, UIColor.white.withAlphaComponent(0)]
         gradient.locations = [0, 0.245, 0.265, 0.735, 0.755, 1]
         gradient.startPoint = .init(x: 0, y: 0.5)

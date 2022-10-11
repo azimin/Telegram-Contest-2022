@@ -60,7 +60,7 @@ class EditToolbarView: View {
             self.segmentsView.trailingAnchor.constraint(equalTo: self.sendButton.leadingAnchor, constant: -16).activate()
         }
         
-        self.addSubview(self.toolsView)
+        self.insertSubview(self.toolsView, belowSubview: self.selectColorButton)
         self.toolsView.autolayout {
             self.toolsView.constraintSize(width: nil, height: 108)
             self.toolsView.leadingAnchor.constraint(equalTo: self.segmentsView.leadingAnchor, constant: 0).activate()

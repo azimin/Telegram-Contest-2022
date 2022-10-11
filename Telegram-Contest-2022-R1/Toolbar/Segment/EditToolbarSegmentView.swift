@@ -57,7 +57,25 @@ class EditToolbarSegmentView: View {
             self.labels.append(label)
             self.addSubview(label)
         }
+        
+        self.touchReportsIndex = .init(
+            itemsCount: items.count,
+            canSelectMultiple: false,
+            highlited: { index in
+                self.mutatedLabel?.alpha = 1.0
+                self.mutatedLabel = nil
+                if let index = index {
+                    self.labels[index].alpha = 0.7
+                    self.mutatedLabel = self.labels[index]
+                }
+            },
+            selected: { index in
+                self.selectedItem = index
+            }
+        )
     }
+    
+    var mutatedLabel: UILabel?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -95,87 +113,6 @@ class EditToolbarSegmentView: View {
                 width: selectedFrame.width + 16,
                 height: selectedFrame.height + 12
             )
-        }
-        
-    }
-    
-    var preSelectedIndex: Int?
-    
-    private func selectedIndex(touch: UITouch) -> Int {
-        let step = self.frame.width / CGFloat(self.labels.count)
-        let touchPoint = touch.location(in: self)
-        
-        if (touchPoint.y < 0 || touchPoint.y > self.frame.height) {
-            return -1
-        }
-        
-        if (touchPoint.x < 0 || touchPoint.x > self.frame.width) {
-            return -1
-        }
-        
-        let index = Int(touchPoint.x / step)
-        return index
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        guard let touch = touches.first else {
-            return
-        }
-        
-        let index = self.selectedIndex(touch: touch)
-        self.preSelectedIndex = index
-        self.mutateLabel(index: index)
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        guard let touch = touches.first else {
-            return
-        }
-        self.mutateLabel(index: self.selectedIndex(touch: touch))
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        guard let touch = touches.first else {
-            return
-        }
-        
-        let index = self.selectedIndex(touch: touch)
-        if index == self.preSelectedIndex, index >= 0, index < self.labels.count {
-            self.selectedItem = index
-        }
-        
-        if let label = self.mutatedLabel {
-            label.alpha = 1.0
-            self.mutatedLabel = nil
-        }
-        
-        self.preSelectedIndex = nil
-    }
-    
-    var mutatedLabel: UILabel?
-    
-    func mutateLabel(index: Int) {
-        if let label = self.mutatedLabel {
-            label.alpha = 1.0
-            self.mutatedLabel = nil
-        }
-        
-        if index >= 0, index < self.labels.count, index == self.preSelectedIndex {
-            self.labels[index].alpha = 0.7
-            self.mutatedLabel = self.labels[index]
-        }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        self.preSelectedIndex = nil
-        
-        if let label = self.mutatedLabel {
-            label.alpha = 1.0
-            self.mutatedLabel = nil
         }
     }
 }

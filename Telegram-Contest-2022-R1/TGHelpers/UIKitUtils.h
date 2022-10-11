@@ -8,6 +8,12 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+@interface CASpringAnimation ()
+
+- (CGFloat)valueAt:(CGFloat)t;
+
+@end
+
 double animationDurationFactorImpl();
 
 CABasicAnimation * _Nonnull makeSpringAnimationImpl(NSString * _Nonnull keyPath);

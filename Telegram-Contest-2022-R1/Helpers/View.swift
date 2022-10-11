@@ -71,8 +71,10 @@ class View: UIView {
         let index = self.selectedIndex(touch: touch, count: touchReportsIndex.itemsCount)
         
         self.preSelectedIndex = index
-        self.touchReportsIndex?.highlited(index)
+        self.highlite(index: index)
     }
+    
+    private var hightlitedIndex: Int? = nil
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
@@ -85,12 +87,12 @@ class View: UIView {
         let index = self.selectedIndex(touch: touch, count: touchReportsIndex.itemsCount)
         
         if touchReportsIndex.canSelectMultiple {
-            self.touchReportsIndex?.highlited(index)
+            self.highlite(index: index)
         } else {
             if self.preSelectedIndex == index {
-                self.touchReportsIndex?.highlited(index)
+                self.highlite(index: index)
             } else {
-                self.touchReportsIndex?.highlited(nil)
+                self.highlite(index: nil)
             }
         }
     }
@@ -104,7 +106,7 @@ class View: UIView {
             return
         }
         
-        touchReportsIndex.highlited(nil)
+        self.highlite(index: nil)
         let index = self.selectedIndex(touch: touch, count: touchReportsIndex.itemsCount)
         if touchReportsIndex.canSelectMultiple == false && self.preSelectedIndex == index {
             self.selected(index: index)
@@ -117,10 +119,19 @@ class View: UIView {
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        guard let touchReportsIndex = self.touchReportsIndex else { return }
+        guard self.touchReportsIndex != nil else { return }
         
         self.preSelectedIndex = nil
-        touchReportsIndex.highlited(nil)
+        self.highlite(index: nil)
+    }
+    
+    private func highlite(index: Int?) {
+        if self.hightlitedIndex == index {
+            return
+        }
+        self.hightlitedIndex = index
+        guard let touchReportsIndex = self.touchReportsIndex else { return }
+        touchReportsIndex.highlited(index)
     }
     
     private func selected(index: Int?) {
