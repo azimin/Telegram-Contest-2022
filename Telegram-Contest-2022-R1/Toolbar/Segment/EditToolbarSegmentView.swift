@@ -7,15 +7,17 @@
 
 import UIKit
 
-class EditToolbarSegmentView: View {
+class EditToolbarSegmentView: UIControl {
     struct Item {
         var text: String
-        var action: VoidBlock
     }
+    
+    var itemSelected: ((Int) -> Void)?
     
     var selectedItem: Int = 0 {
         didSet {
             self.updateSelectedView(animated: true)
+            self.itemSelected?(selectedItem)
         }
     }
     
@@ -28,13 +30,14 @@ class EditToolbarSegmentView: View {
     init(items: [Item]) {
         self.items = items
         super.init(frame: .zero)
+        self.setUp()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setUp() {
+    func setUp() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.heightAnchor.constraint(equalToConstant: 32).activate()
         

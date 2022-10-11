@@ -11,7 +11,7 @@ import PencilKit
 class EditImageViewController: UIViewController, PKToolPickerObserver {
     let imageContainer: ImageContainer
     let imageView: UIImageView = UIImageView()
-    let segmentsView = EditToolbarSegmentView(items: [.init(text: "Draw", action: { }), .init(text: "Text", action: { })])
+    let toolbarView = EditToolbarView()
     
     private var canvasView = PKCanvasView()
     
@@ -52,11 +52,11 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
             self.canvasView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).activate()
         }
         
-        self.view.addSubview(self.segmentsView)
-        self.segmentsView.autolayout {
-            self.segmentsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).activate()
-            self.segmentsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).activate()
-            self.segmentsView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40).activate()
+        self.view.addSubview(self.toolbarView)
+        self.toolbarView.autolayout {
+            self.toolbarView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).activate()
+            self.toolbarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).activate()
+            self.toolbarView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40).activate()
         }
     }
 
