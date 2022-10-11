@@ -62,10 +62,10 @@ class EditToolbarView: View {
         
         self.addSubview(self.toolsView)
         self.toolsView.autolayout {
+            self.toolsView.constraintSize(width: nil, height: 108)
             self.toolsView.leadingAnchor.constraint(equalTo: self.segmentsView.leadingAnchor, constant: 0).activate()
             self.toolsView.trailingAnchor.constraint(equalTo: self.segmentsView.trailingAnchor, constant: 0).activate()
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
-            self.toolsView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).activate()
         }
     }
 }

@@ -13,66 +13,113 @@ class ToolView: View {
         case brush
         case neon
         case pencil
-        case lasso
     }
     
     var baseImageView = UIImageView()
     var tipImageView = UIImageView()
-    var secondTipImageView = UIImageView()
-    var tipShadowImageView = UIImageView()
     
-    var color: UIColor = .red {
+    var tipSizeViewGradient = CAGradientLayer()
+    var tipSizeView = UIView()
+    var tipFrame: CGRect = .zero
+    
+    var sizeProgress: CGFloat = 0.3 {
+        didSet {
+            self.updateTipSize()
+        }
+    }
+    
+    var color: UIColor = .blue {
         didSet {
             self.updateColor()
         }
     }
     
     init(style: Style) {
-        let size: CGSize
         super.init(frame: .zero)
         
         self.addSubview(baseImageView)
         self.addSubview(tipImageView)
-        self.addSubview(secondTipImageView)
-        self.addSubview(tipShadowImageView)
+        self.addSubview(tipSizeView)
         
         switch style {
         case .pen:
             baseImageView.image = UIImage(named: "pen")
-            size = .init(width: 20, height: 88)
-            let tipFrame = CGRect(x: 1.5, y: 6.75, width: 17, height: 35.25)
             tipImageView.image = UIImage(named: "pen_tip")
-            tipImageView.frame = tipFrame
-            tipShadowImageView.image = UIImage(named: "pen_shadow")
-            tipShadowImageView.frame = tipFrame
+            tipFrame = .init(x: 1.5, y: 40, width: 17, height: 42)
+            self.addClassicGradientToTip()
         case .neon:
             baseImageView.image = UIImage(named: "neon")
-            size = .init(width: 20, height: 72)
-            let tipFrame = CGRect(x: 1.5, y: 6.4, width: 17, height: 43.59)
-            tipImageView.image = UIImage(named: "neon_tip_2")
-            tipImageView.frame = tipFrame
-            tipShadowImageView.image = UIImage(named: "neon_shadow")
-            tipShadowImageView.frame = tipFrame
-            secondTipImageView.image = UIImage(named: "neon_tip")
-            secondTipImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 88)
-        default:
-            size = .zero
-            break
+            tipImageView.image = UIImage(named: "neon_tip")
+            tipFrame = .init(x: 1.5, y: 36, width: 17, height: 46)
+            self.addClassicGradientToTip()
+        case .brush:
+            baseImageView.image = UIImage(named: "brush")
+            tipImageView.image = UIImage(named: "brush_tip")
+            tipFrame = .init(x: 1.5, y: 36, width: 17, height: 46)
+            self.addClassicGradientToTip()
+        case .pencil:
+            baseImageView.image = UIImage(named: "pencil")
+            tipImageView.image = UIImage(named: "pencil_tip")
+            tipFrame = .init(x: 1.5, y: 40, width: 17, height: 42)
+            self.addMiddleGradientToTip()
         }
         
+        let size = CGSize(width: 20, height: 88)
         self.baseImageView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        self.tipImageView.frame = self.baseImageView.bounds
         self.frame.size = size
         
+        self.tipSizeView.layer.cornerRadius = 0.5
+        
         self.updateColor()
+        self.updateTipSize()
     }
     
     private func updateColor() {
         let img = self.tipImageView.image!
         self.tipImageView.image = img.withTintColor(color)
+        self.tipSizeView.backgroundColor = color
+    }
+    
+    private func updateTipSize() {
+        var height = tipFrame.height * self.sizeProgress
+        height = max(height, 2)
         
-        if let img = self.secondTipImageView.image {
-            self.secondTipImageView.image = img.withTintColor(color)
-        }
+        self.tipSizeView.frame = self.tipFrame
+        self.tipSizeView.frame.size.height = height
+        
+        self.tipSizeViewGradient.frame = self.tipSizeView.bounds
+    }
+    
+    private func addClassicGradientToTip() {
+        let gradient = CAGradientLayer()
+        gradient.cornerRadius = 0.5
+//        let cornerColor = UIColor.black.withAlphaComponent(0.2).cgColor
+//        let innerColor = UIColor.black.withAlphaComponent(0).cgColor
+        let cornerColor = UIColor.red.cgColor
+        let innerColor = UIColor.red.withAlphaComponent(0).cgColor
+        gradient.colors = [cornerColor, innerColor, innerColor, cornerColor]
+        gradient.locations = [0, 0.15, 0.85, 1]
+        gradient.startPoint = .init(x: 0, y: 0.5)
+        gradient.endPoint = .init(x: 1, y: 0.5)
+        
+        self.tipSizeView.layer.insertSublayer(gradient, at: 0)
+        self.tipSizeViewGradient = gradient
+    }
+    
+    private func addMiddleGradientToTip() {
+        let gradient = CAGradientLayer()
+//        let cornerColor = UIColor.white.withAlphaComponent(0).cgColor
+//        let innerColor = UIColor.white.withAlphaComponent(0.2).cgColor
+        let cornerColor = UIColor.red.withAlphaComponent(0).cgColor
+        let innerColor = UIColor.red.withAlphaComponent(1).cgColor
+        gradient.colors = [UIColor.white.withAlphaComponent(0), cornerColor, innerColor, innerColor, cornerColor, UIColor.white.withAlphaComponent(0)]
+        gradient.locations = [0, 0.245, 0.265, 0.735, 0.755, 1]
+        gradient.startPoint = .init(x: 0, y: 0.5)
+        gradient.endPoint = .init(x: 1, y: 0.5)
+        
+        self.tipSizeView.layer.insertSublayer(gradient, at: 0)
+        self.tipSizeViewGradient = gradient
     }
     
     required init?(coder: NSCoder) {
