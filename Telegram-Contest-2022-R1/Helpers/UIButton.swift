@@ -25,6 +25,10 @@ class Button: UIButton {
     }
     
     func updateState() {
+        if self.isInHideState {
+            return
+        }
+        
         if self.isEnabled == false {
             self.alpha = 0.3
         } else {
@@ -37,4 +41,24 @@ class Button: UIButton {
     }
     
     func setUp() { }
+    
+    var isInHideState = false
+    
+    func animateButton(isHide: Bool, duration: CGFloat) {
+        self.isInHideState = isHide
+        self.isEnabled = !isHide
+        
+        var currentScale: CGFloat = isHide ? 0 : 1
+        if let transform = self.layer.presentation()?.value(forKey: "transform") as? CATransform3D {
+            currentScale = transform.m22
+        }
+        
+        if (isHide) {
+            self.layer.transform = CATransform3DMakeScale(0, 0, 1)
+            self.layer.animate(from: currentScale as NSNumber, to: 0 as NSNumber, keyPath: "transform.scale", timingFunction: CAMediaTimingFunctionName.easeOut.rawValue, duration: duration)
+        } else {
+            self.layer.transform = CATransform3DMakeScale(1, 1, 1)
+            self.layer.animate(from: currentScale as NSNumber, to: 1 as NSNumber, keyPath: "transform.scale", timingFunction: CAMediaTimingFunctionName.easeOut.rawValue, duration: duration)
+        }
+    }
 }

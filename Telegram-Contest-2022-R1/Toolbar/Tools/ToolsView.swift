@@ -8,10 +8,15 @@
 import UIKit
 
 class ToolsView: View {
+    var animationDuration: TimeInterval = 0.8
+    lazy var mainPartDuration: TimeInterval = self.animationDuration * 0.18
+    
     enum State {
         case allComponents
         case componentPresented
     }
+    
+    var stateUpdating: ((State) -> Void)?
     
     let shadowImageView = UIImageView()
     private let contentMaskView = UIView()
@@ -188,25 +193,25 @@ class ToolsView: View {
             assertionFailure("Can't exit")
             return
         }
+        self.stateUpdating?(.allComponents)
         
         var scale: CGFloat = 2
         var delta = info.xDelta
         let tool = self.tools[info.index]
-        let duration: TimeInterval = 0.8
         
         if let transform = tool.layer.presentation()?.value(forKey: "transform") as? CATransform3D {
             delta = transform.m41
             scale = transform.m22
         }
         
-        tool.layer.animateSpring(from: scale as NSNumber, to: 1 as NSNumber, keyPath: "transform.scale", duration: duration, removeOnCompletion: false)
-        tool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: duration, removeOnCompletion: false)
+        tool.layer.animateSpring(from: scale as NSNumber, to: 1 as NSNumber, keyPath: "transform.scale", duration: self.animationDuration, removeOnCompletion: false)
+        tool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, removeOnCompletion: false)
         
         self.isComponentPresented = false
         
         let toolIndex = self.getToolIndex(tool: tool)
         let delaysMap = self.getDelayMap(tool: tool)
-        let otherDuration = duration * 0.18
+        let otherDuration = self.mainPartDuration
         
         var frame = self.shadowImageView.frame
         frame.size.height = 16
@@ -221,7 +226,7 @@ class ToolsView: View {
             
             let delayIndex = abs(index - toolIndex)
             let newDelayIndex = 1 - (delaysMap[delayIndex] ?? 0)
-            let delay = newDelayIndex * otherDuration * 0.5
+            let delay = newDelayIndex * otherDuration * 0.8
             
             otherTool.layer.removeAllAnimations()
             otherTool.layer.transform = CATransform3DMakeTranslation(0, 16, 0)
@@ -231,31 +236,30 @@ class ToolsView: View {
                 initialY = transform.m42
             }
             
-            otherTool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: duration)
-            otherTool.layer.animate(from: initialY as NSNumber, to: 16 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: otherDuration, delay: delay)
+            otherTool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration)
+            otherTool.layer.animate(from: initialY as NSNumber, to: 16 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: otherDuration, delay: delay, mediaTimingFunction: CAMediaTimingFunction(controlPoints: 0.65, 0, 0.35, 1))
         }
     }
     
     private func showSpecificComponent(index: Int) {
         self.isComponentPresented = true
+        self.stateUpdating?(.componentPresented)
         
         let tool = self.tools[index]
         let delta = (self.frame.width / 2) - tool.frame.midX
-        let duration: TimeInterval = 0.8
         
         self.presentedCoponentInfo = .init(index: index, xDelta: delta)
         
-        tool.layer.animateSpring(from: 1 as NSNumber, to: 2 as NSNumber, keyPath: "transform.scale", duration: duration, removeOnCompletion: false)
-        tool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: duration, removeOnCompletion: false)
+        tool.layer.animateSpring(from: 1 as NSNumber, to: 2 as NSNumber, keyPath: "transform.scale", duration: self.animationDuration, removeOnCompletion: false)
+        tool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, removeOnCompletion: false)
         
         let toolIndex = self.getToolIndex(tool: tool)
         let delaysMap = self.getDelayMap(tool: tool)
-        let otherDuration = duration * 0.18
         
         var frame = self.shadowImageView.frame
         frame.size.height = 32
         frame.origin.y -= 16
-        self.shadowImageView.layer.animateFrame(from: self.shadowImageView.frame, to: frame, duration: otherDuration)
+        self.shadowImageView.layer.animateFrame(from: self.shadowImageView.frame, to: frame, duration: self.mainPartDuration)
         self.shadowImageView.frame = frame
         
         
@@ -265,13 +269,14 @@ class ToolsView: View {
             }
             
             let delayIndex = abs(index - toolIndex)
-            let delay = (delaysMap[delayIndex] ?? 0) * otherDuration * 0.5
+            let delay = (delaysMap[delayIndex] ?? 0) * self.mainPartDuration * 0.8
             
             otherTool.layer.removeAllAnimations()
             otherTool.layer.transform = CATransform3DMakeTranslation(delta, 86, 0)
             
-            otherTool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: duration)
-            otherTool.layer.animate(from: 16 as NSNumber, to: 86 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: otherDuration, delay: delay)
+            otherTool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration)
+//            otherTool.layer.animate(from: 16 as NSNumber, to: 86 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: self.mainPartDuration, delay: delay)
+            otherTool.layer.animate(from: 16 as NSNumber, to: 86 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeOut.rawValue, duration: self.mainPartDuration, delay: delay, mediaTimingFunction: CAMediaTimingFunction(controlPoints: 0.65, 0, 0.35, 1))
         }
     }
     

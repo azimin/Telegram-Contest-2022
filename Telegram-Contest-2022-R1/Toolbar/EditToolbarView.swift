@@ -67,5 +67,18 @@ class EditToolbarView: View {
             self.toolsView.trailingAnchor.constraint(equalTo: self.segmentsView.trailingAnchor, constant: 0).activate()
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
         }
+        
+//        self.layer.speed = 0.2
+        self.toolsView.stateUpdating = { [weak self] state in
+            guard let self else { return }
+            switch state {
+            case .componentPresented:
+                self.selectColorButton.animateButton(isHide: true, duration: self.toolsView.mainPartDuration)
+                self.addObjectButton.animateButton(isHide: true, duration: self.toolsView.mainPartDuration)
+            case .allComponents:
+                self.selectColorButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
+                self.addObjectButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
+            }
+        }
     }
 }
