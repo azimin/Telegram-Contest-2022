@@ -162,14 +162,13 @@ class ToolsView: View {
         }
         
         if animated {
-            let animatedObject = UISpringTimingParameters(mass: 0.25, stiffness: state == .highlight ? 23 : 21, damping: 4.5, initialVelocity: CGVector(dx: 17, dy: 17))
-            let animator = UIViewPropertyAnimator(duration: 0.01,
-                            timingParameters:animatedObject)
-            animator.addAnimations {
-                let transform = CATransform3DMakeTranslation(0, movement, 0)
-                tool.layer.transform = transform
+            var initialY: CGFloat = tool.transform.ty
+            if let transform = tool.layer.presentation()?.value(forKey: "transform") as? CATransform3D {
+                initialY = transform.m42
             }
-            animator.startAnimation()
+            
+            tool.layer.transform = CATransform3DMakeTranslation(0, movement, 0)
+            tool.layer.animateSpring(from: initialY as NSNumber, to: movement as NSNumber, keyPath: "transform.translation.y", duration: state == .highlight ? 0.25 : 0.5, damping: state == .highlight ? 90 : 62)
         } else {
             let transform = CATransform3DMakeTranslation(0, movement, 0)
             tool.layer.transform = transform

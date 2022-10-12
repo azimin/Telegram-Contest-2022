@@ -72,7 +72,7 @@ class EditToolbarView: View {
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
         }
         
-        self.layer.speed = 0.1
+//        self.layer.speed = 0.1
         self.toolsView.stateUpdating = { [weak self] state in
             guard let self else { return }
             switch state {
