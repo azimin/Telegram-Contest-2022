@@ -206,7 +206,7 @@ class ToolsView: View {
         }
         
         tool.layer.animateSpring(from: scale as NSNumber, to: 1 as NSNumber, keyPath: "transform.scale", duration: self.animationDuration, removeOnCompletion: false)
-        tool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, removeOnCompletion: false)
+        tool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, damping: 80, removeOnCompletion: false)
         
         self.isComponentPresented = false
         
@@ -237,8 +237,8 @@ class ToolsView: View {
                 initialY = transform.m42
             }
             
-            otherTool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration)
-            otherTool.layer.animate(from: initialY as NSNumber, to: 16 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: otherDuration, delay: delay, mediaTimingFunction: CAMediaTimingFunction(controlPoints: 0.65, 0, 0.35, 1))
+            otherTool.layer.animateSpring(from: delta as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, damping: 80)
+            otherTool.layer.animateSpring(from: initialY as NSNumber, to: 16 as NSNumber, keyPath: "transform.translation.y", duration: self.animationDuration * 0.9, delay: delay, damping: 72)
         }
     }
     
@@ -252,7 +252,7 @@ class ToolsView: View {
         self.presentedCoponentInfo = .init(index: index, xDelta: delta)
         
         tool.layer.animateSpring(from: 1 as NSNumber, to: 2 as NSNumber, keyPath: "transform.scale", duration: self.animationDuration, removeOnCompletion: false)
-        tool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, removeOnCompletion: false)
+        tool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, damping: 80, removeOnCompletion: false)
         
         let toolIndex = self.getToolIndex(tool: tool)
         let delaysMap = self.getDelayMap(tool: tool)
@@ -275,8 +275,7 @@ class ToolsView: View {
             otherTool.layer.removeAllAnimations()
             otherTool.layer.transform = CATransform3DMakeTranslation(delta, 86, 0)
             
-            otherTool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration)
-//            otherTool.layer.animate(from: 16 as NSNumber, to: 86 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: self.mainPartDuration, delay: delay)
+            otherTool.layer.animateSpring(from: 0 as NSNumber, to: delta as NSNumber, keyPath: "transform.translation.x", duration: self.animationDuration, damping: 80)
             otherTool.layer.animate(from: 16 as NSNumber, to: 86 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeOut.rawValue, duration: self.mainPartDuration, delay: delay, mediaTimingFunction: CAMediaTimingFunction(controlPoints: 0.65, 0, 0.35, 1))
         }
     }
