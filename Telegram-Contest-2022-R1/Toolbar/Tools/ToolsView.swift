@@ -10,6 +10,7 @@ import UIKit
 class ToolsView: View {
     var animationDuration: TimeInterval = 0.8
     lazy var mainPartDuration: TimeInterval = self.animationDuration * 0.18
+    lazy var tillMiddleDuration: TimeInterval = self.animationDuration * 0.27
     
     enum State {
         case allComponents

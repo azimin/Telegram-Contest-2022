@@ -32,6 +32,24 @@ class EditToolbarSegmentView: View {
         super.init(frame: .zero)
     }
     
+    func changeItemsVisible(isVisible: Bool) {
+        self.selectedView.isHidden = !isVisible
+        self.backgroundView.isHidden = !isVisible
+    }
+    
+    func switchAnimatedComponentsVisibility(isVisible: Bool, duration: TimeInterval) {
+        
+        if isVisible {
+            self.alpha = 1
+            self.layer.animateAlpha(from: 0, to: 1, duration: duration * 0.6, delay: duration * 0.4)
+        } else {
+            self.changeItemsVisible(isVisible: false)
+            
+            self.alpha = 0
+            self.layer.animateAlpha(from: 1, to: 0, duration: duration * 0.6)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

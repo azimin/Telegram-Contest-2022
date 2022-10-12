@@ -18,6 +18,7 @@ class EditToolbarView: View {
     let addObjectButton = AddObjectButton()
     
     let toolsView = ToolsView()
+    let sizeSegmentView = SizeSegmentView()
     let segmentsView = EditToolbarSegmentView(items: [.init(text: "Draw"), .init(text: "Text")])
     
     override func setUp() {
@@ -53,6 +54,9 @@ class EditToolbarView: View {
             self.addObjectButton.bottomAnchor.constraint(equalTo: self.cancelBackButton.topAnchor, constant: -16).activate()
         }
         
+        self.addSubview(self.sizeSegmentView)
+        self.sizeSegmentView.isHidden = true
+        
         self.addSubview(self.segmentsView)
         self.segmentsView.autolayout {
             self.segmentsView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).activate()
@@ -68,17 +72,44 @@ class EditToolbarView: View {
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
         }
         
-//        self.layer.speed = 0.2
+        self.layer.speed = 0.03
         self.toolsView.stateUpdating = { [weak self] state in
             guard let self else { return }
             switch state {
             case .componentPresented:
                 self.selectColorButton.animateButton(isHide: true, duration: self.toolsView.mainPartDuration)
                 self.addObjectButton.animateButton(isHide: true, duration: self.toolsView.mainPartDuration)
+                
+                let frame = self.hierarhyConvertFrame(self.segmentsView.selectedView.frame, from: self.segmentsView, to: self.sizeSegmentView)
+                
+                self.sizeSegmentView.isHidden = false
+                self.sizeSegmentView.animateIntoTumblerView(
+                    fromFrame: frame,
+                    toProgress: 0.6,
+                    duration: self.toolsView.tillMiddleDuration
+                )
+                
+                self.sizeSegmentView.animateBackground(to: true, frame: self.segmentsView.bounds, duration: self.toolsView.tillMiddleDuration)
+                
+                self.segmentsView.switchAnimatedComponentsVisibility(isVisible: false, duration: self.toolsView.tillMiddleDuration)
+                
             case .allComponents:
                 self.selectColorButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
                 self.addObjectButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
+                
+                let frame = self.hierarhyConvertFrame(self.segmentsView.selectedView.frame, from: self.segmentsView, to: self.sizeSegmentView)
+                self.sizeSegmentView.animateFromTumblerView(toFrame: frame, duration: self.toolsView.tillMiddleDuration, completionBlock: {
+                    self.sizeSegmentView.isHidden = true
+                    self.segmentsView.changeItemsVisible(isVisible: true)
+                })
+                
+                self.sizeSegmentView.animateBackground(to: false, frame: self.segmentsView.bounds, duration: self.toolsView.tillMiddleDuration)
+                self.segmentsView.switchAnimatedComponentsVisibility(isVisible: true, duration: self.toolsView.tillMiddleDuration)
             }
         }
+    }
+    
+    override func layoutSubviewsOnChangeBounds() {
+        self.sizeSegmentView.frame = CGRect(x: self.segmentsView.frame.origin.x, y: self.segmentsView.frame.origin.y + 2, width: self.segmentsView.frame.width - 50, height: 28)
     }
 }

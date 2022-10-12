@@ -58,6 +58,10 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
             self.toolbarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).activate()
             self.toolbarView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40).activate()
         }
+        
+        let segmentView = SizeSegmentView()
+        self.view.addSubview(segmentView)
+        segmentView.frame = CGRect(x: 50, y: 100, width: 300, height: 28)
     }
 
 }

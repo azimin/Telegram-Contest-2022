@@ -37,6 +37,19 @@ class View: UIView {
     
     func setUp() { }
     
+    private var preveousBounds: CGRect = .zero
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if self.bounds != self.preveousBounds {
+            self.layoutSubviewsOnChangeBounds()
+            self.preveousBounds = self.bounds
+        }
+    }
+    
+    func layoutSubviewsOnChangeBounds() { }
+    
     private var preSelectedIndex: Int?
     
     private func selectedIndex(touch: UITouch, count: Int) -> Int? {
@@ -139,5 +152,14 @@ class View: UIView {
         if let index = index {
             touchReportsIndex.selected(index)
         }
+    }
+    
+    func hierarhyConvertFrame(_ frame: CGRect, from fromView: UIView, to toView: UIView) -> CGRect {
+        let sourceWindowFrame = fromView.convert(frame, to: nil)
+        var targetWindowFrame = toView.convert(sourceWindowFrame, from: nil)
+        if let fromWindow = fromView.window, let toWindow = toView.window {
+            targetWindowFrame.origin.x += toWindow.bounds.width - fromWindow.bounds.width
+        }
+        return targetWindowFrame
     }
 }
