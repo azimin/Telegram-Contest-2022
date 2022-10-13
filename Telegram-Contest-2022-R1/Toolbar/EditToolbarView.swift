@@ -21,6 +21,8 @@ class EditToolbarView: View {
     let sizeSegmentView = SizeSegmentView()
     let segmentsView = EditToolbarSegmentView(items: [.init(text: "Draw"), .init(text: "Text")])
     
+    let toolDetailsButton = SelectToolDetailsButton()
+    
     override func setUp() {
         self.autolayout {
             self.constraintSize(width: nil, height: 149)
@@ -47,6 +49,8 @@ class EditToolbarView: View {
             self.selectColorButton.bottomAnchor.constraint(equalTo: self.cancelBackButton.topAnchor, constant: -14.5).activate()
         }
         
+        self.addSubview(self.toolDetailsButton)
+        
         self.addSubview(self.addObjectButton)
         self.addObjectButton.autolayout {
             self.addObjectButton.constraintSize(width: 33, height: 33)
@@ -72,7 +76,7 @@ class EditToolbarView: View {
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
         }
         
-//        self.layer.speed = 0.1
+//        self.layer.speed = 0.15
         self.toolsView.stateUpdating = { [weak self] state in
             guard let self else { return }
             switch state {
@@ -93,7 +97,12 @@ class EditToolbarView: View {
                 
                 self.segmentsView.switchAnimatedComponentsVisibility(isVisible: false, duration: self.toolsView.tillMiddleDuration)
                 
+                self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: false)
+                
             case .allComponents:
+                
+                self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: true)
+                
                 self.selectColorButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
                 self.addObjectButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
                 
@@ -111,5 +120,33 @@ class EditToolbarView: View {
     
     override func layoutSubviewsOnChangeBounds() {
         self.sizeSegmentView.frame = CGRect(x: self.segmentsView.frame.origin.x, y: self.segmentsView.frame.origin.y + 2, width: self.segmentsView.frame.width - 50, height: 28)
+        
+        self.toolDetailsButton.isHidden = true
+        
+        self.toolDetailsButton.frame = CGRect(
+            x: self.frame.width - 85,
+            y: 0,
+            width: 77,
+            height: 22
+        )
+        self.toolDetailsButton.center.y = self.segmentsView.center.y
+        
+        self.toolDetailsButton.setContent(title: "Eraiser", imageName: "arrowTip", animated: false)
+    }
+    
+    private func animateSendButton(duration: TimeInterval, disapear: Bool) {
+        if disapear {
+            self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: true)
+            self.sendButton.animateFromFrame(duration: duration)
+            self.toolDetailsButton.animate(isAppear: false, duration: duration)
+        } else {
+            let frame = self.hierarhyConvertFrame(self.toolDetailsButton.contentView?.icon.frame ?? .zero, from: self.toolDetailsButton.contentView ?? self.sendButton, to: self.sendButton)
+            self.sendButton.animateIntoFrame(frame: frame, duration: duration) {
+                self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: false)
+            }
+            self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: true)
+            self.toolDetailsButton.isHidden = false
+            self.toolDetailsButton.animate(isAppear: true, duration: duration)
+        }
     }
 }

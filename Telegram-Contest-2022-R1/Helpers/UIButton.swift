@@ -24,6 +24,19 @@ class Button: UIButton {
         }
     }
     
+    private var preveousBounds: CGRect = .zero
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if self.bounds != self.preveousBounds {
+            self.layoutSubviewsOnChangeBounds()
+            self.preveousBounds = self.bounds
+        }
+    }
+    
+    func layoutSubviewsOnChangeBounds() { }
+    
     func updateState() {
         if self.isInHideState {
             return

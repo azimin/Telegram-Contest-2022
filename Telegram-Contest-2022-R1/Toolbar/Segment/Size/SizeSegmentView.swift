@@ -170,4 +170,9 @@ class SizeSegmentView: View {
         let originX = self.progress * (self.frame.width - 28)
         return originX
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return bounds.insetBy(dx: 8, dy: -20).contains(point)
+        
+    }
 }

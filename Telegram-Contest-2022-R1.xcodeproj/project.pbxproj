@@ -17,9 +17,17 @@
 		9F0E954928F4B77E00177E7C /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954828F4B77D00177E7C /* SF-Pro-Display-Semibold.otf */; };
 		9F0E954B28F4B88D00177E7C /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954A28F4B7A000177E7C /* SF-Pro-Text-Regular.otf */; };
 		9F0E954D28F4C9D300177E7C /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E954C28F4C9D300177E7C /* UIButton.swift */; };
+		9F569C4728F7990400A220AA /* send_to_arrow_reverse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C4628F7990400A220AA /* send_to_arrow_reverse.json */; };
 		9F6533AA28F5EBCE00E00574 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533A928F5EBCE00E00574 /* View.swift */; };
 		9F6533AC28F63C0700E00574 /* SizeSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533AB28F63C0700E00574 /* SizeSegmentView.swift */; };
 		9F6533AF28F7126400E00574 /* SizeSegmentShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533AE28F7126400E00574 /* SizeSegmentShapes.swift */; };
+		9F6533B928F7673000E00574 /* SaveButtonAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533B828F7673000E00574 /* SaveButtonAnimator.swift */; };
+		9F6533BC28F7675200E00574 /* SelectToolDetailsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533BB28F7675200E00574 /* SelectToolDetailsButton.swift */; };
+		9F6533BF28F77E7E00E00574 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9F6533BE28F77E7E00E00574 /* Lottie */; };
+		9F6533C228F77E8F00E00574 /* send_to_arrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F6533C128F77E8F00E00574 /* send_to_arrow.json */; };
+		9F6533C528F7816100E00574 /* send_to_arrow_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6533C328F7816000E00574 /* send_to_arrow_2.png */; };
+		9F6533C628F7816100E00574 /* send_to_arrow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6533C428F7816100E00574 /* send_to_arrow_1.png */; };
+		9F6533C828F78B8500E00574 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533C728F78B8500E00574 /* CALayerExtensions.swift */; };
 		9F9AE07928F4E45A004717E5 /* CancelBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07828F4E45A004717E5 /* CancelBackButton.swift */; };
 		9F9AE07B28F4E460004717E5 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07A28F4E460004717E5 /* SendButton.swift */; };
 		9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07C28F4E93A004717E5 /* SelectColorButton.swift */; };
@@ -51,9 +59,16 @@
 		9F0E954828F4B77D00177E7C /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		9F0E954A28F4B7A000177E7C /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		9F0E954C28F4C9D300177E7C /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		9F569C4628F7990400A220AA /* send_to_arrow_reverse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_arrow_reverse.json; sourceTree = "<group>"; };
 		9F6533A928F5EBCE00E00574 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		9F6533AB28F63C0700E00574 /* SizeSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeSegmentView.swift; sourceTree = "<group>"; };
 		9F6533AE28F7126400E00574 /* SizeSegmentShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeSegmentShapes.swift; sourceTree = "<group>"; };
+		9F6533B828F7673000E00574 /* SaveButtonAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButtonAnimator.swift; sourceTree = "<group>"; };
+		9F6533BB28F7675200E00574 /* SelectToolDetailsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectToolDetailsButton.swift; sourceTree = "<group>"; };
+		9F6533C128F77E8F00E00574 /* send_to_arrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_arrow.json; sourceTree = "<group>"; };
+		9F6533C328F7816000E00574 /* send_to_arrow_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_to_arrow_2.png; sourceTree = "<group>"; };
+		9F6533C428F7816100E00574 /* send_to_arrow_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_to_arrow_1.png; sourceTree = "<group>"; };
+		9F6533C728F78B8500E00574 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
 		9F9AE07828F4E45A004717E5 /* CancelBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBackButton.swift; sourceTree = "<group>"; };
 		9F9AE07A28F4E460004717E5 /* SendButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
 		9F9AE07C28F4E93A004717E5 /* SelectColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorButton.swift; sourceTree = "<group>"; };
@@ -83,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F6533BF28F77E7E00E00574 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +108,7 @@
 		9F0E953928F4B02500177E7C /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
+				9F6533B728F7672500E00574 /* SaveButtonAnimator */,
 				9F9AE08128F4F0A2004717E5 /* Tools */,
 				9F9AE07E28F4E958004717E5 /* Segment */,
 				9F0E954E28F4E2C800177E7C /* Buttons */,
@@ -108,6 +125,7 @@
 				9F6533A928F5EBCE00E00574 /* View.swift */,
 				9F0E954128F4B53000177E7C /* Fonts.swift */,
 				9F0E954C28F4C9D300177E7C /* UIButton.swift */,
+				9F6533C728F78B8500E00574 /* CALayerExtensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -126,6 +144,7 @@
 		9F0E954E28F4E2C800177E7C /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				9F6533BA28F7674000E00574 /* Right Bottom */,
 				9F9AE07828F4E45A004717E5 /* CancelBackButton.swift */,
 				9F9AE07A28F4E460004717E5 /* SendButton.swift */,
 				9F9AE07C28F4E93A004717E5 /* SelectColorButton.swift */,
@@ -141,6 +160,33 @@
 				9F6533AE28F7126400E00574 /* SizeSegmentShapes.swift */,
 			);
 			path = Size;
+			sourceTree = "<group>";
+		};
+		9F6533B728F7672500E00574 /* SaveButtonAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				9F6533B828F7673000E00574 /* SaveButtonAnimator.swift */,
+			);
+			path = SaveButtonAnimator;
+			sourceTree = "<group>";
+		};
+		9F6533BA28F7674000E00574 /* Right Bottom */ = {
+			isa = PBXGroup;
+			children = (
+				9F6533BB28F7675200E00574 /* SelectToolDetailsButton.swift */,
+			);
+			path = "Right Bottom";
+			sourceTree = "<group>";
+		};
+		9F6533C028F77E8800E00574 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				9F6533C328F7816000E00574 /* send_to_arrow_2.png */,
+				9F6533C428F7816100E00574 /* send_to_arrow_1.png */,
+				9F6533C128F77E8F00E00574 /* send_to_arrow.json */,
+				9F569C4628F7990400A220AA /* send_to_arrow_reverse.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		9F9AE07E28F4E958004717E5 /* Segment */ = {
@@ -200,6 +246,7 @@
 				9F0E953928F4B02500177E7C /* Toolbar */,
 				9FCF57ED28F46CF400A9DD38 /* EditImageViewController.swift */,
 				9F0E953428F4A01900177E7C /* AutolayoutEngine.swift */,
+				9F6533C028F77E8800E00574 /* Lottie */,
 				9F0E954328F4B61A00177E7C /* Fonts */,
 				9FCF57DF28F46A0900A9DD38 /* Main.storyboard */,
 				9F9AE08E28F5CF98004717E5 /* Telegram-Contest-2022-R1-Bridging-Header.h */,
@@ -227,6 +274,7 @@
 			);
 			name = "Telegram-Contest-2022-R1";
 			packageProductDependencies = (
+				9F6533BE28F77E7E00E00574 /* Lottie */,
 			);
 			productName = "Telegram-Contest-2022-R1";
 			productReference = 9FCF57D628F46A0900A9DD38 /* Telegram-Contest-2022-R1.app */;
@@ -258,6 +306,7 @@
 			);
 			mainGroup = 9FCF57CD28F46A0900A9DD38;
 			packageReferences = (
+				9F6533BD28F77E7E00E00574 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 9FCF57D728F46A0900A9DD38 /* Products */;
 			projectDirPath = "";
@@ -278,7 +327,11 @@
 				9FCF57E628F46A0A00A9DD38 /* LaunchScreen.storyboard in Resources */,
 				9FCF57E328F46A0A00A9DD38 /* Assets.xcassets in Resources */,
 				9F0E954728F4B76100177E7C /* SF-Pro-Text-Medium.otf in Resources */,
+				9F6533C528F7816100E00574 /* send_to_arrow_2.png in Resources */,
+				9F569C4728F7990400A220AA /* send_to_arrow_reverse.json in Resources */,
 				9FCF57E128F46A0900A9DD38 /* Main.storyboard in Resources */,
+				9F6533C228F77E8F00E00574 /* send_to_arrow.json in Resources */,
+				9F6533C628F7816100E00574 /* send_to_arrow_1.png in Resources */,
 				9F0E954B28F4B88D00177E7C /* SF-Pro-Text-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +344,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F9AE07928F4E45A004717E5 /* CancelBackButton.swift in Sources */,
+				9F6533C828F78B8500E00574 /* CALayerExtensions.swift in Sources */,
 				9F0E953528F4A01900177E7C /* AutolayoutEngine.swift in Sources */,
+				9F6533BC28F7675200E00574 /* SelectToolDetailsButton.swift in Sources */,
 				9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */,
 				9F9AE08028F4EBF4004717E5 /* AddObjectButton.swift in Sources */,
 				9F6533AF28F7126400E00574 /* SizeSegmentShapes.swift in Sources */,
@@ -299,6 +354,7 @@
 				9F0E954028F4B3BC00177E7C /* UIKitHelpers.swift in Sources */,
 				9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */,
 				9F9AE08328F4F0A8004717E5 /* ToolsView.swift in Sources */,
+				9F6533B928F7673000E00574 /* SaveButtonAnimator.swift in Sources */,
 				9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */,
 				9F9AE08528F4F220004717E5 /* ToolView.swift in Sources */,
 				9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */,
@@ -538,6 +594,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9F6533BD28F77E7E00E00574 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9F6533BE28F77E7E00E00574 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F6533BD28F77E7E00E00574 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9FCF57CE28F46A0900A9DD38 /* Project object */;
 }
