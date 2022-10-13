@@ -59,23 +59,6 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
             self.toolbarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).activate()
             self.toolbarView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40).activate()
         }
-        
-//        let lottie = LottieAnimationView()
-//        self.view.addSubview(lottie)
-//        lottie.frame = CGRect(x: 100, y: 100, width: 50, height: 50)
-//        
-//        let animation = LottieAnimation.named(
-//            "send_to_circle",
-//            bundle: .main,
-//            animationCache: LRUAnimationCache.sharedCache
-//        )
-//        
-//        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-//            lottie.animation = animation
-//            lottie.animationSpeed = 1.05 / 4
-//            lottie.play(fromProgress: 1, toProgress: 0)
-//        })
     }
 
 }

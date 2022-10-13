@@ -23,6 +23,7 @@
 		9F569C4F28F7AA9300A220AA /* send_to_arrow_reverse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C4E28F7AA9300A220AA /* send_to_arrow_reverse.json */; };
 		9F569C5128F83A5E00A220AA /* send_to_circle.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C5028F83A5D00A220AA /* send_to_circle.json */; };
 		9F569C5328F83A9500A220AA /* SelectToolDetailsStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F569C5228F83A9500A220AA /* SelectToolDetailsStyle.swift */; };
+		9F569C5728F851BE00A220AA /* send_to_circle_reverse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C5628F851BE00A220AA /* send_to_circle_reverse.json */; };
 		9F6533AA28F5EBCE00E00574 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533A928F5EBCE00E00574 /* View.swift */; };
 		9F6533AC28F63C0700E00574 /* SizeSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533AB28F63C0700E00574 /* SizeSegmentView.swift */; };
 		9F6533AF28F7126400E00574 /* SizeSegmentShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533AE28F7126400E00574 /* SizeSegmentShapes.swift */; };
@@ -43,6 +44,8 @@
 		9F9AE08928F5BECE004717E5 /* ToolLassoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE08828F5BECE004717E5 /* ToolLassoView.swift */; };
 		9F9AE08C28F5CDC2004717E5 /* CAAnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE08B28F5CDC2004717E5 /* CAAnimationUtils.swift */; };
 		9F9AE09028F5CF99004717E5 /* UIKitUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE08F28F5CF99004717E5 /* UIKitUtils.m */; };
+		9FA0090A28F85A6600688479 /* send_to_mark.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FA0090928F85A6500688479 /* send_to_mark.json */; };
+		9FA0090E28F8612C00688479 /* send_to_mark_reverse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FA0090D28F8612C00688479 /* send_to_mark_reverse.json */; };
 		9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */; };
 		9FCF57DC28F46A0900A9DD38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */; };
 		9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DD28F46A0900A9DD38 /* ViewController.swift */; };
@@ -70,6 +73,7 @@
 		9F569C4E28F7AA9300A220AA /* send_to_arrow_reverse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_arrow_reverse.json; sourceTree = "<group>"; };
 		9F569C5028F83A5D00A220AA /* send_to_circle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_circle.json; sourceTree = "<group>"; };
 		9F569C5228F83A9500A220AA /* SelectToolDetailsStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectToolDetailsStyle.swift; sourceTree = "<group>"; };
+		9F569C5628F851BE00A220AA /* send_to_circle_reverse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_circle_reverse.json; sourceTree = "<group>"; };
 		9F6533A928F5EBCE00E00574 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		9F6533AB28F63C0700E00574 /* SizeSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeSegmentView.swift; sourceTree = "<group>"; };
 		9F6533AE28F7126400E00574 /* SizeSegmentShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeSegmentShapes.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		9F9AE08D28F5CF6B004717E5 /* UIKitUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIKitUtils.h; sourceTree = "<group>"; };
 		9F9AE08E28F5CF98004717E5 /* Telegram-Contest-2022-R1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Telegram-Contest-2022-R1-Bridging-Header.h"; sourceTree = "<group>"; };
 		9F9AE08F28F5CF99004717E5 /* UIKitUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIKitUtils.m; sourceTree = "<group>"; };
+		9FA0090928F85A6500688479 /* send_to_mark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_mark.json; sourceTree = "<group>"; };
+		9FA0090D28F8612C00688479 /* send_to_mark_reverse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_mark_reverse.json; sourceTree = "<group>"; };
 		9FCF57D628F46A0900A9DD38 /* Telegram-Contest-2022-R1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Telegram-Contest-2022-R1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +206,9 @@
 				9F569C4E28F7AA9300A220AA /* send_to_arrow_reverse.json */,
 				9F6533C128F77E8F00E00574 /* send_to_arrow.json */,
 				9F569C5028F83A5D00A220AA /* send_to_circle.json */,
+				9F569C5628F851BE00A220AA /* send_to_circle_reverse.json */,
+				9FA0090928F85A6500688479 /* send_to_mark.json */,
+				9FA0090D28F8612C00688479 /* send_to_mark_reverse.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -346,12 +355,15 @@
 				9F0E954728F4B76100177E7C /* SF-Pro-Text-Medium.otf in Resources */,
 				9F569C4D28F7A7CE00A220AA /* send_to_blur_reverse.json in Resources */,
 				9F569C4F28F7AA9300A220AA /* send_to_arrow_reverse.json in Resources */,
+				9F569C5728F851BE00A220AA /* send_to_circle_reverse.json in Resources */,
 				9F6533C528F7816100E00574 /* send_to_arrow_2.png in Resources */,
 				9FCF57E128F46A0900A9DD38 /* Main.storyboard in Resources */,
 				9F569C4928F7A3F800A220AA /* send_to_blur.json in Resources */,
+				9FA0090E28F8612C00688479 /* send_to_mark_reverse.json in Resources */,
 				9F6533C228F77E8F00E00574 /* send_to_arrow.json in Resources */,
 				9F6533C628F7816100E00574 /* send_to_arrow_1.png in Resources */,
 				9F0E954B28F4B88D00177E7C /* SF-Pro-Text-Regular.otf in Resources */,
+				9FA0090A28F85A6600688479 /* send_to_mark.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

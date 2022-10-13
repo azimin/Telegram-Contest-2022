@@ -14,9 +14,7 @@ enum SelectToolDetailsStyle {
     case objectEraiser
     case blurEraiser
     
-    func getNextSrtyle() -> SelectToolDetailsStyle {
-        return .round
-        
+    func getNextSrtyle() -> SelectToolDetailsStyle {        
         switch self {
         case .round: return .arrow
         case .arrow: return .eraiser
@@ -54,19 +52,21 @@ enum SelectToolDetailsStyle {
             return "send_to_arrow"
         case .round, .eraiser:
             return "send_to_circle"
-        default:
-            return ""
+        case .objectEraiser:
+            return "send_to_mark"
         }
     }
     
-    var outAnimation: String? {
+    var outAnimation: String {
         switch self {
         case .blurEraiser:
             return "send_to_blur_reverse"
         case .arrow:
             return "send_to_arrow_reverse"
-        default:
-            return nil
+        case .round, .eraiser:
+            return "send_to_circle_reverse"
+        case .objectEraiser:
+            return "send_to_mark_reverse"
         }
     }
 }

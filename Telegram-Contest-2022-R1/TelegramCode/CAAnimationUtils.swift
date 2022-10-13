@@ -76,13 +76,12 @@ public extension CAAnimation {
 }
 
 private func adjustFrameRate(animation: CAAnimation) {
-    // TODO: - Check
-//    if #available(iOS 15.0, *) {
-//        let maxFps = Float(UIScreen.main.maximumFramesPerSecond)
-//        if maxFps > 61.0 {
-//            animation.preferredFrameRateRange = CAFrameRateRange(minimum: maxFps, maximum: maxFps, preferred: maxFps)
-//        }
-//    }
+    if #available(iOS 15.0, *) {
+        let maxFps = Float(UIScreen.main.maximumFramesPerSecond)
+        if maxFps > 61.0 {
+            animation.preferredFrameRateRange = CAFrameRateRange(minimum: maxFps, maximum: maxFps, preferred: maxFps)
+        }
+    }
 }
 
 public extension CALayer {

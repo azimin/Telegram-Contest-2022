@@ -64,35 +64,21 @@ class SendButton: Button {
         self.contentImageView.isHidden = true
         self.animationView.isHidden = false
         
-        let hasDifferentOut = style.outAnimation != nil
-        
         let animation = LottieAnimation.named(
-            style.outAnimation ?? style.inAnimation,
+            style.outAnimation,
             bundle: .main,
             animationCache: LRUAnimationCache.sharedCache
         )
         self.animationView.animation = animation
         self.animationView.animationSpeed = 1.05 / duration
         
-        if hasDifferentOut {
-            self.animationView.play { success in
-                if (success) {
-                    self.contentImageView.isHidden = false
-                    self.animationView.isHidden = true
-                    self.animationView.animation = nil
-                }
-            }
-        } else {
-            self.animationView.play(fromProgress: 1, toProgress: 0) { success in
-                if (success) {
-                    self.contentImageView.isHidden = false
-                    self.animationView.isHidden = true
-                    self.animationView.animation = nil
-                }
+        self.animationView.play { success in
+            if (success) {
+                self.contentImageView.isHidden = false
+                self.animationView.isHidden = true
+                self.animationView.animation = nil
             }
         }
-        
-        
         
         self.animationViewContrainer.layer.transform = CATransform3DMakeScale(1, 1, 1)
         
