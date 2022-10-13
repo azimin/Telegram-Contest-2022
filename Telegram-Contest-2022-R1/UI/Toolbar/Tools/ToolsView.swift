@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Tools: Int, CaseIterable {
+enum Tool: Int, CaseIterable {
     case pen
     case brush
     case neon
@@ -32,8 +32,8 @@ class ToolsView: View {
     private let contentMaskView = UIView()
     
     private var selectedToolIndex = 0
-    var selectedTool: Tools {
-        return Tools(rawValue: self.selectedToolIndex) ?? .pen
+    var selectedTool: Tool {
+        return Tool(rawValue: self.selectedToolIndex) ?? .pen
     }
     
     var eraser: ToolEraserView {

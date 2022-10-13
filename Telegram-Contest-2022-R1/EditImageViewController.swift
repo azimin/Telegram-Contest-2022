@@ -33,6 +33,10 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var tool = PKInkingTool(.marker, width: 5)
+        tool.color = .yellow
+        canvasView.tool = tool
+        
         self.imageView.image = self.imageContainer.image
         self.view.addSubview(self.imageView)
         

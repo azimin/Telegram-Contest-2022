@@ -14,7 +14,7 @@ class ToolView: View {
         case neon
         case pencil
         
-        static func fromTool(_ tool: Tools) -> ToolView.Style {
+        static func fromTool(_ tool: Tool) -> ToolView.Style {
             switch tool {
             case .pen:
                 return .pen
