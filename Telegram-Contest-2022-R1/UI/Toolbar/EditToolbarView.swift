@@ -175,7 +175,7 @@ class EditToolbarView: View {
                     .init(title: "Object Eraser", iconName: "xmarkTip"),
                     .init(title: "Background Blur", iconName: "blurTip"),
                 ]
-                ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 210) { [weak self] index in
+                ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 194) { [weak self] index in
                     guard let self else { return }
                     let state = ToolEraserView.State(rawValue: index) ?? .eraser
                     ToolbarSettings.shared.eraserSettings.mode = state

@@ -53,7 +53,6 @@ class ToolEraserView: View {
             self.createImageView(image: toImage, size: size, animated: animated)
         } else {
             self.scaleDownCurrent(animated: animated)
-            self.stateImageView = nil
         }
     }
     
@@ -68,6 +67,7 @@ class ToolEraserView: View {
     
     private func scaleDownCurrent(animated: Bool) {
         let imageView = self.stateImageView
+        imageView?.layer.setTransform(scale: 0)
         imageView?.layer.animateScale(from: 1, to: 0, duration: animated ? 0.1 : 0, timingFunction: CAMediaTimingFunctionName.easeOut.rawValue, completion: {
             (success) in
             imageView?.removeFromSuperview()
