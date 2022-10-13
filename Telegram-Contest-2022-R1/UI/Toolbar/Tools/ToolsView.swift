@@ -48,6 +48,13 @@ class ToolsView: View {
         self.selectedToolIndex = index
     }
     
+    func updateProgress(value: CGFloat) {
+        let tool = self.tools[self.selectedToolIndex]
+        if let toolView = tool as? ToolView {
+            toolView.sizeProgress = value
+        }
+    }
+    
     var tools: [UIView] = []
     
     override func setUp() {

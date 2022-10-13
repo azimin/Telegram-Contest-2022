@@ -9,6 +9,7 @@ import UIKit
 
 typealias VoidBlock = () -> Void
 typealias IndexBlock = (Int) -> Void
+typealias ProgressBlock = (CGFloat) -> Void
 
 enum Transition {
     case appear

@@ -89,14 +89,18 @@ class EditToolbarView: View {
                 
                 self.cancelBackButton.switchToState(state: .back, duration: self.toolsView.tillMiddleDuration)
                 
+                let widthProgress: CGFloat
                 switch self.toolsView.selectedTool {
                 case .eraiser:
                     self.detailsStyle = .fromEraiser(ToolbarSettings.shared.eraserSettings.mode)
+                    widthProgress = ToolbarSettings.shared.eraserSettings.widthProgress
                 case .lasso:
+                    widthProgress = 0
                     break
                 case .pen, .brush, .neon, .pencil:
                     let currentTool = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool))
                     self.detailsStyle = .fromTool(currentTool.state)
+                    widthProgress = currentTool.widthProgress
                 }
                 self.toolDetailsButton.setContent(style: self.detailsStyle, animated: false)
                 
@@ -108,7 +112,7 @@ class EditToolbarView: View {
                 self.sizeSegmentView.isHidden = false
                 self.sizeSegmentView.animateIntoTumblerView(
                     fromFrame: frame,
-                    toProgress: CGFloat.random(in: 0.1..<0.95),
+                    toProgress: widthProgress,
                     duration: self.toolsView.tillMiddleDuration
                 )
                 
@@ -127,6 +131,19 @@ class EditToolbarView: View {
     }
     
     func addActions() {
+        self.sizeSegmentView.progressUpdated = { value in
+            self.toolsView.updateProgress(value: value)
+            switch self.toolsView.selectedTool {
+            case .eraiser:
+                ToolbarSettings.shared.eraserSettings.widthProgress = value
+            case .lasso:
+                break
+            case .pen, .brush, .neon, .pencil:
+                let currentTool = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool))
+                currentTool.widthProgress = value
+            }
+        }
+        
         self.addObjectButton.addAction(action: { [weak self] in
             guard let self else { return }
             let shapes = Shape.allCases

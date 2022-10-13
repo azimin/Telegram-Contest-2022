@@ -86,6 +86,10 @@ class ToolView: View {
         
         self.tipSizeView.layer.cornerRadius = 0.5
         
+        let tool = ToolbarSettings.shared.getToolSetting(style: style)
+        self.sizeProgress = tool.widthProgress
+        self.color = tool.color
+        
         self.updateColor()
         self.updateTipSize()
     }
@@ -97,13 +101,16 @@ class ToolView: View {
     }
     
     private func updateTipSize() {
-        var height = tipFrame.height * self.sizeProgress
+        var height = tipFrame.height * self.sizeProgress * 0.5
         height = max(height, 2)
         
         self.tipSizeView.frame = self.tipFrame
         self.tipSizeView.frame.size.height = height
         
+        CATransaction.begin()
+        CATransaction.setValue(true, forKey: kCATransactionDisableActions)
         self.tipSizeViewGradient.frame = self.tipSizeView.bounds
+        CATransaction.commit()
     }
     
     private func addClassicGradientToTip() {

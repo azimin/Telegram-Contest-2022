@@ -17,9 +17,17 @@ class SizeSegmentView: View {
     var backgroundView = UIView()
     var tumblerView = UIView()
     
+    var progressUpdated: ProgressBlock?
+    
     let segmentShape = SizeSegmentShape()
     
-    private(set) var progress: CGFloat = 0
+    private(set) var progress: CGFloat = 0 {
+        didSet {
+            if oldValue != self.progress {
+                progressUpdated?(progress)
+            }
+        }
+    }
     var gestures: Gestures = .disabled {
         didSet {
             self.isUserInteractionEnabled = self.gestures == .disabled ? false : true
