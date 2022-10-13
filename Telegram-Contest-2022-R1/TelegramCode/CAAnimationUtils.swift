@@ -266,6 +266,10 @@ public extension CALayer {
         
         return animation
     }
+    
+    func animateSpring(from: CGFloat, to: CGFloat, keyPath: String, duration: Double, delay: Double = 0.0, initialVelocity: CGFloat = 0.0, damping: CGFloat = 88.0, removeOnCompletion: Bool = true, additive: Bool = false, completion: ((Bool) -> Void)? = nil) {
+        self.animateSpring(from: from as NSNumber, to: to as NSNumber, keyPath: keyPath, duration: duration, delay: delay, initialVelocity: initialVelocity, damping: damping, removeOnCompletion: removeOnCompletion, additive: additive, completion: completion)
+    }
 
     func animateSpring(from: AnyObject, to: AnyObject, keyPath: String, duration: Double, delay: Double = 0.0, initialVelocity: CGFloat = 0.0, damping: CGFloat = 88.0, removeOnCompletion: Bool = true, additive: Bool = false, completion: ((Bool) -> Void)? = nil) {
         let animation: CABasicAnimation

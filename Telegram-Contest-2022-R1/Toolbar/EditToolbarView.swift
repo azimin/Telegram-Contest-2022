@@ -96,7 +96,7 @@ class EditToolbarView: View {
                 self.sizeSegmentView.isHidden = false
                 self.sizeSegmentView.animateIntoTumblerView(
                     fromFrame: frame,
-                    toProgress: 0.6,
+                    toProgress: CGFloat.random(in: 0.1..<0.95),
                     duration: self.toolsView.tillMiddleDuration
                 )
                 

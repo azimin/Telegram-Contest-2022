@@ -9,6 +9,11 @@ import UIKit
 
 typealias VoidBlock = () -> Void
 
+enum Transition {
+    case appear
+    case disappear
+}
+
 extension UIColor {
     convenience init(hex: String) {
         var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

@@ -55,6 +55,7 @@ class ToolsView: View {
         
         self.touchReportsIndex = .init(
             itemsCount: 6,
+            isVertical: false,
             canSelectMultiple: true,
             highlited: { [weak self] index in
                 self?.highlight(index: index)

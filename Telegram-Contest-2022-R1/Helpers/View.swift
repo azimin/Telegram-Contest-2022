@@ -12,11 +12,13 @@ class View: UIView {
         var itemsCount: Int
         
         var canSelectMultiple: Bool
+        var isVertical: Bool
         var highlited: (Int?) -> Void
         var selected: (Int) -> Void
         
-        init(itemsCount: Int, canSelectMultiple: Bool, highlited: @escaping (Int?) -> Void, selected: @escaping (Int) -> Void) {
+        init(itemsCount: Int, isVertical: Bool, canSelectMultiple: Bool, highlited: @escaping (Int?) -> Void, selected: @escaping (Int) -> Void) {
             self.itemsCount = itemsCount
+            self.isVertical = isVertical
             self.canSelectMultiple = canSelectMultiple
             self.highlited = highlited
             self.selected = selected
@@ -53,7 +55,14 @@ class View: UIView {
     private var preSelectedIndex: Int?
     
     private func selectedIndex(touch: UITouch, count: Int) -> Int? {
-        let step = self.frame.width / CGFloat(count)
+        let step: CGFloat
+        
+        if self.touchReportsIndex?.isVertical == true {
+            step = self.frame.height / CGFloat(count)
+        } else {
+            step = self.frame.width / CGFloat(count)
+        }
+        
         let touchPoint = touch.location(in: self)
         
         if (touchPoint.y < 0 || touchPoint.y > self.frame.height) {
@@ -64,7 +73,12 @@ class View: UIView {
             return nil
         }
         
-        let index = Int(touchPoint.x / step)
+        let index: Int
+        if self.touchReportsIndex?.isVertical == true {
+            index = Int(touchPoint.y / step)
+        } else {
+            index = Int(touchPoint.x / step)
+        }
         
         if (index < 0 || index >= count) {
             return nil

@@ -78,6 +78,7 @@ class EditToolbarSegmentView: View {
         
         self.touchReportsIndex = .init(
             itemsCount: items.count,
+            isVertical: false,
             canSelectMultiple: false,
             highlited: { index in
                 self.mutatedLabel?.alpha = 1.0

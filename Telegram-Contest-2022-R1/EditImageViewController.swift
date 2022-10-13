@@ -59,6 +59,21 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
             self.toolbarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).activate()
             self.toolbarView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40).activate()
         }
+        
+        let menu = ContextMenuView(items: [.init(title: "Rectangle", iconName: "shapeRectangle"), .init(title: "Bubble", iconName: "shapeStar"), .init(title: "Ellipse", iconName: "shapeEllipse")])
+        
+        self.view.addSubview(menu)
+        menu.center = self.view.center
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            menu.animateTransition(transition: .appear, duration: 0.8, completion: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                menu.animateTransition(transition: .disappear, duration: 0.7, completion: {
+                    menu.removeFromSuperview()
+                })
+            })
+        })
     }
 
 }
