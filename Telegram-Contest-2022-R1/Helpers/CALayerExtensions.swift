@@ -8,6 +8,12 @@
 import UIKit
 
 extension CALayer {
+    static func currentSpeed() -> Double {
+        return 0.2
+    }
+}
+
+extension CALayer {
     var translateX: CGFloat {
         return self.transform.m41
     }

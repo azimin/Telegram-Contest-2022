@@ -18,6 +18,8 @@ class SendButton: Button {
         self.contentImageView.image = UIImage(named: "download")
         self.addSubview(self.animationViewContrainer)
         self.animationViewContrainer.addSubview(self.animationView)
+        self.animationViewContrainer.isUserInteractionEnabled = false
+        self.contentImageView.isUserInteractionEnabled = false
     }
     
     override func layoutSubviewsOnChangeBounds() {

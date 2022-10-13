@@ -24,6 +24,12 @@ class Button: UIButton {
         }
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            self.updateState()
+        }
+    }
+    
     private var preveousBounds: CGRect = .zero
     
     override func layoutSubviews() {
@@ -45,7 +51,11 @@ class Button: UIButton {
         if self.isEnabled == false {
             self.alpha = 0.3
         } else {
-            self.alpha = 1.0
+            if self.isHighlighted {
+                self.alpha = 0.7
+            } else {
+                self.alpha = 1.0
+            }
         }
     }
     

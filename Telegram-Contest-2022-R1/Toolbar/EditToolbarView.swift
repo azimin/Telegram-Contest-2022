@@ -76,11 +76,14 @@ class EditToolbarView: View {
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
         }
         
-//        self.layer.speed = 0.2
+        self.layer.speed = Float(CALayer.currentSpeed())
+        
         self.toolsView.stateUpdating = { [weak self] state in
             guard let self else { return }
             switch state {
             case .componentPresented:
+                self.cancelBackButton.switchToState(state: .back, duration: self.toolsView.tillMiddleDuration)
+                
                 self.detailsStyle = self.detailsStyle.getNextSrtyle()
                 
                 self.toolDetailsButton.setContent(style: self.detailsStyle, animated: false)
@@ -104,6 +107,7 @@ class EditToolbarView: View {
                 self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: false)
                 
             case .allComponents:
+                self.cancelBackButton.switchToState(state: .cancel, duration: self.toolsView.tillMiddleDuration)
                 
                 self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: true)
                 
@@ -146,7 +150,8 @@ class EditToolbarView: View {
             self.sendButton.animateFromFrame(style: self.detailsStyle, duration: duration)
             self.toolDetailsButton.animate(isAppear: false, duration: duration)
         } else {
-            let frame = self.hierarhyConvertFrame(self.toolDetailsButton.contentView?.icon.frame ?? .zero, from: self.toolDetailsButton.contentView ?? self.sendButton, to: self.sendButton)
+//            let frame = self.hierarhyConvertFrame(self.toolDetailsButton.contentView?.icon.frame ?? .zero, from: self.toolDetailsButton.contentView ?? self.sendButton, to: self.sendButton)
+            let frame = CGRect.init(x: 10.5, y: 5, width: 24, height: 24)
             self.sendButton.animateIntoFrame(frame: frame, style: self.detailsStyle, duration: duration) {
                 self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: false)
             }

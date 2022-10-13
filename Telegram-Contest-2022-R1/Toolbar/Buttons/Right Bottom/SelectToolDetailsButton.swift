@@ -35,11 +35,11 @@ class SelectToolDetailsButton: Button {
         let valueBefore: CGFloat = isAppear ? 0 : 1
         let valueAfter: CGFloat = isAppear ? 1 : 0
         
-//        self.layer.opacity = Float(valueAfter)
-//        self.layer.transform = CATransform3DMakeScale(valueAfter, valueAfter, 1)
+        self.contrainerView.layer.opacity = Float(valueAfter)
+        self.contrainerView.layer.transform = CATransform3DMakeScale(valueAfter, valueAfter, 1)
         
-        self.layer.animateAlpha(from: valueBefore, to: valueAfter, duration: duration, removeOnCompletion: false)
-        self.layer.animateScale(from: valueBefore, to: valueAfter, duration: duration, removeOnCompletion: false)
+        self.contrainerView.layer.animateAlpha(from: valueBefore, to: valueAfter, duration: duration)
+        self.contrainerView.layer.animateScale(from: valueBefore, to: valueAfter, duration: duration)
     }
     
     func cahngeContentIconVisiblity(isHidden: Bool) {
@@ -47,6 +47,16 @@ class SelectToolDetailsButton: Button {
     }
     
     var contentView: ContentView? = nil
+    let contrainerView = UIView()
+    
+    override func setUp() {
+        self.contrainerView.isUserInteractionEnabled = false
+        self.addSubview(self.contrainerView)
+    }
+    
+    override func layoutSubviewsOnChangeBounds() {
+        self.contrainerView.frame = self.bounds
+    }
     
     func setContent(style: SelectToolDetailsStyle, animated: Bool) {
         self.setContent(title: style.shortTitle, imageName: style.icon, animated: animated)
@@ -67,7 +77,7 @@ class SelectToolDetailsButton: Button {
         newContent.setContent(title: title, imageName: imageName)
         newContent.frame = self.bounds
         newContent.layer.animateAlpha(from: 0, to: 1, duration: animated ? 0.23 : 0)
-        self.addSubview(newContent)
+        self.contrainerView.addSubview(newContent)
         self.contentView = newContent
     }
 }
