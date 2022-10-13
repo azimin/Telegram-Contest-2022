@@ -28,7 +28,6 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
     }
     
     override func viewDidLoad() {
@@ -61,11 +60,6 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
         }
         
         ContextMenuController.shared.attachToView(view: self.view)
-        
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            ContextMenuController.shared.showItems(items: [.init(title: "Rectangle", iconName: "shapeRectangle"), .init(title: "Bubble", iconName: "shapeStar"), .init(title: "Ellipse", iconName: "shapeEllipse")], fromView: self.toolbarView.addObjectButton)
-        })
     }
 
 }

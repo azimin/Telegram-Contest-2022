@@ -9,8 +9,11 @@ import UIKit
 
 class EditToolbarView: View {
     enum State {
-        case draw
+        case drawAllTools
+        case drawSpecificTools
     }
+    
+    var state: State = .drawAllTools
     
     let cancelBackButton = CancelBackButton()
     let sendButton = SendButton()
@@ -82,6 +85,8 @@ class EditToolbarView: View {
             guard let self else { return }
             switch state {
             case .componentPresented:
+                self.state = .drawSpecificTools
+                
                 self.cancelBackButton.switchToState(state: .back, duration: self.toolsView.tillMiddleDuration)
                 
                 self.detailsStyle = self.detailsStyle.getNextSrtyle()
@@ -107,21 +112,7 @@ class EditToolbarView: View {
                 self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: false)
                 
             case .allComponents:
-                self.cancelBackButton.switchToState(state: .cancel, duration: self.toolsView.tillMiddleDuration)
-                
-                self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: true)
-                
-                self.selectColorButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
-                self.addObjectButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
-                
-                let frame = self.hierarhyConvertFrame(self.segmentsView.selectedView.frame, from: self.segmentsView, to: self.sizeSegmentView)
-                self.sizeSegmentView.animateFromTumblerView(toFrame: frame, duration: self.toolsView.tillMiddleDuration, completionBlock: {
-                    self.sizeSegmentView.isHidden = true
-                    self.segmentsView.changeItemsVisible(isVisible: true)
-                })
-                
-                self.sizeSegmentView.animateBackground(to: false, frame: self.segmentsView.bounds, duration: self.toolsView.tillMiddleDuration)
-                self.segmentsView.switchAnimatedComponentsVisibility(isVisible: true, duration: self.toolsView.tillMiddleDuration)
+                self.showAllComponents()
             }
         }
         
@@ -129,9 +120,20 @@ class EditToolbarView: View {
     }
     
     func addActions() {
-        self.addObjectButton.addAction(action: {
+        self.addObjectButton.addAction(action: { [weak self] in
+            guard let self else { return }
             let items: [ContextMenuView.Item] = [.init(title: "Rectangle", iconName: "shapeRectangle"), .init(title: "Bubble", iconName: "shapeStar"), .init(title: "Ellipse", iconName: "shapeEllipse")]
             ContextMenuController.shared.showItems(items: items, fromView: self.addObjectButton)
+        })
+        
+        self.cancelBackButton.addAction(action: { [weak self] in
+            guard let self else { return }
+            switch self.state {
+            case .drawAllTools:
+                break
+            case .drawSpecificTools:
+                self.toolsView.exitSpecificComponent()
+            }
         })
     }
     
@@ -168,5 +170,25 @@ class EditToolbarView: View {
             self.toolDetailsButton.isHidden = false
             self.toolDetailsButton.animate(isAppear: true, duration: duration)
         }
+    }
+    
+    func showAllComponents() {
+        self.state = .drawAllTools
+        
+        self.cancelBackButton.switchToState(state: .cancel, duration: self.toolsView.tillMiddleDuration)
+        
+        self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: true)
+        
+        self.selectColorButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
+        self.addObjectButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
+        
+        let frame = self.hierarhyConvertFrame(self.segmentsView.selectedView.frame, from: self.segmentsView, to: self.sizeSegmentView)
+        self.sizeSegmentView.animateFromTumblerView(toFrame: frame, duration: self.toolsView.tillMiddleDuration, completionBlock: {
+            self.sizeSegmentView.isHidden = true
+            self.segmentsView.changeItemsVisible(isVisible: true)
+        })
+        
+        self.sizeSegmentView.animateBackground(to: false, frame: self.segmentsView.bounds, duration: self.toolsView.tillMiddleDuration)
+        self.segmentsView.switchAnimatedComponentsVisibility(isVisible: true, duration: self.toolsView.tillMiddleDuration)
     }
 }

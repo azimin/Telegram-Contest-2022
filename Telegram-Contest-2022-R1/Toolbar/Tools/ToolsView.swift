@@ -189,7 +189,7 @@ class ToolsView: View {
         }
     }
     
-    private func exitSpecificComponent() {
+    func exitSpecificComponent() {
         guard let info = self.presentedCoponentInfo else {
             assertionFailure("Can't exit")
             return
