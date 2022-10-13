@@ -8,11 +8,26 @@
 import UIKit
 
 class ToolView: View {
-    enum Style {
+    enum Style: Int {
         case pen
         case brush
         case neon
         case pencil
+        
+        static func fromTool(_ tool: Tools) -> ToolView.Style {
+            switch tool {
+            case .pen:
+                return .pen
+            case .brush:
+                return .brush
+            case .neon:
+                return .neon
+            case .pencil:
+                return .pencil
+            case .lasso, .eraiser:
+                return .pen
+            }
+        }
     }
     
     var baseImageView = UIImageView()

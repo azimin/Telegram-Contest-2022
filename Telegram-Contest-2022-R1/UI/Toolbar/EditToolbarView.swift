@@ -89,8 +89,15 @@ class EditToolbarView: View {
                 
                 self.cancelBackButton.switchToState(state: .back, duration: self.toolsView.tillMiddleDuration)
                 
-                self.detailsStyle = self.detailsStyle.getNextSrtyle()
-                
+                switch self.toolsView.selectedTool {
+                case .eraiser:
+                    self.detailsStyle = .fromEraiser(ToolbarSettings.shared.eraserSettings.mode)
+                case .lasso:
+                    break
+                case .pen, .brush, .neon, .pencil:
+                    let currentTool = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool))
+                    self.detailsStyle = .fromTool(currentTool.state)
+                }
                 self.toolDetailsButton.setContent(style: self.detailsStyle, animated: false)
                 
                 self.selectColorButton.animateButton(isHide: true, duration: self.toolsView.mainPartDuration)
@@ -138,7 +145,12 @@ class EditToolbarView: View {
                     .init(title: "Arrow", iconName: "arrowTip"),
                 ]
                 ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 150) { [weak self] index in
-                    print(index)
+                    guard let self else { return }
+                    let state = ToolbarSettings.ToolItem.State(rawValue: index) ?? .round
+                    let settings = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool))
+                    settings.state = state
+                    self.toolDetailsButton.setContent(style: .fromTool(state), animated: true)
+                    self.detailsStyle = .fromTool(state)
                 }
             case .eraiser:
                 let items: [ContextMenuView.Item] = [
@@ -147,7 +159,12 @@ class EditToolbarView: View {
                     .init(title: "Background Blur", iconName: "blurTip"),
                 ]
                 ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 210) { [weak self] index in
-                    print(index)
+                    guard let self else { return }
+                    let state = ToolEraserView.State(rawValue: index) ?? .eraser
+                    ToolbarSettings.shared.eraserSettings.mode = state
+                    self.toolsView.eraser.setState(state: ToolbarSettings.shared.eraserSettings.mode, animated: true)
+                    self.toolDetailsButton.setContent(style: .fromEraiser(state), animated: true)
+                    self.detailsStyle = .fromEraiser(state)
                 }
             case .lasso:
                 assertionFailure("Can't do this")

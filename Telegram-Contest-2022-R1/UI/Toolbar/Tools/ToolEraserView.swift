@@ -8,8 +8,8 @@
 import UIKit
 
 class ToolEraserView: View {
-    enum State {
-        case basic
+    enum State: Int {
+        case eraser
         case object
         case blur
     }
@@ -17,7 +17,7 @@ class ToolEraserView: View {
     var imageView = UIImageView()
     var stateImageView: UIImageView?
     
-    private var state: State = .basic
+    private var state: State = .eraser
 
     func setState(state: State, animated: Bool) {
         if self.state != state {
@@ -26,30 +26,19 @@ class ToolEraserView: View {
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        if state == .basic {
-            self.setState(state: .object, animated: true)
-        } else if state == .object {
-            self.setState(state: .blur, animated: true)
-        } else {
-            self.setState(state: .basic, animated: true)
-        }
-    }
-    
     override func setUp() {
         self.addSubview(self.imageView)
         self.imageView.image = UIImage(named: "eraser")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func layoutSubviewsOnChangeBounds() {
         self.imageView.frame = self.bounds
+        self.setState(state: ToolbarSettings.shared.eraserSettings.mode, animated: false)
     }
     
     private func updateState(animated: Bool) {
         switch self.state {
-        case .basic:
+        case .eraser:
             self.animateView(toImage: nil, size: .zero, animated: animated)
         case .object:
             self.animateView(toImage: UIImage(named: "eraser_object_icon"), size: .init(width: 7, height: 7), animated: animated)
@@ -83,5 +72,6 @@ class ToolEraserView: View {
             (success) in
             imageView?.removeFromSuperview()
         })
+        self.stateImageView = nil
     }
 }

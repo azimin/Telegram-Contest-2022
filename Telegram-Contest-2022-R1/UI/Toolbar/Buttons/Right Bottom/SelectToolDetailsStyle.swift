@@ -14,6 +14,26 @@ enum SelectToolDetailsStyle {
     case objectEraiser
     case blurEraiser
     
+    static func fromTool(_ state: ToolbarSettings.ToolItem.State) -> SelectToolDetailsStyle {
+        switch state {
+        case .round:
+            return .round
+        case .arrow:
+            return .arrow
+        }
+    }
+    
+    static func fromEraiser(_ state: ToolEraserView.State) -> SelectToolDetailsStyle {
+        switch state {
+        case .eraser:
+            return .eraiser
+        case .blur:
+            return .blurEraiser
+        case .object:
+            return .objectEraiser
+        }
+    }
+    
     func getNextSrtyle() -> SelectToolDetailsStyle {        
         switch self {
         case .round: return .arrow

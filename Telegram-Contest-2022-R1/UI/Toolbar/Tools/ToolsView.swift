@@ -36,6 +36,10 @@ class ToolsView: View {
         return Tools(rawValue: self.selectedToolIndex) ?? .pen
     }
     
+    var eraser: ToolEraserView {
+        return self.tools[5] as! ToolEraserView
+    }
+    
     func selectTool(index: Int, animated: Bool) {
         if self.selectedToolIndex == index {
             return
