@@ -9,35 +9,6 @@ import UIKit
 import Lottie
 
 class SendButton: Button {
-    enum Style {
-        case arrow
-        case circle
-        case cross
-        case blur
-        
-        var inAnimation: String {
-            switch self {
-            case .blur:
-                return "send_to_blur"
-            case .arrow:
-                return "send_to_arrow"
-            default:
-                return ""
-            }
-        }
-        
-        var outAnimation: String? {
-            switch self {
-            case .blur:
-                return "send_to_blur_reverse"
-            case .arrow:
-                return "send_to_arrow_reverse"
-            default:
-                return nil
-            }
-        }
-    }
-    
     let contentImageView = UIImageView()
     let animationViewContrainer = UIView()
     let animationView = LottieAnimationView()
@@ -55,7 +26,7 @@ class SendButton: Button {
         self.animationView.frame = self.bounds
     }
     
-    func animateIntoFrame(frame: CGRect = .zero, style: Style, duration: TimeInterval, complited: VoidBlock?) {
+    func animateIntoFrame(frame: CGRect = .zero, style: SelectToolDetailsStyle, duration: TimeInterval, complited: VoidBlock?) {
         var frame = frame
         frame.origin.x *= 0.515
         frame.origin.y *= 0.515
@@ -89,7 +60,7 @@ class SendButton: Button {
         self.animationViewContrainer.layer.animate(from: 0 as NSNumber, to: frame.origin.y as NSNumber, keyPath: "transform.translation.y", duration: duration)
     }
     
-    func animateFromFrame(style: Style, duration: TimeInterval) {
+    func animateFromFrame(style: SelectToolDetailsStyle, duration: TimeInterval) {
         self.contentImageView.isHidden = true
         self.animationView.isHidden = false
         

@@ -48,6 +48,10 @@ class SelectToolDetailsButton: Button {
     
     var contentView: ContentView? = nil
     
+    func setContent(style: SelectToolDetailsStyle, animated: Bool) {
+        self.setContent(title: style.shortTitle, imageName: style.icon, animated: animated)
+    }
+    
     func setContent(title: String, imageName: String, animated: Bool) {
         let oldContent = self.contentView
         if animated {
