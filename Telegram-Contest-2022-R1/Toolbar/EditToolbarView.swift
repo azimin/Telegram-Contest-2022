@@ -124,6 +124,15 @@ class EditToolbarView: View {
                 self.segmentsView.switchAnimatedComponentsVisibility(isVisible: true, duration: self.toolsView.tillMiddleDuration)
             }
         }
+        
+        self.addActions()
+    }
+    
+    func addActions() {
+        self.addObjectButton.addAction(action: {
+            let items: [ContextMenuView.Item] = [.init(title: "Rectangle", iconName: "shapeRectangle"), .init(title: "Bubble", iconName: "shapeStar"), .init(title: "Ellipse", iconName: "shapeEllipse")]
+            ContextMenuController.shared.showItems(items: items, fromView: self.addObjectButton)
+        })
     }
     
     var detailsStyle = SelectToolDetailsStyle.arrow

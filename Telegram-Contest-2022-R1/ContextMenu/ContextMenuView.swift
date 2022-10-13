@@ -113,4 +113,35 @@ class ContextMenuView: View {
         self.highlightView.isHidden = false
         self.highlightView.frame = CGRect(x: 0, y: CGFloat(index) * 44, width: self.frame.width, height: 44)
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return true
+    }
+    
+    var startedInFrame: Bool = false
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        guard let touch = touches.first else {
+            return
+        }
+        
+        let touchPoint = touch.location(in: self)
+        self.startedInFrame = self.bounds.contains(touchPoint)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        guard let touch = touches.first else {
+            return
+        }
+        
+        let touchPoint = touch.location(in: self)
+        
+        if self.startedInFrame == false && !self.bounds.contains(touchPoint) {
+            ContextMenuController.shared.hideMenu()
+        }
+    }
 }

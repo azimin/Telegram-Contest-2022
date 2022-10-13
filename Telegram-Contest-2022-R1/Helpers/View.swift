@@ -167,7 +167,9 @@ class View: UIView {
             touchReportsIndex.selected(index)
         }
     }
-    
+}
+
+extension UIView {
     func hierarhyConvertFrame(_ frame: CGRect, from fromView: UIView, to toView: UIView) -> CGRect {
         let sourceWindowFrame = fromView.convert(frame, to: nil)
         var targetWindowFrame = toView.convert(sourceWindowFrame, from: nil)

@@ -49,6 +49,7 @@
 		9FA0091028F864EC00688479 /* backToCancel.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FA0090F28F864EC00688479 /* backToCancel.json */; };
 		9FA0091328F86CCA00688479 /* ContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0091228F86CCA00688479 /* ContextMenuView.swift */; };
 		9FA0091528F8713300688479 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0091428F8713300688479 /* UILabelExtensions.swift */; };
+		9FA0091728F8824F00688479 /* ContextMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0091628F8824F00688479 /* ContextMenuController.swift */; };
 		9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */; };
 		9FCF57DC28F46A0900A9DD38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */; };
 		9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DD28F46A0900A9DD38 /* ViewController.swift */; };
@@ -103,6 +104,7 @@
 		9FA0090F28F864EC00688479 /* backToCancel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = backToCancel.json; sourceTree = "<group>"; };
 		9FA0091228F86CCA00688479 /* ContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuView.swift; sourceTree = "<group>"; };
 		9FA0091428F8713300688479 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
+		9FA0091628F8824F00688479 /* ContextMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuController.swift; sourceTree = "<group>"; };
 		9FCF57D628F46A0900A9DD38 /* Telegram-Contest-2022-R1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Telegram-Contest-2022-R1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				9FA0091228F86CCA00688479 /* ContextMenuView.swift */,
+				9FA0091628F8824F00688479 /* ContextMenuController.swift */,
 			);
 			path = ContextMenu;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */,
 				9FA0091528F8713300688479 /* UILabelExtensions.swift in Sources */,
 				9F9AE08028F4EBF4004717E5 /* AddObjectButton.swift in Sources */,
+				9FA0091728F8824F00688479 /* ContextMenuController.swift in Sources */,
 				9F6533AF28F7126400E00574 /* SizeSegmentShapes.swift in Sources */,
 				9F6533AA28F5EBCE00E00574 /* View.swift in Sources */,
 				9F0E954028F4B3BC00177E7C /* UIKitHelpers.swift in Sources */,
