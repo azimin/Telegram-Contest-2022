@@ -9,7 +9,7 @@ import UIKit
 
 extension CALayer {
     static func currentSpeed() -> Double {
-        return 1
+        return 0.16
     }
 }
 

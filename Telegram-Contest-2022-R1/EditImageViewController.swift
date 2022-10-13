@@ -60,6 +60,7 @@ class EditImageViewController: UIViewController, PKToolPickerObserver {
         }
         
         ContextMenuController.shared.attachToView(view: self.view)
+        self.view.layer.speed = Float(CALayer.currentSpeed())
     }
 
 }

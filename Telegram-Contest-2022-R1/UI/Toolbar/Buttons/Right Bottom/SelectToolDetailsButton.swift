@@ -68,6 +68,7 @@ class SelectToolDetailsButton: Button {
             oldContent?.layer.animateAlpha(from: 1, to: 0, duration: 0.23, completion: { _ in
                 oldContent?.removeFromSuperview()
             })
+            oldContent?.layer.opacity = 0
         } else {
             oldContent?.removeFromSuperview()
         }
