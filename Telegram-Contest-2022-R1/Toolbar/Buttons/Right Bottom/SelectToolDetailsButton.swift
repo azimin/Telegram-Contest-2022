@@ -50,9 +50,14 @@ class SelectToolDetailsButton: Button {
     
     func setContent(title: String, imageName: String, animated: Bool) {
         let oldContent = self.contentView
-        oldContent?.layer.animateAlpha(from: 1, to: 0, duration: animated ? 0.23 : 0, completion: { _ in
+        if animated {
+            oldContent?.layer.animateAlpha(from: 1, to: 0, duration: 0.23, completion: { _ in
+                oldContent?.removeFromSuperview()
+            })
+        } else {
             oldContent?.removeFromSuperview()
-        })
+        }
+        
         
         let newContent = ContentView()
         newContent.setContent(title: title, imageName: imageName)
