@@ -17,7 +17,10 @@
 		9F0E954928F4B77E00177E7C /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954828F4B77D00177E7C /* SF-Pro-Display-Semibold.otf */; };
 		9F0E954B28F4B88D00177E7C /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E954A28F4B7A000177E7C /* SF-Pro-Text-Regular.otf */; };
 		9F0E954D28F4C9D300177E7C /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E954C28F4C9D300177E7C /* UIButton.swift */; };
-		9F569C4728F7990400A220AA /* send_to_arrow_reverse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C4628F7990400A220AA /* send_to_arrow_reverse.json */; };
+		9F569C4928F7A3F800A220AA /* send_to_blur.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C4828F7A3F800A220AA /* send_to_blur.json */; };
+		9F569C4B28F7A40A00A220AA /* send_to_blur_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C4A28F7A40A00A220AA /* send_to_blur_1.png */; };
+		9F569C4D28F7A7CE00A220AA /* send_to_blur_reverse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C4C28F7A7CE00A220AA /* send_to_blur_reverse.json */; };
+		9F569C4F28F7AA9300A220AA /* send_to_arrow_reverse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F569C4E28F7AA9300A220AA /* send_to_arrow_reverse.json */; };
 		9F6533AA28F5EBCE00E00574 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533A928F5EBCE00E00574 /* View.swift */; };
 		9F6533AC28F63C0700E00574 /* SizeSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533AB28F63C0700E00574 /* SizeSegmentView.swift */; };
 		9F6533AF28F7126400E00574 /* SizeSegmentShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533AE28F7126400E00574 /* SizeSegmentShapes.swift */; };
@@ -59,7 +62,10 @@
 		9F0E954828F4B77D00177E7C /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		9F0E954A28F4B7A000177E7C /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		9F0E954C28F4C9D300177E7C /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
-		9F569C4628F7990400A220AA /* send_to_arrow_reverse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_arrow_reverse.json; sourceTree = "<group>"; };
+		9F569C4828F7A3F800A220AA /* send_to_blur.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_blur.json; sourceTree = "<group>"; };
+		9F569C4A28F7A40A00A220AA /* send_to_blur_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_to_blur_1.png; sourceTree = "<group>"; };
+		9F569C4C28F7A7CE00A220AA /* send_to_blur_reverse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_blur_reverse.json; sourceTree = "<group>"; };
+		9F569C4E28F7AA9300A220AA /* send_to_arrow_reverse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = send_to_arrow_reverse.json; sourceTree = "<group>"; };
 		9F6533A928F5EBCE00E00574 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		9F6533AB28F63C0700E00574 /* SizeSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeSegmentView.swift; sourceTree = "<group>"; };
 		9F6533AE28F7126400E00574 /* SizeSegmentShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeSegmentShapes.swift; sourceTree = "<group>"; };
@@ -183,8 +189,11 @@
 			children = (
 				9F6533C328F7816000E00574 /* send_to_arrow_2.png */,
 				9F6533C428F7816100E00574 /* send_to_arrow_1.png */,
+				9F569C4A28F7A40A00A220AA /* send_to_blur_1.png */,
+				9F569C4C28F7A7CE00A220AA /* send_to_blur_reverse.json */,
+				9F569C4828F7A3F800A220AA /* send_to_blur.json */,
+				9F569C4E28F7AA9300A220AA /* send_to_arrow_reverse.json */,
 				9F6533C128F77E8F00E00574 /* send_to_arrow.json */,
-				9F569C4628F7990400A220AA /* send_to_arrow_reverse.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -326,10 +335,13 @@
 				9F0E954628F4B76100177E7C /* SF-Pro-Text-Semibold.otf in Resources */,
 				9FCF57E628F46A0A00A9DD38 /* LaunchScreen.storyboard in Resources */,
 				9FCF57E328F46A0A00A9DD38 /* Assets.xcassets in Resources */,
+				9F569C4B28F7A40A00A220AA /* send_to_blur_1.png in Resources */,
 				9F0E954728F4B76100177E7C /* SF-Pro-Text-Medium.otf in Resources */,
+				9F569C4D28F7A7CE00A220AA /* send_to_blur_reverse.json in Resources */,
+				9F569C4F28F7AA9300A220AA /* send_to_arrow_reverse.json in Resources */,
 				9F6533C528F7816100E00574 /* send_to_arrow_2.png in Resources */,
-				9F569C4728F7990400A220AA /* send_to_arrow_reverse.json in Resources */,
 				9FCF57E128F46A0900A9DD38 /* Main.storyboard in Resources */,
+				9F569C4928F7A3F800A220AA /* send_to_blur.json in Resources */,
 				9F6533C228F77E8F00E00574 /* send_to_arrow.json in Resources */,
 				9F6533C628F7816100E00574 /* send_to_arrow_1.png in Resources */,
 				9F0E954B28F4B88D00177E7C /* SF-Pro-Text-Regular.otf in Resources */,

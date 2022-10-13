@@ -76,11 +76,14 @@ class EditToolbarView: View {
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
         }
         
-//        self.layer.speed = 0.15
+        self.layer.speed = 0.3
         self.toolsView.stateUpdating = { [weak self] state in
             guard let self else { return }
             switch state {
             case .componentPresented:
+                self.toggle.toggle()
+                self.toolDetailsButton.setContent(title: !self.toggle ? "Arrow" : "Blur", imageName: !self.toggle ? "arrowTip" : "blurTip", animated: false)
+                
                 self.selectColorButton.animateButton(isHide: true, duration: self.toolsView.mainPartDuration)
                 self.addObjectButton.animateButton(isHide: true, duration: self.toolsView.mainPartDuration)
                 
@@ -118,6 +121,8 @@ class EditToolbarView: View {
         }
     }
     
+    var toggle = false
+    
     override func layoutSubviewsOnChangeBounds() {
         self.sizeSegmentView.frame = CGRect(x: self.segmentsView.frame.origin.x, y: self.segmentsView.frame.origin.y + 2, width: self.segmentsView.frame.width - 50, height: 28)
         
@@ -131,17 +136,17 @@ class EditToolbarView: View {
         )
         self.toolDetailsButton.center.y = self.segmentsView.center.y
         
-        self.toolDetailsButton.setContent(title: "Eraiser", imageName: "arrowTip", animated: false)
+        self.toolDetailsButton.setContent(title: "Eraiser", imageName: "blurTip", animated: false)
     }
     
     private func animateSendButton(duration: TimeInterval, disapear: Bool) {
         if disapear {
             self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: true)
-            self.sendButton.animateFromFrame(duration: duration)
+            self.sendButton.animateFromFrame(style: self.toggle ? .blur : .arrow, duration: duration)
             self.toolDetailsButton.animate(isAppear: false, duration: duration)
         } else {
             let frame = self.hierarhyConvertFrame(self.toolDetailsButton.contentView?.icon.frame ?? .zero, from: self.toolDetailsButton.contentView ?? self.sendButton, to: self.sendButton)
-            self.sendButton.animateIntoFrame(frame: frame, duration: duration) {
+            self.sendButton.animateIntoFrame(frame: frame, style: self.toggle ? .blur : .arrow, duration: duration) {
                 self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: false)
             }
             self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: true)

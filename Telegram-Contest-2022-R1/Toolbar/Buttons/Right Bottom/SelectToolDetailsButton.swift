@@ -25,9 +25,7 @@ class SelectToolDetailsButton: Button {
             self.label.textAlignment = .right
             self.label.textColor = .white
             self.icon.image = UIImage(named: imageName)
-        }
-        
-        override func layoutSubviewsOnChangeBounds() {
+            
             self.icon.frame = CGRect(x: 54.5, y: -1, width: 24, height: 24)
             self.label.frame = CGRect(x: -3, y: 0, width: 54, height: 22)
         }
