@@ -8,6 +8,7 @@
 import UIKit
 
 typealias VoidBlock = () -> Void
+typealias IndexBlock = (Int) -> Void
 
 enum Transition {
     case appear

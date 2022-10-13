@@ -122,8 +122,36 @@ class EditToolbarView: View {
     func addActions() {
         self.addObjectButton.addAction(action: { [weak self] in
             guard let self else { return }
-            let items: [ContextMenuView.Item] = [.init(title: "Rectangle", iconName: "shapeRectangle"), .init(title: "Bubble", iconName: "shapeStar"), .init(title: "Ellipse", iconName: "shapeEllipse")]
-            ContextMenuController.shared.showItems(items: items, fromView: self.addObjectButton)
+            let shapes = Shape.allCases
+            let items: [ContextMenuView.Item] = shapes.map({ .init(title: $0.title, iconName: $0.iconName)} )
+            ContextMenuController.shared.showItems(items: items, fromView: self.addObjectButton, preferableWidth: 180) { [weak self] index in
+                print(shapes[index].title)
+            }
+        })
+        
+        self.toolDetailsButton.addAction(action: { [weak self] in
+            guard let self else { return }
+            switch self.toolsView.selectedTool {
+            case .pen, .pencil, .brush, .neon:
+                let items: [ContextMenuView.Item] = [
+                    .init(title: "Round", iconName: "roundTip"),
+                    .init(title: "Arrow", iconName: "arrowTip"),
+                ]
+                ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 150) { [weak self] index in
+                    print(index)
+                }
+            case .eraiser:
+                let items: [ContextMenuView.Item] = [
+                    .init(title: "Eraser", iconName: "roundTip"),
+                    .init(title: "Object Eraser", iconName: "xmarkTip"),
+                    .init(title: "Background Blur", iconName: "blurTip"),
+                ]
+                ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 210) { [weak self] index in
+                    print(index)
+                }
+            case .lasso:
+                assertionFailure("Can't do this")
+            }
         })
         
         self.cancelBackButton.addAction(action: { [weak self] in
@@ -143,6 +171,7 @@ class EditToolbarView: View {
         self.sizeSegmentView.frame = CGRect(x: self.segmentsView.frame.origin.x, y: self.segmentsView.frame.origin.y + 2, width: self.segmentsView.frame.width - 50, height: 28)
         
         self.toolDetailsButton.isHidden = true
+        self.toolDetailsButton.isUserInteractionEnabled = false
         
         self.toolDetailsButton.frame = CGRect(
             x: self.frame.width - 85,
@@ -160,6 +189,7 @@ class EditToolbarView: View {
             self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: true)
             self.sendButton.animateFromFrame(style: self.detailsStyle, duration: duration)
             self.toolDetailsButton.animate(isAppear: false, duration: duration)
+            self.toolDetailsButton.isUserInteractionEnabled = false
         } else {
 //            let frame = self.hierarhyConvertFrame(self.toolDetailsButton.contentView?.icon.frame ?? .zero, from: self.toolDetailsButton.contentView ?? self.sendButton, to: self.sendButton)
             let frame = CGRect.init(x: 10.5, y: 5, width: 24, height: 24)
@@ -168,6 +198,7 @@ class EditToolbarView: View {
             }
             self.toolDetailsButton.cahngeContentIconVisiblity(isHidden: true)
             self.toolDetailsButton.isHidden = false
+            self.toolDetailsButton.isUserInteractionEnabled = true
             self.toolDetailsButton.animate(isAppear: true, duration: duration)
         }
     }

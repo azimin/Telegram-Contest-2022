@@ -26,16 +26,17 @@ class ContextMenuController {
         menu?.animateTransition(transition: .disappear, duration: self.hideDuration, completion: {
             menu?.removeFromSuperview()
         })
+        self.currentMenu = nil
     }
     
-    func showItems(items: [ContextMenuView.Item], fromView: UIView) {
+    func showItems(items: [ContextMenuView.Item], fromView: UIView, preferableWidth: CGFloat, selection: IndexBlock?) {
         self.hideMenu()
         
         guard let presentView = self.presentView else {
             return
         }
         
-        let newMenu = ContextMenuView(items: items)
+        let newMenu = ContextMenuView(items: items, selection: selection, width: preferableWidth)
         presentView.addSubview(newMenu)
         newMenu.animateTransition(transition: .appear, duration: self.showDuration)
         

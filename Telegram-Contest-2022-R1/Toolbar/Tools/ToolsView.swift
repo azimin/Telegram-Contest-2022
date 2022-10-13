@@ -7,6 +7,15 @@
 
 import UIKit
 
+enum Tools: Int, CaseIterable {
+    case pen
+    case brush
+    case neon
+    case pencil
+    case lasso
+    case eraiser
+}
+
 class ToolsView: View {
     var animationDuration: TimeInterval = 0.8
     lazy var mainPartDuration: TimeInterval = self.animationDuration * 0.18
@@ -23,6 +32,9 @@ class ToolsView: View {
     private let contentMaskView = UIView()
     
     private var selectedToolIndex = 0
+    var selectedTool: Tools {
+        return Tools(rawValue: self.selectedToolIndex) ?? .pen
+    }
     
     func selectTool(index: Int, animated: Bool) {
         if self.selectedToolIndex == index {
@@ -129,7 +141,7 @@ class ToolsView: View {
             return
         }
         
-        if self.selectedToolIndex == index {
+        if self.selectedToolIndex == index && self.selectedTool != .lasso {
             self.showSpecificComponent(index: index)
         } else {
             self.selectTool(index: index, animated: true)

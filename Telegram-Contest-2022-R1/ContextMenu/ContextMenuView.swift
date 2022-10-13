@@ -14,10 +14,12 @@ class ContextMenuView: View {
     }
     
     let items: [Item]
+    let selection: IndexBlock?
     
-    init(items: [Item]) {
+    init(items: [Item], selection: IndexBlock?, width: CGFloat) {
         self.items = items
-        let frame = CGRect(x: 0, y: 0, width: 180, height: CGFloat(items.count) * 44)
+        self.selection = selection
+        let frame = CGRect(x: 0, y: 0, width: width, height: CGFloat(items.count) * 44)
         super.init(frame: frame)
     }
     
@@ -98,10 +100,16 @@ class ContextMenuView: View {
         })
         self.layer.animateSpring(from: fromTranslationX, to: toTranslationX, keyPath: "transform.translation.x", duration: duration)
         self.layer.animateSpring(from: fromTranslationY, to: toTranslationY, keyPath: "transform.translation.y", duration: duration)
+        
+        self.layer.opacity = Float(toOpacityAndScale)
+        self.layer.setTransform(scale: toOpacityAndScale, translateX: toTranslationX, translateY: toTranslationY)
     }
     
     private func selected(index: Int?) {
-        
+        if let index = index {
+            ContextMenuController.shared.hideMenu()
+            self.selection?(index)
+        }
     }
     
     private func highlight(index: Int?) {

@@ -50,6 +50,7 @@
 		9FA0091328F86CCA00688479 /* ContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0091228F86CCA00688479 /* ContextMenuView.swift */; };
 		9FA0091528F8713300688479 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0091428F8713300688479 /* UILabelExtensions.swift */; };
 		9FA0091728F8824F00688479 /* ContextMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0091628F8824F00688479 /* ContextMenuController.swift */; };
+		9FA0091A28F8B2C400688479 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0091928F8B2C400688479 /* Shape.swift */; };
 		9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */; };
 		9FCF57DC28F46A0900A9DD38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */; };
 		9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57DD28F46A0900A9DD38 /* ViewController.swift */; };
@@ -105,6 +106,7 @@
 		9FA0091228F86CCA00688479 /* ContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuView.swift; sourceTree = "<group>"; };
 		9FA0091428F8713300688479 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		9FA0091628F8824F00688479 /* ContextMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuController.swift; sourceTree = "<group>"; };
+		9FA0091928F8B2C400688479 /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		9FCF57D628F46A0900A9DD38 /* Telegram-Contest-2022-R1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Telegram-Contest-2022-R1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -262,6 +264,14 @@
 			path = ContextMenu;
 			sourceTree = "<group>";
 		};
+		9FA0091828F8B2B300688479 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				9FA0091928F8B2C400688479 /* Shape.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
 		9FCF57CD28F46A0900A9DD38 = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +294,7 @@
 				9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */,
 				9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */,
 				9FCF57DD28F46A0900A9DD38 /* ViewController.swift */,
+				9FA0091828F8B2B300688479 /* Shapes */,
 				9FA0091128F86CAB00688479 /* ContextMenu */,
 				9F9AE08A28F5CDBD004717E5 /* TelegramCode */,
 				9F0E953E28F4B3B600177E7C /* Helpers */,
@@ -418,6 +429,7 @@
 				9FCF57DC28F46A0900A9DD38 /* SceneDelegate.swift in Sources */,
 				9F9AE08728F5BEC3004717E5 /* ToolEraserView.swift in Sources */,
 				9F0E954D28F4C9D300177E7C /* UIButton.swift in Sources */,
+				9FA0091A28F8B2C400688479 /* Shape.swift in Sources */,
 				9F0E953D28F4B20C00177E7C /* EditToolbarSegmentView.swift in Sources */,
 				9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */,
 				9FA0091328F86CCA00688479 /* ContextMenuView.swift in Sources */,

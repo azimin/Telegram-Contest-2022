@@ -46,4 +46,14 @@ extension CALayer {
         }
         return self.translateScale
     }
+    
+    func setTransform(scale: CGFloat? = nil, translateX: CGFloat? = nil, translateY: CGFloat? = nil) {
+        var scaleTransform = CATransform3DIdentity
+        if let scale = scale {
+            scaleTransform = CATransform3DMakeScale(scale, scale, 1)
+        }
+        
+        let translateTransform = CATransform3DMakeTranslation(translateX ?? 0, translateY ?? 0, 0)
+        self.transform = CATransform3DConcat(scaleTransform, translateTransform)
+    }
 }
