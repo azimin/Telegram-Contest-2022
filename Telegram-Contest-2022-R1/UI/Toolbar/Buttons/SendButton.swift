@@ -18,6 +18,7 @@ class SendButton: Button {
         self.contentImageView.image = UIImage(named: "download")
         self.addSubview(self.animationViewContrainer)
         self.animationViewContrainer.addSubview(self.animationView)
+        self.animationView.isUserInteractionEnabled = false
         self.animationViewContrainer.isUserInteractionEnabled = false
         self.contentImageView.isUserInteractionEnabled = false
     }

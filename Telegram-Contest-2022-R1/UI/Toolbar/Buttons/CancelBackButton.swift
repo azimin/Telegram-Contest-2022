@@ -9,15 +9,20 @@ import UIKit
 import Lottie
 
 class CancelBackButton: Button {
+    let containerView = UIView()
     let animationView = LottieAnimationView(animation: .named("backToCancel", animationCache: LRUAnimationCache.sharedCache))
     
     override func setUp() {
+        self.backgroundColor = UIColor.white.withAlphaComponent(0.02)
+        self.addSubview(self.containerView)
         self.addSubview(self.animationView)
         self.animationView.currentFrame = 30
+        self.containerView.isUserInteractionEnabled = false
         self.animationView.isUserInteractionEnabled = false
     }
     
     override func layoutSubviewsOnChangeBounds() {
+        self.containerView.frame = self.bounds
         self.animationView.frame = self.bounds
     }
     

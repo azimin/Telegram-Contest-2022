@@ -34,6 +34,14 @@
 		9F6533C528F7816100E00574 /* send_to_arrow_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6533C328F7816000E00574 /* send_to_arrow_2.png */; };
 		9F6533C628F7816100E00574 /* send_to_arrow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6533C428F7816100E00574 /* send_to_arrow_1.png */; };
 		9F6533C828F78B8500E00574 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6533C728F78B8500E00574 /* CALayerExtensions.swift */; };
+		9F74F32D2909A79600092CFB /* MetalLineDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F32C2909A79600092CFB /* MetalLineDrawer.swift */; };
+		9F74F32F2909A79F00092CFB /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F32E2909A79F00092CFB /* CGExtensions.swift */; };
+		9F74F3312909A7BB00092CFB /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3302909A7BB00092CFB /* Shaders.metal */; };
+		9F74F3332909A7C100092CFB /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3322909A7C100092CFB /* Renderer.swift */; };
+		9F74F3352909A7D900092CFB /* RenderDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3342909A7D900092CFB /* RenderDataController.swift */; };
+		9F74F3372909A89A00092CFB /* LinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3362909A89A00092CFB /* LinesView.swift */; };
+		9F74F33A2909C9DD00092CFB /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3392909C9DD00092CFB /* ZoomView.swift */; };
+		9F74F33C2909D39500092CFB /* MetalDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F33B2909D39500092CFB /* MetalDrawingView.swift */; };
 		9F9AE07928F4E45A004717E5 /* CancelBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07828F4E45A004717E5 /* CancelBackButton.swift */; };
 		9F9AE07B28F4E460004717E5 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07A28F4E460004717E5 /* SendButton.swift */; };
 		9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07C28F4E93A004717E5 /* SelectColorButton.swift */; };
@@ -90,6 +98,14 @@
 		9F6533C328F7816000E00574 /* send_to_arrow_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_to_arrow_2.png; sourceTree = "<group>"; };
 		9F6533C428F7816100E00574 /* send_to_arrow_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_to_arrow_1.png; sourceTree = "<group>"; };
 		9F6533C728F78B8500E00574 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
+		9F74F32C2909A79600092CFB /* MetalLineDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalLineDrawer.swift; sourceTree = "<group>"; };
+		9F74F32E2909A79F00092CFB /* CGExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
+		9F74F3302909A7BB00092CFB /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		9F74F3322909A7C100092CFB /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		9F74F3342909A7D900092CFB /* RenderDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderDataController.swift; sourceTree = "<group>"; };
+		9F74F3362909A89A00092CFB /* LinesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesView.swift; sourceTree = "<group>"; };
+		9F74F3392909C9DD00092CFB /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
+		9F74F33B2909D39500092CFB /* MetalDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalDrawingView.swift; sourceTree = "<group>"; };
 		9F9AE07828F4E45A004717E5 /* CancelBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBackButton.swift; sourceTree = "<group>"; };
 		9F9AE07A28F4E460004717E5 /* SendButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
 		9F9AE07C28F4E93A004717E5 /* SelectColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorButton.swift; sourceTree = "<group>"; };
@@ -150,6 +166,7 @@
 		9F0E953E28F4B3B600177E7C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				9F74F32E2909A79F00092CFB /* CGExtensions.swift */,
 				9FCF57EF28F46D3300A9DD38 /* ImageContainer.swift */,
 				9F0E953F28F4B3BC00177E7C /* UIKitHelpers.swift */,
 				9F6533A928F5EBCE00E00574 /* View.swift */,
@@ -229,6 +246,14 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		9F74F3382909C9D600092CFB /* ZoomView */ = {
+			isa = PBXGroup;
+			children = (
+				9F74F3392909C9DD00092CFB /* ZoomView.swift */,
+			);
+			path = ZoomView;
+			sourceTree = "<group>";
+		};
 		9F9AE07E28F4E958004717E5 /* Segment */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +304,7 @@
 		9FA0091B28F8BBB500688479 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9F74F3382909C9D600092CFB /* ZoomView */,
 				9FA0091128F86CAB00688479 /* ContextMenu */,
 				9FA0091828F8B2B300688479 /* Shapes */,
 				9F0E953928F4B02500177E7C /* Toolbar */,
@@ -333,6 +359,7 @@
 				9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */,
 				9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */,
 				9FCF57DD28F46A0900A9DD38 /* ViewController.swift */,
+				9FF9BEED29077A480069637A /* Drawing */,
 				9F9AE08A28F5CDBD004717E5 /* TelegramCode */,
 				9F0E953E28F4B3B600177E7C /* Helpers */,
 				9FA0091C28F8BBCD00688479 /* Logic */,
@@ -348,6 +375,19 @@
 				9FCF57E728F46A0A00A9DD38 /* Info.plist */,
 			);
 			path = "Telegram-Contest-2022-R1";
+			sourceTree = "<group>";
+		};
+		9FF9BEED29077A480069637A /* Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				9F74F3362909A89A00092CFB /* LinesView.swift */,
+				9F74F3342909A7D900092CFB /* RenderDataController.swift */,
+				9F74F3322909A7C100092CFB /* Renderer.swift */,
+				9F74F3302909A7BB00092CFB /* Shaders.metal */,
+				9F74F32C2909A79600092CFB /* MetalLineDrawer.swift */,
+				9F74F33B2909D39500092CFB /* MetalDrawingView.swift */,
+			);
+			path = Drawing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -445,19 +485,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F569C5328F83A9500A220AA /* SelectToolDetailsStyle.swift in Sources */,
+				9F74F3312909A7BB00092CFB /* Shaders.metal in Sources */,
 				9F9AE07928F4E45A004717E5 /* CancelBackButton.swift in Sources */,
 				9F6533C828F78B8500E00574 /* CALayerExtensions.swift in Sources */,
 				9F0E953528F4A01900177E7C /* AutolayoutEngine.swift in Sources */,
+				9F74F33A2909C9DD00092CFB /* ZoomView.swift in Sources */,
 				9F6533BC28F7675200E00574 /* SelectToolDetailsButton.swift in Sources */,
 				9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */,
 				9FA0091528F8713300688479 /* UILabelExtensions.swift in Sources */,
 				9F9AE08028F4EBF4004717E5 /* AddObjectButton.swift in Sources */,
+				9F74F32D2909A79600092CFB /* MetalLineDrawer.swift in Sources */,
 				9FA0091728F8824F00688479 /* ContextMenuController.swift in Sources */,
 				9F6533AF28F7126400E00574 /* SizeSegmentShapes.swift in Sources */,
+				9F74F3332909A7C100092CFB /* Renderer.swift in Sources */,
 				9F6533AA28F5EBCE00E00574 /* View.swift in Sources */,
 				9F0E954028F4B3BC00177E7C /* UIKitHelpers.swift in Sources */,
 				9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */,
+				9F74F3372909A89A00092CFB /* LinesView.swift in Sources */,
 				9F9AE08328F4F0A8004717E5 /* ToolsView.swift in Sources */,
+				9F74F33C2909D39500092CFB /* MetalDrawingView.swift in Sources */,
 				9F6533B928F7673000E00574 /* SaveButtonAnimator.swift in Sources */,
 				9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */,
 				9F9AE08528F4F220004717E5 /* ToolView.swift in Sources */,
@@ -470,10 +516,12 @@
 				9FA0091A28F8B2C400688479 /* Shape.swift in Sources */,
 				9F0E953D28F4B20C00177E7C /* EditToolbarSegmentView.swift in Sources */,
 				9FA0092228F8D93300688479 /* DrawController.swift in Sources */,
+				9F74F32F2909A79F00092CFB /* CGExtensions.swift in Sources */,
 				9FA0091F28F8BBE400688479 /* ToolbarSettings.swift in Sources */,
 				9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */,
 				9FA0091328F86CCA00688479 /* ContextMenuView.swift in Sources */,
 				9F0E953B28F4B03800177E7C /* EditToolbarView.swift in Sources */,
+				9F74F3352909A7D900092CFB /* RenderDataController.swift in Sources */,
 				9F6533AC28F63C0700E00574 /* SizeSegmentView.swift in Sources */,
 				9F9AE07B28F4E460004717E5 /* SendButton.swift in Sources */,
 				9F9AE08C28F5CDC2004717E5 /* CAAnimationUtils.swift in Sources */,

@@ -79,6 +79,18 @@ class Button: UIButton {
         }
     }
     
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if self.isUserInteractionEnabled == false {
+            return super.hitTest(point, with: event)
+        }
+        
+        let rect = CGRect(x: -10, y: -10, width: self.bounds.width + 20, height: self.bounds.height + 20)
+        if rect.contains(point) {
+            return self
+        }
+        return super.hitTest(point, with: event)
+    }
+    
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return bounds.insetBy(dx: -10, dy: -10).contains(point)
     }

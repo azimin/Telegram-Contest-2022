@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol EditToolbarViewDelegate: NSObjectProtocol {
+    func exitImageButtonClicked()
+}
+
 class EditToolbarView: View {
     enum State {
         case drawAllTools
         case drawSpecificTools
     }
+    
+    weak var delegate: EditToolbarViewDelegate?
     
     var state: State = .drawAllTools
     
@@ -26,10 +32,15 @@ class EditToolbarView: View {
     
     let toolDetailsButton = SelectToolDetailsButton()
     
+    let bottomView = UIView()
+    
     override func setUp() {
         self.autolayout {
             self.constraintSize(width: nil, height: 149)
         }
+        
+        self.bottomView.backgroundColor = UIColor.black
+        self.addSubview(self.bottomView)
         
         self.addSubview(self.sendButton)
         self.sendButton.autolayout {
@@ -77,6 +88,13 @@ class EditToolbarView: View {
             self.toolsView.leadingAnchor.constraint(equalTo: self.segmentsView.leadingAnchor, constant: 0).activate()
             self.toolsView.trailingAnchor.constraint(equalTo: self.segmentsView.trailingAnchor, constant: 0).activate()
             self.toolsView.bottomAnchor.constraint(equalTo: self.segmentsView.topAnchor, constant: -1).activate()
+        }
+        
+        self.bottomView.autolayout {
+            self.bottomView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).activate()
+            self.bottomView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).activate()
+            self.bottomView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).activate()
+            self.bottomView.topAnchor.constraint(equalTo: self.toolsView.bottomAnchor, constant: 0).activate()
         }
         
         self.toolsView.stateUpdating = { [weak self] state in
@@ -190,7 +208,7 @@ class EditToolbarView: View {
             guard let self else { return }
             switch self.state {
             case .drawAllTools:
-                break
+                self.delegate?.exitImageButtonClicked()
             case .drawSpecificTools:
                 self.toolsView.exitSpecificComponent()
             }
