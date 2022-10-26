@@ -17,6 +17,12 @@ extension Array {
     }
 }
 
+extension CGFloat {
+    static func middleValue(start: CGFloat, end: CGFloat, progress: CGFloat) -> CGFloat {
+        return start + (end - start) * progress
+    }
+}
+
 extension CGPoint {
     @inline(__always)
     func toVectorFloat2() -> vector_float2 {

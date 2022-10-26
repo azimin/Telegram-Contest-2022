@@ -21,14 +21,43 @@ class MetalLineDrawer: UIView {
     struct PenSize {
         var minSize: CGFloat
         var maxSize: CGFloat
+        var sizeEffect: CGFloat
         
-        init(minSize: CGFloat, maxSize: CGFloat) {
+        init(minSize: CGFloat, maxSize: CGFloat, sizeEffect: CGFloat) {
             self.minSize = minSize
             self.maxSize = maxSize
+            self.sizeEffect = sizeEffect
+        }
+        
+        func findMiddle(anotherPen: PenSize, width: CGFloat, lowerBound: CGFloat, upperBound: CGFloat) -> PenSize {
+            let progress = (width - lowerBound) / (upperBound - lowerBound)
+            let minSize = CGFloat.middleValue(start: self.minSize, end: anotherPen.minSize, progress: progress)
+            let maxSize = CGFloat.middleValue(start: self.maxSize, end: anotherPen.maxSize, progress: progress)
+            let sizeEffect = CGFloat.middleValue(start: self.sizeEffect, end: anotherPen.sizeEffect, progress: progress)
+            return PenSize(minSize: minSize, maxSize: maxSize, sizeEffect: sizeEffect)
+        }
+        
+        static func penWith(width: CGFloat) -> PenSize {
+            if width < 0.25 {
+                let first = PenSize(minSize: 0.4, maxSize: 1, sizeEffect: 5)
+                let second = PenSize(minSize: 3, maxSize: 5, sizeEffect: 5)
+                return first.findMiddle(anotherPen: second, width: width, lowerBound: 0, upperBound: 0.25)
+            } else if width < 0.65 {
+                let first = PenSize(minSize: 3, maxSize: 5, sizeEffect: 5)
+                let second = PenSize(minSize: 10, maxSize: 18, sizeEffect: 2.5)
+                return first.findMiddle(anotherPen: second, width: width, lowerBound: 0.25, upperBound: 0.65)
+            } else if width < 1.0 {
+                let first = PenSize(minSize: 10, maxSize: 18, sizeEffect: 2.5)
+                let second = PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.3)
+                return first.findMiddle(anotherPen: second, width: width, lowerBound: 0.65, upperBound: 1)
+            } else {
+                return PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.3)
+            }
         }
         
         static var basic: PenSize {
-            return PenSize(minSize: 4, maxSize: 10)
+            // 25%
+            return PenSize(minSize: 10, maxSize: 18, sizeEffect: 2.5)
         }
     }
     
@@ -73,17 +102,24 @@ class MetalLineDrawer: UIView {
     @objc
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let point = gesture.location(in: self)
-        let size = self.calculateSize(gesture: gesture)
         
         switch gesture.state {
         case .began:
             self.points.removeAll(keepingCapacity: true)
             self.velocities.removeAll(keepingCapacity: true)
+            
+            self.penSize = PenSize.penWith(width: ToolbarSettings.shared.getToolSetting(style: .pen).widthProgress)
+            self.sizeEffectCoef = self.penSize.sizeEffect
+            
+            let point = gesture.location(in: self)
+            let size = self.calculateSize(gesture: gesture)
+            
             self.connectingLine = false
             self.addPoint(point, size: size)
             self.addPoint(point, size: size)
             self.addPoint(point, size: size)
         case .changed:
+            let size = self.calculateSize(gesture: gesture)
             let eps: CGFloat = 1.5
             if (self.points.count > 0) {
                 let length = self.points.last!.pos.subtract(point).length()
@@ -93,6 +129,7 @@ class MetalLineDrawer: UIView {
             }
             self.addPoint(point, size: size)
         case .ended, .cancelled, .failed:
+            let size = self.calculateSize(gesture: gesture)
             self.addPoint(point, size: size)
             self.finishingLine = true
             self.isEnding = true

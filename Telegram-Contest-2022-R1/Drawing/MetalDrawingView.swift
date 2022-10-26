@@ -21,6 +21,8 @@ class DrawMetalView: UIView, RendererDelegate, MetalLineDrawerDelegate {
     var dataController = RenderDataController()
     let lineDrawer = MetalLineDrawer()
     
+    let maskTopView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
@@ -31,6 +33,8 @@ class DrawMetalView: UIView, RendererDelegate, MetalLineDrawerDelegate {
     }
     
     func setup() {
+        self.maskTopView.backgroundColor = .black
+        
         self.metalView = MTKView(frame: self.bounds, device: MTLCreateSystemDefaultDevice())
         self.addSubview(self.metalView)
         self.renderer = Renderer(mtkView: self.metalView, dataController: self.dataController)
@@ -57,5 +61,10 @@ class DrawMetalView: UIView, RendererDelegate, MetalLineDrawerDelegate {
     func draw(vertices: [Vertex], vertices2: [Vertex], isEnding: Bool) {
         self.dataController.append(vertices: vertices, vertices2: vertices2, isEnding: isEnding)
         self.renderer.updateVertices(isEnding: isEnding)
+    }
+    
+    func updateMask(frame: CGRect) {
+        self.maskTopView.frame = frame
+        self.metalView.mask = self.maskTopView
     }
 }

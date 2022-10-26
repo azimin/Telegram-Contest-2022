@@ -39,7 +39,6 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.view.addSubview(self.zoomView)
         self.zoomView.frame = self.view.bounds
         self.zoomView.delegate = self
-        self.zoomView.updateWith(image: self.imageContainer.image)
         
         self.bottomView.backgroundColor = UIColor.black
         self.view.addSubview(self.bottomView)
@@ -65,6 +64,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         ContextMenuController.shared.attachToView(view: self.view)
         self.view.layer.speed = Float(CALayer.currentSpeed())
+        
+        self.zoomView.updateWith(image: self.imageContainer.image)
     }
 
     // MARK: - Image Picker
@@ -98,5 +99,9 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         OperationQueue.main.addOperation({
             self.drawMetalView.metalView.isHidden = false
         })
+    }
+    
+    func shouldUpdateMask(frame: CGRect) {
+        self.drawMetalView.updateMask(frame: frame)
     }
 }
