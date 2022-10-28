@@ -28,6 +28,8 @@ class TextStyleButton: Button {
     }
     
     func updateStyle(style: Style, animated: Bool) {
+        self.style = style
+        
         if animated == false {
             self.contentImageView.image = style.iconImage
             return

@@ -8,14 +8,14 @@
 import UIKit
 
 class TextAligmentButton: Button {
-    let alignState: NSTextAlignment = .left
+    var alignState: NSTextAlignment = .center
     let shapeLayer: CAShapeLayer = CAShapeLayer()
     
     override func setUp() {
         self.layer.addSublayer(self.shapeLayer)
         self.shapeLayer.lineWidth = 2
         self.shapeLayer.lineCap = .round
-        self.shapeLayer.strokeColor = UIColor.red.cgColor
+        self.shapeLayer.strokeColor = UIColor.white.cgColor
     }
     
     override func layoutSubviewsOnChangeBounds() {
@@ -24,6 +24,8 @@ class TextAligmentButton: Button {
     }
     
     func updateStyle(alignState: NSTextAlignment, animated: Bool) {
+        self.alignState = alignState
+        
         if !animated {
             self.shapeLayer.removeAllAnimations()
             self.shapeLayer.path = self.shapeBaseOnStyle(alignState: alignState).cgPath

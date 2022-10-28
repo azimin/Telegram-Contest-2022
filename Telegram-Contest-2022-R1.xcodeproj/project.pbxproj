@@ -189,11 +189,11 @@
 			isa = PBXGroup;
 			children = (
 				9F0246D5290C2C03003119F9 /* RootTextView.swift */,
+				9F0246C4290C17D7003119F9 /* TextLabelView.swift */,
 				9F0246C6290C17D7003119F9 /* CustomTextView.swift */,
 				9F0246BF290C17D7003119F9 /* TextBackgroundView.swift */,
 				9F0246C2290C17D7003119F9 /* TextGestureController.swift */,
 				9F0246C0290C17D7003119F9 /* TextLabelOutlineView.swift */,
-				9F0246C4290C17D7003119F9 /* TextLabelView.swift */,
 				9F0246BC290C17D6003119F9 /* TextLayoutManager.swift */,
 				9F0246C3290C17D7003119F9 /* TextLineAligmentView.swift */,
 				9F0246BD290C17D6003119F9 /* TextPresentationController.swift */,
@@ -797,11 +797,14 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alexander.Telegram-Contest-2022-R1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telegram-Contest-2022-R1/Telegram-Contest-2022-R1-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -829,10 +832,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alexander.Telegram-Contest-2022-R1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telegram-Contest-2022-R1/Telegram-Contest-2022-R1-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

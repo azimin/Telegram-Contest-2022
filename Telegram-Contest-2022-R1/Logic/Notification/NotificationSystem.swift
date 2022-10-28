@@ -5,7 +5,7 @@
 //  Created by Alexander Zimin on 28/10/2022.
 //
 
-import Foundation
+import UIKit
 
 typealias EventAction = (_ event: NotificationSystem.Event) -> Void
 
@@ -30,6 +30,8 @@ class NotificationSystem {
         case segmentTabChanged(index: Int)
         case maskUpdated(view: UIView, frame: CGRect)
         case createText
+        case changeTextAligment(aligment: NSTextAlignment)
+        case changeTextStyle(style: TextLabelView.BackgroundStyle)
     }
     
     func fireEvent(_ event: Event) {

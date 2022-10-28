@@ -73,10 +73,18 @@ class RootTextView: View, UIGestureRecognizerDelegate {
             switch event {
             case let .maskUpdated(view, frame):
                 self?.updateMask(view: view, frame: frame)
+            case let .changeTextStyle(style):
+                let textView = TextPresentationController.shared.presentedLabel ?? TextSelectionController.shared.selectedText
+                textView?.backgroundStyle = style
+            case let .changeTextAligment(aligment):
+                let textView = TextPresentationController.shared.presentedLabel ?? TextSelectionController.shared.selectedText
+                textView?.changeAligment(newAligment: aligment)
             default:
                 break
             }
         }
+        
+        
     }
     
     private func updateMask(view: UIView, frame: CGRect) {

@@ -27,6 +27,19 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
                 return UIImage(named: "stroke")
             }
         }
+        
+        func next() -> BackgroundStyle {
+            switch self {
+            case .none:
+                return .background
+            case .background:
+                return .alphaBackground
+            case .alphaBackground:
+                return .outline
+            case .outline:
+                return .none
+            }
+        }
     }
     
     struct MutateValues {
@@ -254,6 +267,9 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.isHidden = true
         self.textView.autocorrectionType = .no
+        self.textView.spellCheckingType = .no
+        self.textView.inputAssistantItem.leadingBarButtonGroups = []
+        self.textView.inputAssistantItem.trailingBarButtonGroups = []
         self.textView.rootView = self
         
         self.textView.customLayoutManager.backgroundView = self.backgroundView
@@ -532,6 +548,11 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.outlineView.updateWith(text: self.textView.text, font: self.textView.font ?? .systemFont(ofSize: 20))
     }
     
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        textView.inputAccessoryView = TextKeybaordControllsView(textAligment: self.textView.textAlignment, style: self.backgroundStyle)
+        return true
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.textView.startHandleDiscardTapAfterDelay()
     }
@@ -575,6 +596,17 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
 }
 
 extension NSTextAlignment {
+    func next() -> NSTextAlignment {
+        switch self {
+        case .center:
+            return .left
+        case .left:
+            return .right
+        default:
+            return .center
+        }
+    }
+    
     func findDistance(new: NSTextAlignment) -> CGFloat {
         if self == new {
             return 0
