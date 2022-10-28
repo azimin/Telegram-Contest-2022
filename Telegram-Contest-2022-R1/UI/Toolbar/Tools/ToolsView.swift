@@ -329,4 +329,43 @@ class ToolsView: View {
         }
         return delaysMap
     }
+    
+    func hideTools() {
+        for (index, otherTool) in self.tools.enumerated() {
+            let delay = CGFloat(index) * self.mainPartDuration * 0.3
+            
+            otherTool.layer.removeAllAnimations()
+            otherTool.layer.transform = CATransform3DMakeTranslation(0, 86, 0)
+            
+            var initialY: CGFloat = 16
+            if let transform = otherTool.layer.presentation()?.value(forKey: "transform") as? CATransform3D {
+                initialY = transform.m42
+            }
+
+            otherTool.layer.animate(from: initialY as NSNumber, to: 86 as NSNumber, keyPath: "transform.translation.y", timingFunction: CAMediaTimingFunctionName.easeOut.rawValue, duration: self.mainPartDuration * 1.3, delay: delay, mediaTimingFunction: CAMediaTimingFunction(controlPoints: 0.65, 0, 0.35, 1)) { success in
+                if success && index == self.tools.count - 1 {
+                    self.isHidden = true
+                }
+            }
+        }
+    }
+    
+    func showTools(delay basicDelay: CGFloat) {
+        self.isHidden = false
+        for (index, otherTool) in self.tools.enumerated() {
+            let delay = CGFloat(index) * self.mainPartDuration * 0.3
+            
+            let target: CGFloat = index == self.selectedToolIndex ? 0 : 16
+            
+            otherTool.layer.removeAllAnimations()
+            otherTool.layer.transform = CATransform3DMakeTranslation(0, target, 0)
+            
+            var initialY: CGFloat = 86
+            if let transform = otherTool.layer.presentation()?.value(forKey: "transform") as? CATransform3D {
+                initialY = transform.m42
+            }
+            
+            otherTool.layer.animateSpring(from: initialY as NSNumber, to: target as NSNumber, keyPath: "transform.translation.y", duration: self.animationDuration * 0.9, delay: delay + basicDelay, damping: 72)
+        }
+    }
 }

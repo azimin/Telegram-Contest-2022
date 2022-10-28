@@ -76,6 +76,7 @@ class EditToolbarView: View {
         
         self.addSubview(self.textStyleButton)
         self.textStyleButton.isHidden = true
+        self.textStyleButton.isEnabled = false
         self.textStyleButton.autolayout {
             self.textStyleButton.constraintSize(width: 46, height: 46)
             self.textStyleButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 47).activate()
@@ -83,6 +84,7 @@ class EditToolbarView: View {
         }
         
         self.addSubview(self.textAligmentButton)
+        self.textAligmentButton.isEnabled = false
         self.textAligmentButton.isHidden = true
         self.textAligmentButton.autolayout {
             self.textAligmentButton.constraintSize(width: 46, height: 46)
@@ -188,6 +190,8 @@ class EditToolbarView: View {
                 break
             }
         }
+        
+        self.updateVisualState(.tools, animated: false, firstLaunch: true)
     }
     
     func addActions() {
@@ -241,10 +245,10 @@ class EditToolbarView: View {
             
             if index == 1 {
                 self.addObjectButton.updateState(state: .addText, animated: true)
-                self.updateVisualState(.text)
+                self.updateVisualState(.text, animated: true)
             } else {
                 self.addObjectButton.updateState(state: .addShape, animated: true)
-                self.updateVisualState(.tools)
+                self.updateVisualState(.tools, animated: true)
             }
         }
         
@@ -263,6 +267,8 @@ class EditToolbarView: View {
             NotificationSystem.shared.fireEvent(.changeTextStyle(style: nextValue))
         })
     }
+    
+    var testFlag: Bool = true
     
     func toolsDetailsClicked() {
         switch self.toolsView.selectedTool {
@@ -356,21 +362,58 @@ class EditToolbarView: View {
         self.segmentsView.switchAnimatedComponentsVisibility(isVisible: true, duration: self.toolsView.tillMiddleDuration)
     }
     
-    func updateVisualState(_ state: VisualState) {
-        if self.visualState == state {
+    func updateVisualState(_ state: VisualState, animated: Bool, firstLaunch: Bool = false) {
+        if self.visualState == state && !firstLaunch {
             return
         }
         self.visualState = state
         
         switch state {
         case .tools:
-            self.toolsView.isHidden = false
-            self.textAligmentButton.isHidden = true
-            self.textStyleButton.isHidden = true
+            self.textAligmentButton.isUserInteractionEnabled = false
+            self.textStyleButton.isUserInteractionEnabled = false
+            self.toolsView.isUserInteractionEnabled = true
+            
+            if !firstLaunch {
+                self.toolsView.showTools(delay: 0.12)
+                self.animateTextButtons(isShow: false)
+            }
         case .text:
-            self.toolsView.isHidden = true
             self.textAligmentButton.isHidden = false
+            self.textAligmentButton.isUserInteractionEnabled = true
             self.textStyleButton.isHidden = false
+            self.textStyleButton.isUserInteractionEnabled = true
+            self.toolsView.isUserInteractionEnabled = false
+            self.animateTextButtons(isShow: true)
+            self.toolsView.hideTools()
         }
+    }
+    
+    func animateTextButtons(isShow: Bool) {
+        let fullValue = self.textAligmentButton.isEnabled ? 1 : 0.3
+        let startValue: CGFloat = isShow ? 0 : fullValue
+        let endValue: CGFloat = isShow ? fullValue : 0
+        
+        let startScaleValue: CGFloat = isShow ? 0 : 1
+        let endScaleValue: CGFloat = isShow ? 1 : 0
+        
+        let delay: CGFloat = isShow ? 0.12 : 0
+        
+        self.textAligmentButton.layer.opacity = Float(endValue)
+        self.textStyleButton.layer.opacity = Float(endValue)
+        
+        self.textAligmentButton.layer.transform = CATransform3DMakeScale(endScaleValue, endScaleValue, 1)
+        self.textStyleButton.layer.transform = CATransform3DMakeScale(endScaleValue, endScaleValue, 1)
+        
+        self.textAligmentButton.layer.animateSpring(from: startScaleValue as NSNumber, to: endScaleValue as NSNumber, keyPath: "transform.scale", duration: 0.7, delay: delay)
+        self.textAligmentButton.layer.animate(from: startValue as NSNumber, to: endValue as NSNumber, keyPath: "opacity", duration: 0.25, delay: delay)
+        self.textStyleButton.layer.animateSpring(from: startScaleValue as NSNumber, to: endScaleValue as NSNumber, keyPath: "transform.scale", duration: 0.7, delay: delay)
+        self.textStyleButton.layer.animate(from: startValue as NSNumber, to: endValue as NSNumber, keyPath: "opacity", duration: 0.25, delay: delay, completion: {
+            success in
+            if success && isShow == false {
+                self.textStyleButton.isHidden = true
+                self.textAligmentButton.isHidden = true
+            }
+        })
     }
 }
