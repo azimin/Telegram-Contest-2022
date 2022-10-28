@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0246C7290C17D7003119F9 /* TextLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246BC290C17D6003119F9 /* TextLayoutManager.swift */; };
+		9F0246C8290C17D7003119F9 /* TextPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246BD290C17D6003119F9 /* TextPresentationController.swift */; };
+		9F0246C9290C17D7003119F9 /* TextSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246BE290C17D6003119F9 /* TextSelectionController.swift */; };
+		9F0246CA290C17D7003119F9 /* TextBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246BF290C17D7003119F9 /* TextBackgroundView.swift */; };
+		9F0246CB290C17D7003119F9 /* TextLabelOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246C0290C17D7003119F9 /* TextLabelOutlineView.swift */; };
+		9F0246CC290C17D7003119F9 /* TextSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246C1290C17D7003119F9 /* TextSelectionView.swift */; };
+		9F0246CD290C17D7003119F9 /* TextGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246C2290C17D7003119F9 /* TextGestureController.swift */; };
+		9F0246CE290C17D7003119F9 /* TextLineAligmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246C3290C17D7003119F9 /* TextLineAligmentView.swift */; };
+		9F0246CF290C17D7003119F9 /* TextLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246C4290C17D7003119F9 /* TextLabelView.swift */; };
+		9F0246D0290C17D7003119F9 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246C5290C17D7003119F9 /* KeyboardHandler.swift */; };
+		9F0246D1290C17D7003119F9 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246C6290C17D7003119F9 /* CustomTextView.swift */; };
+		9F0246D4290C1FE1003119F9 /* TopControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246D3290C1FE1003119F9 /* TopControlsView.swift */; };
+		9F0246D6290C2C03003119F9 /* RootTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246D5290C2C03003119F9 /* RootTextView.swift */; };
+		9F0246D9290C3539003119F9 /* NotificationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0246D8290C3539003119F9 /* NotificationSystem.swift */; };
 		9F0E953528F4A01900177E7C /* AutolayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E953428F4A01900177E7C /* AutolayoutEngine.swift */; };
 		9F0E953B28F4B03800177E7C /* EditToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E953A28F4B03800177E7C /* EditToolbarView.swift */; };
 		9F0E953D28F4B20C00177E7C /* EditToolbarSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E953C28F4B20C00177E7C /* EditToolbarSegmentView.swift */; };
@@ -72,6 +86,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F0246BC290C17D6003119F9 /* TextLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLayoutManager.swift; sourceTree = "<group>"; };
+		9F0246BD290C17D6003119F9 /* TextPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextPresentationController.swift; sourceTree = "<group>"; };
+		9F0246BE290C17D6003119F9 /* TextSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSelectionController.swift; sourceTree = "<group>"; };
+		9F0246BF290C17D7003119F9 /* TextBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBackgroundView.swift; sourceTree = "<group>"; };
+		9F0246C0290C17D7003119F9 /* TextLabelOutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLabelOutlineView.swift; sourceTree = "<group>"; };
+		9F0246C1290C17D7003119F9 /* TextSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSelectionView.swift; sourceTree = "<group>"; };
+		9F0246C2290C17D7003119F9 /* TextGestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextGestureController.swift; sourceTree = "<group>"; };
+		9F0246C3290C17D7003119F9 /* TextLineAligmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLineAligmentView.swift; sourceTree = "<group>"; };
+		9F0246C4290C17D7003119F9 /* TextLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLabelView.swift; sourceTree = "<group>"; };
+		9F0246C5290C17D7003119F9 /* KeyboardHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
+		9F0246C6290C17D7003119F9 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		9F0246D3290C1FE1003119F9 /* TopControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopControlsView.swift; sourceTree = "<group>"; };
+		9F0246D5290C2C03003119F9 /* RootTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTextView.swift; sourceTree = "<group>"; };
+		9F0246D8290C3539003119F9 /* NotificationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSystem.swift; sourceTree = "<group>"; };
 		9F0E953428F4A01900177E7C /* AutolayoutEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutEngine.swift; sourceTree = "<group>"; };
 		9F0E953A28F4B03800177E7C /* EditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbarView.swift; sourceTree = "<group>"; };
 		9F0E953C28F4B20C00177E7C /* EditToolbarSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbarSegmentView.swift; sourceTree = "<group>"; };
@@ -151,6 +179,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F0246BB290C1721003119F9 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				9F0246D5290C2C03003119F9 /* RootTextView.swift */,
+				9F0246C6290C17D7003119F9 /* CustomTextView.swift */,
+				9F0246BF290C17D7003119F9 /* TextBackgroundView.swift */,
+				9F0246C2290C17D7003119F9 /* TextGestureController.swift */,
+				9F0246C0290C17D7003119F9 /* TextLabelOutlineView.swift */,
+				9F0246C4290C17D7003119F9 /* TextLabelView.swift */,
+				9F0246BC290C17D6003119F9 /* TextLayoutManager.swift */,
+				9F0246C3290C17D7003119F9 /* TextLineAligmentView.swift */,
+				9F0246BD290C17D6003119F9 /* TextPresentationController.swift */,
+				9F0246BE290C17D6003119F9 /* TextSelectionController.swift */,
+				9F0246C5290C17D7003119F9 /* KeyboardHandler.swift */,
+				9F0246C1290C17D7003119F9 /* TextSelectionView.swift */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		9F0246D2290C1FCC003119F9 /* TopControls */ = {
+			isa = PBXGroup;
+			children = (
+				9F0246D3290C1FE1003119F9 /* TopControlsView.swift */,
+			);
+			path = TopControls;
+			sourceTree = "<group>";
+		};
+		9F0246D7290C3530003119F9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				9F0246D8290C3539003119F9 /* NotificationSystem.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		9F0E953928F4B02500177E7C /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +367,7 @@
 		9FA0091B28F8BBB500688479 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9F0246D2290C1FCC003119F9 /* TopControls */,
 				9F74F3382909C9D600092CFB /* ZoomView */,
 				9FA0091128F86CAB00688479 /* ContextMenu */,
 				9FA0091828F8B2B300688479 /* Shapes */,
@@ -315,6 +379,7 @@
 		9FA0091C28F8BBCD00688479 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				9F0246D7290C3530003119F9 /* Notification */,
 				9FA0092028F8D92C00688479 /* Draw */,
 				9FA0091D28F8BBD400688479 /* Settings */,
 			);
@@ -359,6 +424,7 @@
 				9FCF57D928F46A0900A9DD38 /* AppDelegate.swift */,
 				9FCF57DB28F46A0900A9DD38 /* SceneDelegate.swift */,
 				9FCF57DD28F46A0900A9DD38 /* ViewController.swift */,
+				9F0246BB290C1721003119F9 /* Text */,
 				9FF9BEED29077A480069637A /* Drawing */,
 				9F9AE08A28F5CDBD004717E5 /* TelegramCode */,
 				9F0E953E28F4B3B600177E7C /* Helpers */,
@@ -492,6 +558,7 @@
 				9F74F33A2909C9DD00092CFB /* ZoomView.swift in Sources */,
 				9F6533BC28F7675200E00574 /* SelectToolDetailsButton.swift in Sources */,
 				9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */,
+				9F0246D4290C1FE1003119F9 /* TopControlsView.swift in Sources */,
 				9FA0091528F8713300688479 /* UILabelExtensions.swift in Sources */,
 				9F9AE08028F4EBF4004717E5 /* AddObjectButton.swift in Sources */,
 				9F74F32D2909A79600092CFB /* MetalLineDrawer.swift in Sources */,
@@ -501,30 +568,43 @@
 				9F6533AA28F5EBCE00E00574 /* View.swift in Sources */,
 				9F0E954028F4B3BC00177E7C /* UIKitHelpers.swift in Sources */,
 				9FCF57DE28F46A0900A9DD38 /* ViewController.swift in Sources */,
+				9F0246C7290C17D7003119F9 /* TextLayoutManager.swift in Sources */,
 				9F74F3372909A89A00092CFB /* LinesView.swift in Sources */,
 				9F9AE08328F4F0A8004717E5 /* ToolsView.swift in Sources */,
 				9F74F33C2909D39500092CFB /* MetalDrawingView.swift in Sources */,
+				9F0246C9290C17D7003119F9 /* TextSelectionController.swift in Sources */,
 				9F6533B928F7673000E00574 /* SaveButtonAnimator.swift in Sources */,
 				9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */,
 				9F9AE08528F4F220004717E5 /* ToolView.swift in Sources */,
+				9F0246C8290C17D7003119F9 /* TextPresentationController.swift in Sources */,
 				9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */,
+				9F0246D0290C17D7003119F9 /* KeyboardHandler.swift in Sources */,
+				9F0246CD290C17D7003119F9 /* TextGestureController.swift in Sources */,
 				9F0E954228F4B53000177E7C /* Fonts.swift in Sources */,
+				9F0246D9290C3539003119F9 /* NotificationSystem.swift in Sources */,
 				9F9AE09028F5CF99004717E5 /* UIKitUtils.m in Sources */,
+				9F0246D1290C17D7003119F9 /* CustomTextView.swift in Sources */,
 				9FCF57DC28F46A0900A9DD38 /* SceneDelegate.swift in Sources */,
 				9F9AE08728F5BEC3004717E5 /* ToolEraserView.swift in Sources */,
 				9F0E954D28F4C9D300177E7C /* UIButton.swift in Sources */,
+				9F0246CB290C17D7003119F9 /* TextLabelOutlineView.swift in Sources */,
 				9FA0091A28F8B2C400688479 /* Shape.swift in Sources */,
 				9F0E953D28F4B20C00177E7C /* EditToolbarSegmentView.swift in Sources */,
 				9FA0092228F8D93300688479 /* DrawController.swift in Sources */,
+				9F0246CF290C17D7003119F9 /* TextLabelView.swift in Sources */,
 				9F74F32F2909A79F00092CFB /* CGExtensions.swift in Sources */,
 				9FA0091F28F8BBE400688479 /* ToolbarSettings.swift in Sources */,
 				9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */,
 				9FA0091328F86CCA00688479 /* ContextMenuView.swift in Sources */,
+				9F0246CC290C17D7003119F9 /* TextSelectionView.swift in Sources */,
+				9F0246CA290C17D7003119F9 /* TextBackgroundView.swift in Sources */,
 				9F0E953B28F4B03800177E7C /* EditToolbarView.swift in Sources */,
 				9F74F3352909A7D900092CFB /* RenderDataController.swift in Sources */,
+				9F0246D6290C2C03003119F9 /* RootTextView.swift in Sources */,
 				9F6533AC28F63C0700E00574 /* SizeSegmentView.swift in Sources */,
 				9F9AE07B28F4E460004717E5 /* SendButton.swift in Sources */,
 				9F9AE08C28F5CDC2004717E5 /* CAAnimationUtils.swift in Sources */,
+				9F0246CE290C17D7003119F9 /* TextLineAligmentView.swift in Sources */,
 				9F9AE08928F5BECE004717E5 /* ToolLassoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

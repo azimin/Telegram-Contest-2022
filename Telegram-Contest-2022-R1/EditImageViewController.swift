@@ -11,6 +11,9 @@ import Lottie
 
 class EditImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditToolbarViewDelegate, DrawMetalViewDelegate, ZoomViewDelegate {
     
+    let rootTextView = RootTextView()
+    
+    let topControlls = TopControlsView()
     let zoomView = ZoomView()
     
     let imageContainer: ImageContainer
@@ -18,6 +21,9 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     let toolbarView = EditToolbarView()
     
     var drawMetalView: DrawMetalView!
+    
+    // Text
+    
     
     init(imageContainer: ImageContainer) {
         self.imageContainer = imageContainer
@@ -47,6 +53,17 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.drawMetalView.delegate = self
         self.view.addSubview(self.drawMetalView)
         
+        self.view.addSubview(self.rootTextView)
+        self.rootTextView.frame = self.view.bounds
+        
+        self.view.addSubview(self.topControlls)
+        self.topControlls.autolayout {
+            self.topControlls.constraintSize(width: nil, height: 44)
+            self.topControlls.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).activate()
+            self.topControlls.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).activate()
+            self.topControlls.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).activate()
+        }
+        
         self.view.addSubview(self.toolbarView)
         self.toolbarView.delegate = self
         self.toolbarView.autolayout {
@@ -66,21 +83,49 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.view.layer.speed = Float(CALayer.currentSpeed())
         
         self.zoomView.updateWith(image: self.imageContainer.image)
+        
+        self.toolbarView.segmentItemSelected = { [weak self] index in
+            guard let self else { return }
+            if index == 1 {
+                self.rootTextView.createTextView()
+            }
+        }
+        
+        self.topControlls.undoButton.addAction(action: { [weak self] in
+            guard let self else { return }
+            print("Undo")
+        })
+        
+        self.topControlls.clearAllButton.addAction(action: { [weak self] in
+            guard let self else { return }
+            print("Clear all")
+        })
+        
+        self.topControlls.cancelButton.addAction(action: {
+            if let view = TextPresentationController.shared.presentedLabel {
+                TextPresentationController.shared.deleteView(view: view)
+            }
+        })
+        
+        self.topControlls.doneButton.addAction(action: {
+            TextPresentationController.shared.presentedLabel?.textView.resignAction()
+        })
     }
 
     // MARK: - Image Picker
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true)
+        
         guard let image = info[.originalImage] as? UIImage else { return }
         self.zoomView.updateWith(image: image)
-        
-        dismiss(animated: true)
     }
     
     // MARK: - EditToolbarViewDelegate
     
     func exitImageButtonClicked() {
         let picker = UIImagePickerController()
+        picker.mediaTypes = ["public.image", "public.movie"]
         picker.delegate = self
         present(picker, animated: true)
     }

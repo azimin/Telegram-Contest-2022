@@ -17,6 +17,8 @@ class EditToolbarView: View {
         case drawSpecificTools
     }
     
+    var segmentItemSelected: ((Int) -> Void)?
+    
     weak var delegate: EditToolbarViewDelegate?
     
     var state: State = .drawAllTools
@@ -144,6 +146,15 @@ class EditToolbarView: View {
         }
         
         self.addActions()
+        
+        NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
+            switch event {
+            case let .textPresentationStateChanged(isPresenting):
+                self?.isUserInteractionEnabled = !isPresenting
+            default:
+                break
+            }
+        }
     }
     
     func addActions() {
@@ -213,6 +224,11 @@ class EditToolbarView: View {
                 self.toolsView.exitSpecificComponent()
             }
         })
+        
+        self.segmentsView.itemSelected = { [weak self] index in
+            guard let self else { return }
+            self.segmentItemSelected?(index)
+        }
     }
     
     var detailsStyle = SelectToolDetailsStyle.arrow

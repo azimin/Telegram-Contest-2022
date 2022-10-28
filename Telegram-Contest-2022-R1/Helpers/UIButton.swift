@@ -10,12 +10,12 @@ import UIKit
 
 class ClosureSleeve {
     let closure: () -> ()
-
+    
     init(attachTo: AnyObject, closure: @escaping () -> ()) {
         self.closure = closure
         objc_setAssociatedObject(attachTo, "[\(arc4random())]", self, .OBJC_ASSOCIATION_RETAIN)
     }
-
+    
     @objc func invoke() {
         closure()
     }
@@ -52,12 +52,27 @@ class Button: UIButton {
     
     private var preveousBounds: CGRect = .zero
     
+    var shouldAlignImageSize: CGSize? = nil
+    func setImage(image: UIImage?, inSize size: CGSize?, forState state: UIControl.State) {
+        self.shouldAlignImageSize = size
+        self.setImage(image, for: state)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         if self.bounds != self.preveousBounds {
             self.layoutSubviewsOnChangeBounds()
             self.preveousBounds = self.bounds
+        }
+        
+        if let size = self.shouldAlignImageSize {
+            self.imageEdgeInsets = UIEdgeInsets(
+                top: (frame.height - size.height) / 2,
+                left: (frame.width - size.width) / 2,
+                bottom: (frame.height - size.height) / 2,
+                right: (frame.width - size.width) / 2
+            )
         }
     }
     
