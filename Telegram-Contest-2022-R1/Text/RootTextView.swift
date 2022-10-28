@@ -13,12 +13,11 @@ class MaskView: View {
     }
 }
 
-class RootTextView: View {
+class RootTextView: View, UIGestureRecognizerDelegate {
     let aligmentView = TextLineAligmentView()
     let maskTopView = MaskView()
     
     var holderView = UIView()
-    
     let contentView = UIView()
     let backgroundView = UIView()
     let frontView = UIView()
@@ -32,7 +31,10 @@ class RootTextView: View {
         textLabelView.goToEditState(isOpen: true)
     }
     
+    var tapGesture: UITapGestureRecognizer!
+    
     override func setUp() {
+        self.backgroundColor = UIColor.white.withAlphaComponent(0.001)
         self.gestureController.rootView = self
         
         let moveGesture = UIPanGestureRecognizer(target: gestureController, action: #selector(gestureController.fingerGesture(_:)))
@@ -41,9 +43,12 @@ class RootTextView: View {
         self.addGestureRecognizer(moveGesture)
         
         let tapGesture = UITapGestureRecognizer(target: gestureController, action: #selector(gestureController.tapGesture(_:)))
+        tapGesture.delegate = self
         self.addGestureRecognizer(tapGesture)
+        self.tapGesture = tapGesture
         
         TextGestureController.shared.gesture = moveGesture
+        TextGestureController.shared.tapGesture = tapGesture
         TextGestureController.shared.labelsContentView = self.contentView
         TextSelectionController.shared.labelsContentView = self.contentView
         
@@ -80,9 +85,18 @@ class RootTextView: View {
     }
     
     override func layoutSubviewsOnChangeBounds() {
+        self.holderView.frame = self.bounds
         self.aligmentView.frame = self.bounds
         self.contentView.frame = self.bounds
         self.backgroundView.frame = self.bounds
         self.frontView.frame = self.bounds
+    }
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == self.tapGesture {
+            TextGestureController.shared.isMenuVisible = UIMenuController.shared.isMenuVisible
+            return true
+        }
+        return true
     }
 }

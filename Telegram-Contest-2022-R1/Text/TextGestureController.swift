@@ -11,6 +11,7 @@ class TextGestureController {
     static var shared = TextGestureController()
     
     var gesture: UIPanGestureRecognizer?
+    var tapGesture: UITapGestureRecognizer?
     var rootView: UIView?
     
     var labelsContentView: UIView?
@@ -44,6 +45,7 @@ class TextGestureController {
     var isEnable: Bool = true {
         didSet {
             self.gesture?.isEnabled = isEnable
+            self.tapGesture?.isEnabled = isEnable
         }
     }
     
@@ -88,6 +90,8 @@ class TextGestureController {
         }
     }
     
+    var isMenuVisible: Bool = false
+    
     private func detectTapLabel(_ gesture: UIPanGestureRecognizer) {
         var foundedLabel = false
         
@@ -95,10 +99,13 @@ class TextGestureController {
             let point = gesture.location(in: textView)
             if textView.touchStyle(point: point, supportsResize: true) != .none {
                 foundedLabel = true
+                textView.isMenuVisible = self.isMenuVisible
+                textView.tapAction()
                 break
             }
         }
         
+        isMenuVisible = false
         if foundedLabel == false {
             TextSelectionController.shared.deselectText()
         }

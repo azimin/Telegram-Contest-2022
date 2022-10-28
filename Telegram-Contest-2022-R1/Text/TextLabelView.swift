@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
     enum BackgroundStyle {
         case none
@@ -153,11 +154,10 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
             }
             self.textView.isUserInteractionEnabled = false
         case .editingTransition, .startTransition:
-            self.tapGesture.isEnabled = false
+            break
         case .editing:
             self.textView.isUserInteractionEnabled = true
         case .presenting:
-            self.tapGesture.isEnabled = true
             break
         }
     }
@@ -219,7 +219,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         textLabelView.goToEditState()
     }
     
-    private var tapGesture: UITapGestureRecognizer!
     private var selectionView = TextSelectionView()
     
     func setup() {
@@ -246,11 +245,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         
         self.textView.customLayoutManager.backgroundView = self.backgroundView
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapAction))
-        tapGesture.delegate = self
-        self.tapGesture = tapGesture
-        self.addGestureRecognizer(tapGesture)
-        
         self.addSubview(self.selectionView)
         self.selectionView.frame = CGRectMake(0, -8, self.bounds.width, self.bounds.height + 16)
         self.selectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -274,14 +268,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     }
     
     var isMenuVisible = false
-    
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == self.tapGesture {
-            self.isMenuVisible = UIMenuController.shared.isMenuVisible
-            return true
-        }
-        return true
-    }
     
     @objc func tapAction() {
         if self.isSelected == false {

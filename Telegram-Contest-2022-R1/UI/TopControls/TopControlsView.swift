@@ -134,9 +134,14 @@ class TopControlsView: View {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let value = super.hitTest(point, with: event)
-        if value is UIButton {
-            return value
+        
+        if self.point(inside: point, with: event) {
+            if value is UIButton {
+                return value
+            }
+            return nil
         }
-        return nil
+ 
+        return value
     }
 }
