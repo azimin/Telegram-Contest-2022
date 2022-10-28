@@ -27,6 +27,7 @@ class NotificationSystem {
     enum Event {
         case none
         case textPresentationStateChanged(isPresenting: Bool)
+        case textSelectionStateChanged(isSelected: Bool)
         case segmentTabChanged(index: Int)
         case maskUpdated(view: UIView, frame: CGRect)
         case createText

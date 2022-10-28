@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
     enum BackgroundStyle {
         case none
@@ -110,7 +109,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         }
     }
     
-    let outlineView = TextLabelOutlineView()
+    let outlineView = TextLabelOutlineView(frame: .zero)
     let backgroundView = TextBackgroundView(frame: .zero)
     let textView = CustomTextView()
     
@@ -286,6 +285,8 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.textView.customLayoutManager.backgroundColor = .clear
         
         self.isSelected = false
+        
+        self.backgroundStyle = .background
         
         self.setupView()
     }

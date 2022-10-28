@@ -12,16 +12,22 @@ protocol EditToolbarViewDelegate: NSObjectProtocol {
 }
 
 class EditToolbarView: View {
-    enum State {
+    enum ToolsState {
         case drawAllTools
         case drawSpecificTools
+    }
+    
+    enum VisualState {
+        case tools
+        case text
     }
     
     var segmentItemSelected: ((Int) -> Void)?
     
     weak var delegate: EditToolbarViewDelegate?
     
-    var state: State = .drawAllTools
+    var toolsState: ToolsState = .drawAllTools
+    var visualState: VisualState = .tools
     
     let cancelBackButton = CancelBackButton()
     let sendButton = SendButton()
@@ -31,6 +37,9 @@ class EditToolbarView: View {
     let toolsView = ToolsView()
     let sizeSegmentView = SizeSegmentView()
     let segmentsView = EditToolbarSegmentView(items: [.init(text: "Draw"), .init(text: "Text")])
+    
+    let textStyleButton = TextStyleButton()
+    let textAligmentButton = TextAligmentButton()
     
     let toolDetailsButton = SelectToolDetailsButton()
     
@@ -63,6 +72,22 @@ class EditToolbarView: View {
             self.selectColorButton.constraintSize(width: 36, height: 36)
             self.selectColorButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).activate()
             self.selectColorButton.bottomAnchor.constraint(equalTo: self.cancelBackButton.topAnchor, constant: -14.5).activate()
+        }
+        
+        self.addSubview(self.textStyleButton)
+        self.textStyleButton.isHidden = true
+        self.textStyleButton.autolayout {
+            self.textStyleButton.constraintSize(width: 46, height: 46)
+            self.textStyleButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 47).activate()
+            self.textStyleButton.centerYAnchor.constraint(equalTo: self.selectColorButton.centerYAnchor).activate()
+        }
+        
+        self.addSubview(self.textAligmentButton)
+        self.textAligmentButton.isHidden = true
+        self.textAligmentButton.autolayout {
+            self.textAligmentButton.constraintSize(width: 46, height: 46)
+            self.textAligmentButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 91).activate()
+            self.textAligmentButton.centerYAnchor.constraint(equalTo: self.selectColorButton.centerYAnchor).activate()
         }
         
         self.addSubview(self.toolDetailsButton)
@@ -103,7 +128,7 @@ class EditToolbarView: View {
             guard let self else { return }
             switch state {
             case .componentPresented:
-                self.state = .drawSpecificTools
+                self.toolsState = .drawSpecificTools
                 
                 self.cancelBackButton.switchToState(state: .back, duration: self.toolsView.tillMiddleDuration)
                 
@@ -148,9 +173,17 @@ class EditToolbarView: View {
         self.addActions()
         
         NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
+            guard let self else { return }
             switch event {
             case let .textPresentationStateChanged(isPresenting):
-                self?.isUserInteractionEnabled = !isPresenting
+                self.isUserInteractionEnabled = !isPresenting
+            case let .textSelectionStateChanged(isSelected):
+                self.textAligmentButton.isEnabled = isSelected
+                self.textStyleButton.isEnabled = isSelected
+                if isSelected, let textView = TextSelectionController.shared.selectedText {
+                    self.textAligmentButton.updateStyle(alignState: textView.textView.textAlignment, animated: true)
+                    self.textStyleButton.updateStyle(style: textView.backgroundStyle, animated: true)
+                }
             default:
                 break
             }
@@ -188,42 +221,12 @@ class EditToolbarView: View {
         
         self.toolDetailsButton.addAction(action: { [weak self] in
             guard let self else { return }
-            switch self.toolsView.selectedTool {
-            case .pen, .pencil, .brush, .neon:
-                let items: [ContextMenuView.Item] = [
-                    .init(title: "Round", iconName: "roundTip"),
-                    .init(title: "Arrow", iconName: "arrowTip"),
-                ]
-                ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 150) { [weak self] index in
-                    guard let self else { return }
-                    let state = ToolbarSettings.ToolItem.State(rawValue: index) ?? .round
-                    let settings = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool))
-                    settings.state = state
-                    self.toolDetailsButton.setContent(style: .fromTool(state), animated: true)
-                    self.detailsStyle = .fromTool(state)
-                }
-            case .eraiser:
-                let items: [ContextMenuView.Item] = [
-                    .init(title: "Eraser", iconName: "roundTip"),
-                    .init(title: "Object Eraser", iconName: "xmarkTip"),
-                    .init(title: "Background Blur", iconName: "blurTip"),
-                ]
-                ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 194) { [weak self] index in
-                    guard let self else { return }
-                    let state = ToolEraserView.State(rawValue: index) ?? .eraser
-                    ToolbarSettings.shared.eraserSettings.mode = state
-                    self.toolsView.eraser.setState(state: ToolbarSettings.shared.eraserSettings.mode, animated: true)
-                    self.toolDetailsButton.setContent(style: .fromEraiser(state), animated: true)
-                    self.detailsStyle = .fromEraiser(state)
-                }
-            case .lasso:
-                assertionFailure("Can't do this")
-            }
+            self.toolsDetailsClicked()
         })
         
         self.cancelBackButton.addAction(action: { [weak self] in
             guard let self else { return }
-            switch self.state {
+            switch self.toolsState {
             case .drawAllTools:
                 self.delegate?.exitImageButtonClicked()
             case .drawSpecificTools:
@@ -238,9 +241,60 @@ class EditToolbarView: View {
             
             if index == 1 {
                 self.addObjectButton.updateState(state: .addText, animated: true)
+                self.updateVisualState(.text)
             } else {
                 self.addObjectButton.updateState(state: .addShape, animated: true)
+                self.updateVisualState(.tools)
             }
+        }
+        
+        self.textAligmentButton.addAction { [weak self] in
+            guard let self else { return }
+            let nextValue = self.textAligmentButton.alignState.next()
+            self.textAligmentButton.updateStyle(alignState: nextValue, animated: true)
+            NotificationSystem.shared.fireEvent(.changeTextAligment(aligment: nextValue))
+        }
+        
+        self.textStyleButton.addAction(action: {
+            [weak self] in
+            guard let self else { return }
+            let nextValue = self.textStyleButton.style.next()
+            self.textStyleButton.updateStyle(style: nextValue, animated: true)
+            NotificationSystem.shared.fireEvent(.changeTextStyle(style: nextValue))
+        })
+    }
+    
+    func toolsDetailsClicked() {
+        switch self.toolsView.selectedTool {
+        case .pen, .pencil, .brush, .neon:
+            let items: [ContextMenuView.Item] = [
+                .init(title: "Round", iconName: "roundTip"),
+                .init(title: "Arrow", iconName: "arrowTip"),
+            ]
+            ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 150) { [weak self] selectedIndex in
+                guard let self else { return }
+                let state = ToolbarSettings.ToolItem.State(rawValue: selectedIndex) ?? .round
+                let settings = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool))
+                settings.state = state
+                self.toolDetailsButton.setContent(style: .fromTool(state), animated: true)
+                self.detailsStyle = .fromTool(state)
+            }
+        case .eraiser:
+            let items: [ContextMenuView.Item] = [
+                .init(title: "Eraser", iconName: "roundTip"),
+                .init(title: "Object Eraser", iconName: "xmarkTip"),
+                .init(title: "Background Blur", iconName: "blurTip"),
+            ]
+            ContextMenuController.shared.showItems(items: items, fromView: self.toolDetailsButton, preferableWidth: 194) { [weak self] index in
+                guard let self else { return }
+                let state = ToolEraserView.State(rawValue: index) ?? .eraser
+                ToolbarSettings.shared.eraserSettings.mode = state
+                self.toolsView.eraser.setState(state: ToolbarSettings.shared.eraserSettings.mode, animated: true)
+                self.toolDetailsButton.setContent(style: .fromEraiser(state), animated: true)
+                self.detailsStyle = .fromEraiser(state)
+            }
+        case .lasso:
+            assertionFailure("Can't do this")
         }
     }
     
@@ -283,7 +337,7 @@ class EditToolbarView: View {
     }
     
     func showAllComponents() {
-        self.state = .drawAllTools
+        self.toolsState = .drawAllTools
         
         self.cancelBackButton.switchToState(state: .cancel, duration: self.toolsView.tillMiddleDuration)
         
@@ -300,5 +354,23 @@ class EditToolbarView: View {
         
         self.sizeSegmentView.animateBackground(to: false, frame: self.segmentsView.bounds, duration: self.toolsView.tillMiddleDuration)
         self.segmentsView.switchAnimatedComponentsVisibility(isVisible: true, duration: self.toolsView.tillMiddleDuration)
+    }
+    
+    func updateVisualState(_ state: VisualState) {
+        if self.visualState == state {
+            return
+        }
+        self.visualState = state
+        
+        switch state {
+        case .tools:
+            self.toolsView.isHidden = false
+            self.textAligmentButton.isHidden = true
+            self.textStyleButton.isHidden = true
+        case .text:
+            self.toolsView.isHidden = true
+            self.textAligmentButton.isHidden = false
+            self.textStyleButton.isHidden = false
+        }
     }
 }

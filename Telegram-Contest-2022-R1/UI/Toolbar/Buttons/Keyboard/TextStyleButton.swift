@@ -9,7 +9,7 @@ import UIKit
 
 class TextStyleButton: Button {
     typealias Style = TextLabelView.BackgroundStyle
-    var style: Style = .none
+    var style: Style = .background
     
     let contentImageView = UIImageView()
     
