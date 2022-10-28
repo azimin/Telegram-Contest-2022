@@ -7,8 +7,17 @@
 
 import UIKit
 
+class MaskView: View {
+    override func setUp() {
+        self.backgroundColor = .black
+    }
+}
+
 class RootTextView: View {
     let aligmentView = TextLineAligmentView()
+    let maskTopView = MaskView()
+    
+    var holderView = UIView()
     
     let contentView = UIView()
     let backgroundView = UIView()
@@ -31,24 +40,43 @@ class RootTextView: View {
         moveGesture.maximumNumberOfTouches = 2
         self.addGestureRecognizer(moveGesture)
         
+        let tapGesture = UITapGestureRecognizer(target: gestureController, action: #selector(gestureController.tapGesture(_:)))
+        self.addGestureRecognizer(tapGesture)
+        
         TextGestureController.shared.gesture = moveGesture
         TextGestureController.shared.labelsContentView = self.contentView
         TextSelectionController.shared.labelsContentView = self.contentView
         
+        self.addSubview(self.holderView)
+        
         TextLineAligmentView.shared = self.aligmentView
-        self.addSubview(self.aligmentView)
+        self.holderView.addSubview(self.aligmentView)
         
-        self.addSubview(self.contentView)
+        self.holderView.addSubview(self.contentView)
         
-        self.addSubview(self.backgroundView)
+        self.holderView.addSubview(self.backgroundView)
         self.backgroundView.backgroundColor = .black.withAlphaComponent(0.5)
         self.backgroundView.alpha = 0
         
-        self.addSubview(self.frontView)
+        self.holderView.addSubview(self.frontView)
         
         TextPresentationController.shared.contentView = self.contentView
         TextPresentationController.shared.backgroundView = self.backgroundView
         TextPresentationController.shared.frontView = self.frontView
+        
+        NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
+            switch event {
+            case let .maskUpdated(view, frame):
+                self?.updateMask(view: view, frame: frame)
+            default:
+                break
+            }
+        }
+    }
+    
+    private func updateMask(view: UIView, frame: CGRect) {
+        self.maskTopView.frame = frame
+        self.holderView.mask = self.maskTopView
     }
     
     override func layoutSubviewsOnChangeBounds() {

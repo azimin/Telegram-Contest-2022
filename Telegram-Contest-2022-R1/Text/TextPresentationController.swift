@@ -20,6 +20,8 @@ class TextPresentationController {
     var isNextStepIsOpen: Bool = false
     
     func presentView(view: TextLabelView) {
+        TextGestureController.shared.isEnable = false
+        
         self.presentedLabel = view
         self.isTextPresented = true
         
@@ -49,6 +51,10 @@ class TextPresentationController {
             view.removeFromSuperview()
             self.contentView?.addSubview(view)
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            TextGestureController.shared.isEnable = true
+        })
     }
     
     func deleteView(view: TextLabelView) {
@@ -62,6 +68,10 @@ class TextPresentationController {
         view.deleteAnimation()
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView?.alpha = 0
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            TextGestureController.shared.isEnable = true
         })
     }
 }

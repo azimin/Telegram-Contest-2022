@@ -47,6 +47,10 @@ class TextGestureController {
         }
     }
     
+    @objc func tapGesture(_ gesture: UIPanGestureRecognizer) {
+        self.detectTapLabel(gesture)
+    }
+    
     @objc func fingerGesture(_ gesture: UIPanGestureRecognizer) {
         switch self.currentState {
         case .none:
@@ -81,6 +85,22 @@ class TextGestureController {
             self.rotationCache = 0
             self.isCircleScrollCaptured = false
             self.isInMagniteState = false
+        }
+    }
+    
+    private func detectTapLabel(_ gesture: UIPanGestureRecognizer) {
+        var foundedLabel = false
+        
+        for textView in self.labels {
+            let point = gesture.location(in: textView)
+            if textView.touchStyle(point: point, supportsResize: true) != .none {
+                foundedLabel = true
+                break
+            }
+        }
+        
+        if foundedLabel == false {
+            TextSelectionController.shared.deselectText()
         }
     }
     

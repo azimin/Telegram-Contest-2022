@@ -227,6 +227,7 @@ class EditToolbarView: View {
         
         self.segmentsView.itemSelected = { [weak self] index in
             guard let self else { return }
+            NotificationSystem.shared.fireEvent(.segmentTabChanged(index: index))
             self.segmentItemSelected?(index)
         }
     }

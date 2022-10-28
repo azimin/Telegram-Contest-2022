@@ -153,12 +153,10 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
             }
             self.textView.isUserInteractionEnabled = false
         case .editingTransition, .startTransition:
-            TextGestureController.shared.isEnable = false
             self.tapGesture.isEnabled = false
         case .editing:
             self.textView.isUserInteractionEnabled = true
         case .presenting:
-            TextGestureController.shared.isEnable = true
             self.tapGesture.isEnabled = true
             break
         }
@@ -385,7 +383,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.cacheTextAligment = self.textView.textAlignment
         self.textView.forceWidth = nil
         
-        TextGestureController.shared.isEnable = false
         TextPresentationController.shared.presentView(view: self)
         
         self.cacheMutateValues = self.mutateValues

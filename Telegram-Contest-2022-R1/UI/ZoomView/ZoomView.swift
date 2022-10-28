@@ -79,6 +79,8 @@ class ZoomView: View, LinesViewDelegate {
         self.maskTopView.frame = self.imageView.frame
         self.linesView.mask = self.maskTopView
         self.delegate?.shouldUpdateMask(frame: self.imageView.frame)
+        
+        NotificationSystem.shared.fireEvent(.maskUpdated(view: self.contentView, frame: self.imageView.frame))
     }
     
     func lineSavingCompleted() {

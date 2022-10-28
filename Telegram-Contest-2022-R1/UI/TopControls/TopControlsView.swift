@@ -131,4 +131,12 @@ class TopControlsView: View {
             self.clearAllButton.isHidden = false
         }
     }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let value = super.hitTest(point, with: event)
+        if value is UIButton {
+            return value
+        }
+        return nil
+    }
 }

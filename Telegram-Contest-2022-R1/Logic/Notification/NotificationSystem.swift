@@ -27,6 +27,8 @@ class NotificationSystem {
     enum Event {
         case none
         case textPresentationStateChanged(isPresenting: Bool)
+        case segmentTabChanged(index: Int)
+        case maskUpdated(view: UIView, frame: CGRect)
     }
     
     func fireEvent(_ event: Event) {
