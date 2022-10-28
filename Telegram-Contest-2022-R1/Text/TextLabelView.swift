@@ -14,6 +14,19 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         case background
         case alphaBackground
         case outline
+        
+        var iconImage: UIImage? {
+            switch self {
+            case .none:
+                return UIImage(named: "default")
+            case .background:
+                return UIImage(named: "filled")
+            case .alphaBackground:
+                return UIImage(named: "semi")
+            case .outline:
+                return UIImage(named: "stroke")
+            }
+        }
     }
     
     struct MutateValues {
