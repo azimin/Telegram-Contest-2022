@@ -86,8 +86,25 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         self.toolbarView.segmentItemSelected = { [weak self] index in
             guard let self else { return }
+            if index == 0 {
+                TextSelectionController.shared.deselectText()
+                self.rootTextView.isUserInteractionEnabled = false
+            }
             if index == 1 {
+                TextSelectionController.shared.deselectText()
+                self.rootTextView.isUserInteractionEnabled = true
                 self.rootTextView.createTextView()
+            }
+        }
+        
+        NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
+            switch event {
+            case .createText:
+                TextSelectionController.shared.deselectText()
+                self?.rootTextView.isUserInteractionEnabled = true
+                self?.rootTextView.createTextView()
+            default:
+                break
             }
         }
         

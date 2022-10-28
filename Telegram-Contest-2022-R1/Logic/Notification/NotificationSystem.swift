@@ -29,6 +29,7 @@ class NotificationSystem {
         case textPresentationStateChanged(isPresenting: Bool)
         case segmentTabChanged(index: Int)
         case maskUpdated(view: UIView, frame: CGRect)
+        case createText
     }
     
     func fireEvent(_ event: Event) {

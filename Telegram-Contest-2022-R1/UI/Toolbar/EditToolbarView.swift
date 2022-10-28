@@ -173,6 +173,12 @@ class EditToolbarView: View {
         
         self.addObjectButton.addAction(action: { [weak self] in
             guard let self else { return }
+            
+            if self.segmentsView.selectedItem == 1 {
+                NotificationSystem.shared.fireEvent(.createText)
+                return
+            }
+            
             let shapes = Shape.allCases
             let items: [ContextMenuView.Item] = shapes.map({ .init(title: $0.title, iconName: $0.iconName)} )
             ContextMenuController.shared.showItems(items: items, fromView: self.addObjectButton, preferableWidth: 180) { [weak self] index in
@@ -229,6 +235,12 @@ class EditToolbarView: View {
             guard let self else { return }
             NotificationSystem.shared.fireEvent(.segmentTabChanged(index: index))
             self.segmentItemSelected?(index)
+            
+            if index == 1 {
+                self.addObjectButton.updateState(state: .addText, animated: true)
+            } else {
+                self.addObjectButton.updateState(state: .addShape, animated: true)
+            }
         }
     }
     
