@@ -20,7 +20,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
     var holderView = UIView()
     let contentView = UIView()
     let backgroundView = UIView()
-    let frontView = UIView()
+    let frontView = TextEnterFrontView()
     
     let gestureController = TextGestureController.shared
     

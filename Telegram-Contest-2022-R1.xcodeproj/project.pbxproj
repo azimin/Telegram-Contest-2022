@@ -86,6 +86,8 @@
 		9FCF57E628F46A0A00A9DD38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF57E428F46A0A00A9DD38 /* LaunchScreen.storyboard */; };
 		9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57ED28F46CF400A9DD38 /* EditImageViewController.swift */; };
 		9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57EF28F46D3300A9DD38 /* ImageContainer.swift */; };
+		9FD45159290CA87200268AF9 /* FontSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45158290CA87200268AF9 /* FontSizeView.swift */; };
+		9FD4515B290CA9DE00268AF9 /* TextEnterFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +173,8 @@
 		9FCF57E728F46A0A00A9DD38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FCF57ED28F46CF400A9DD38 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		9FCF57EF28F46D3300A9DD38 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
+		9FD45158290CA87200268AF9 /* FontSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeView.swift; sourceTree = "<group>"; };
+		9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEnterFrontView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +204,8 @@
 				9F0246BE290C17D6003119F9 /* TextSelectionController.swift */,
 				9F0246C5290C17D7003119F9 /* KeyboardHandler.swift */,
 				9F0246C1290C17D7003119F9 /* TextSelectionView.swift */,
+				9FD45158290CA87200268AF9 /* FontSizeView.swift */,
+				9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -585,6 +591,7 @@
 				9F6533BC28F7675200E00574 /* SelectToolDetailsButton.swift in Sources */,
 				9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */,
 				9F0246D4290C1FE1003119F9 /* TopControlsView.swift in Sources */,
+				9FD45159290CA87200268AF9 /* FontSizeView.swift in Sources */,
 				9FA0091528F8713300688479 /* UILabelExtensions.swift in Sources */,
 				9F9AE08028F4EBF4004717E5 /* AddObjectButton.swift in Sources */,
 				9F74F32D2909A79600092CFB /* MetalLineDrawer.swift in Sources */,
@@ -622,6 +629,7 @@
 				9F74F32F2909A79F00092CFB /* CGExtensions.swift in Sources */,
 				9FA0091F28F8BBE400688479 /* ToolbarSettings.swift in Sources */,
 				9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */,
+				9FD4515B290CA9DE00268AF9 /* TextEnterFrontView.swift in Sources */,
 				9FA0091328F86CCA00688479 /* ContextMenuView.swift in Sources */,
 				9F0246E1290C7631003119F9 /* TextStyleButton.swift in Sources */,
 				9F0246CC290C17D7003119F9 /* TextSelectionView.swift in Sources */,

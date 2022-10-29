@@ -12,7 +12,7 @@ class TextPresentationController {
     
     weak var contentView: UIView?
     weak var backgroundView: UIView?
-    weak var frontView: UIView?
+    weak var frontView: TextEnterFrontView?
     
     weak var presentedLabel: TextLabelView?
     
@@ -31,7 +31,8 @@ class TextPresentationController {
         
         self.frontView?.isUserInteractionEnabled = true
         view.removeFromSuperview()
-        self.frontView?.addSubview(view)
+        self.frontView?.insertSubview(view, at: 0)
+        self.frontView?.performAnimation(isShowing: true)
         
         UIView.animate(withDuration: 0.2) {
             self.backgroundView?.alpha = 1
@@ -41,9 +42,12 @@ class TextPresentationController {
     func hideView(view: TextLabelView) {
         self.presentedLabel = nil
         self.isTextPresented = false
+        self.frontView?.performAnimation(isShowing: false)
+        
         NotificationSystem.shared.fireEvent(.textPresentationStateChanged(isPresenting: false))
         
         self.frontView?.isUserInteractionEnabled = false
+        
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView?.alpha = 0
         }) {
@@ -60,6 +64,7 @@ class TextPresentationController {
     func deleteView(view: TextLabelView) {
         self.presentedLabel = nil
         self.isTextPresented = false
+        self.frontView?.performAnimation(isShowing: false)
         
         NotificationSystem.shared.fireEvent(.textPresentationStateChanged(isPresenting: false))
         

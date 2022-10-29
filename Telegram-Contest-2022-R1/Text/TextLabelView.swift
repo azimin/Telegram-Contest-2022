@@ -233,6 +233,36 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         })
     }
     
+    var cachedRecommendedFont: UIFont?
+    
+    func updateRecommendedFont(font: UIFont) {
+        self.cachedRecommendedFont = nil
+        
+        let oldRecommendedSize = self.textView.recommendedFont.pointSize
+        let oldFontSize = self.textView.font?.pointSize ?? oldRecommendedSize
+        let newPointSize = font.pointSize
+        
+        if abs(newPointSize - oldRecommendedSize) <= 0.25 {
+            return
+        }
+        
+        if oldFontSize < oldRecommendedSize && newPointSize > oldFontSize {
+            self.cachedRecommendedFont = font
+            return
+        }
+        
+        self.updateFont(font: font)
+    }
+    
+    private func updateFont(font: UIFont) {
+        self.textView.recommendedFont = font
+        
+        self.textView.adjustContentSize()
+        self.outlineView.updateWith(text: self.textView.text, font: self.textView.font)
+        self.selectionView.setNeedsDisplay()
+        self.refreshLayoutBackground()
+    }
+    
     @objc func editAction() {
         self.goToEditState()
     }
@@ -547,6 +577,11 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.refreshLayoutBackground()
         
         self.outlineView.updateWith(text: self.textView.text, font: self.textView.font ?? .systemFont(ofSize: 20))
+        
+        if let font = self.cachedRecommendedFont {
+            self.updateFont(font: font)
+            self.cachedRecommendedFont = nil
+        }
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
