@@ -289,7 +289,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.textView.updateTextColor(color: .white)
         self.textView.textAlignment = .center
         self.textView.backgroundColor = .clear
-        self.textView.recommendedFont = UIFont.sfProTextSemibold(46)
+        self.textView.recommendedFont = UIFont.sfProTextSemibold(36)
         self.textView.text = "Yo\nSome Content\nThe"
         self.textView.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         self.textView.frame = self.bounds

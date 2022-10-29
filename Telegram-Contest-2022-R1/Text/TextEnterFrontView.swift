@@ -23,6 +23,13 @@ class TextEnterFrontView: View {
         }
     }
     
+    func fontToProgress(textView: TextLabelView) {
+        let font = textView.cachedRecommendedFont ?? textView.textView.recommendedFont
+        let size = font.pointSize
+        let progress = (size - 7) / 42
+        self.sizeView.setProgress(value: (1 - progress))
+    }
+    
     override func layoutSubviewsOnChangeBounds() {
         self.sizeView.frame = CGRect(x: -14, y: 120, width: 28, height: 240)
     }

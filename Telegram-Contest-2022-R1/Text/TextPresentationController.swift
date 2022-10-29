@@ -26,6 +26,7 @@ class TextPresentationController {
         self.isTextPresented = true
         
         NotificationSystem.shared.fireEvent(.textPresentationStateChanged(isPresenting: true))
+        self.frontView?.fontToProgress(textView: view)
         
         self.isNextStepIsOpen = false
         
