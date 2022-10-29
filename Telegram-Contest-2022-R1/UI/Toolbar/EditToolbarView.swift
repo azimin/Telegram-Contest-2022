@@ -274,6 +274,10 @@ class EditToolbarView: View {
         }
     }
     
+    private func updateTextColor() {
+        self.selectColorButton.isEnabled = true
+    }
+    
     private func updateBrushColor() {
         ToolbarSettings.shared.selectedTool = self.toolsView.selectedTool
         let index = self.toolsView.selectedToolIndex
@@ -398,6 +402,7 @@ class EditToolbarView: View {
                 self.animateTextButtons(isShow: false)
             }
         case .text:
+            self.updateTextColor()
             self.textAligmentButton.isHidden = false
             self.textAligmentButton.isUserInteractionEnabled = true
             self.textStyleButton.isHidden = false
