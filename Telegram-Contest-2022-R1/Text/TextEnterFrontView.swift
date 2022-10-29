@@ -19,7 +19,7 @@ class TextEnterFrontView: View {
                 return
             }
             let progress = 1 - value
-            label.updateRecommendedFont(font: UIFont.sfProTextSemibold(46 * progress + 5))
+            label.updateRecommendedFont(font: UIFont.sfProTextSemibold(42 * progress + 7))
         }
     }
     
