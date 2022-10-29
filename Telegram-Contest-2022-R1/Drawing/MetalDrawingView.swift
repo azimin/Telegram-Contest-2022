@@ -59,6 +59,9 @@ class DrawMetalView: UIView, RendererDelegate, MetalLineDrawerDelegate {
     // MARK: - MetalLineDrawerDelegate
     
     func draw(vertices: [Vertex], vertices2: [Vertex], isEnding: Bool) {
+        if self.renderer.isDrawInProgress == false && vertices.count > 0 {
+            self.renderer.color = ToolbarSettings.shared.getToolSetting(style: .fromTool(ToolbarSettings.shared.selectedTool)).color.color
+        }
         self.dataController.append(vertices: vertices, vertices2: vertices2, isEnding: isEnding)
         self.renderer.updateVertices(isEnding: isEnding)
     }

@@ -269,6 +269,8 @@ class EditToolbarView: View {
         
         self.toolsView.indexUpdating = { [weak self] index in
             guard let self else { return }
+            ToolbarSettings.shared.selectedTool = self.toolsView.selectedTool
+            
             if index > 3 {
                 self.selectColorButton.isEnabled = false
             } else {

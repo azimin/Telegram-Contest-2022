@@ -39,7 +39,7 @@ class Renderer: NSObject, MTKViewDelegate {
         }
     }
     
-    private var isDrawInProgress: Bool = false {
+    private(set) var isDrawInProgress: Bool = false {
         didSet {
             if self.isDrawInProgress == false {
                 self.drawColor = self.color

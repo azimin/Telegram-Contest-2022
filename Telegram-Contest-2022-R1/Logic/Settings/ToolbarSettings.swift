@@ -10,6 +10,8 @@ import Foundation
 class ToolbarSettings {
     static var shared = ToolbarSettings()
     
+    var selectedTool: Tool = .pen
+
     class ToolItem {
         enum State: Int {
             case round
