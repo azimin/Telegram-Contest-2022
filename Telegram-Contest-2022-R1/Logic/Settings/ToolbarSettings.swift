@@ -17,10 +17,10 @@ class ToolbarSettings {
         }
         
         var widthProgress: CGFloat
-        var color: UIColor
+        var color: ColorPickerResult
         var state: State
         
-        init(widthProgress: CGFloat, color: UIColor, state: State = .round) {
+        init(widthProgress: CGFloat, color: ColorPickerResult, state: State = .round) {
             self.widthProgress = widthProgress
             self.color = color
             self.state = state

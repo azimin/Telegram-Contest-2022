@@ -266,6 +266,16 @@ class EditToolbarView: View {
             self.textStyleButton.updateStyle(style: nextValue, animated: true)
             NotificationSystem.shared.fireEvent(.changeTextStyle(style: nextValue))
         })
+        
+        self.toolsView.indexUpdating = { [weak self] index in
+            guard let self else { return }
+            if index > 3 {
+                self.selectColorButton.isEnabled = false
+            } else {
+                self.selectColorButton.isEnabled = true
+                self.selectColorButton.colorPickerResult = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool)).color
+            }
+        }
     }
     
     var testFlag: Bool = true

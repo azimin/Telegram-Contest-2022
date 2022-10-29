@@ -16,6 +16,11 @@ class ColorPickerResult {
         self.position = position
     }
     
+    init(color: UIColor) {
+        self.color = color
+        self.position = .zero
+    }
+    
     static var white: ColorPickerResult {
         return ColorPickerResult(color: .white, position: .init(x: 0, y: 1))
     }
@@ -52,6 +57,8 @@ class ColorView: UIView {
         }
     }
     
+    private var isMoved: Bool = false
+    
     private func updateCircle(moved: Bool = false) {
         self.colorCircleView.color = currentColor.color
         
@@ -61,11 +68,14 @@ class ColorView: UIView {
             x: currentColor.position.x * self.bounds.width,
             y: currentColor.position.y * self.bounds.height + delta
         )
+        
+        self.isMoved = moved
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
+        self.maskLayer.frame = self.bounds
     }
     
     required init?(coder: NSCoder) {
@@ -84,8 +94,9 @@ class ColorView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.imageView.frame = self.bounds
+        self.maskLayer.frame = self.bounds
         
-        self.updateCircle()
+        self.updateCircle(moved: self.isMoved)
     }
     
     func gestureUpdated(gesture: UILongPressGestureRecognizer) {
@@ -137,6 +148,46 @@ class ColorView: UIView {
         if moved {
             self.updateCircle(moved: moved)
         }
+    }
+    
+    var maskLayer: CAShapeLayer = CAShapeLayer()
+    
+    func showAnimation() {
+        self.imageView.layer.mask = self.maskLayer
+        
+        let from = UIBezierPath(roundedRect: CGRect(x: 7, y: self.bounds.height - 27, width: 18, height: 18), cornerRadius: 10)
+        let to = UIBezierPath(roundedRect: self.maskLayer.bounds, cornerRadius: 8)
+        
+        self.colorCircleView.layer.animateAlpha(from: 0, to: 1, duration: 0.15)
+        
+        self.maskLayer.path = to.cgPath
+        self.maskLayer.animate(from: from.cgPath, to: to.cgPath, keyPath: "path", timingFunction: CAMediaTimingFunctionName.easeOut.rawValue, duration: 0.25) { success in
+            if success {
+                self.imageView.mask = nil
+            }
+        }
+    }
+    
+    func hideAnimation() {
+        let colorView = UIView()
+        colorView.frame = self.imageView.bounds
+        colorView.backgroundColor = self.colorCircleView.color
+        colorView.layer.opacity = 0
+        self.imageView.addSubview(colorView)
+        
+        self.isUserInteractionEnabled = false
+        self.colorCircleView.isHidden = true
+        self.imageView.layer.mask = self.maskLayer
+        
+        let to = UIBezierPath(roundedRect: CGRect(x: 7, y: self.bounds.height - 27, width: 18, height: 18), cornerRadius: 10)
+        let from = UIBezierPath(roundedRect: self.maskLayer.bounds, cornerRadius: 8)
+        
+        self.maskLayer.path = to.cgPath
+        self.maskLayer.animate(from: from.cgPath, to: to.cgPath, keyPath: "path", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: 0.25) { _ in
+            self.removeFromSuperview()
+        }
+        
+        colorView.layer.animate(from: 0 as NSNumber, to: 1 as NSNumber, keyPath: "opacity", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: 0.25)
     }
 }
 

@@ -215,9 +215,6 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             return
         }
         
-        let colorPickerView = ColorView()
-        colorPickerView.currentColor = .white
-        
         let width = self.view.bounds.width - 8 - 32
         let size = CGSize(
             width: width,
@@ -227,22 +224,29 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         let convertFrame = self.view.hierarhyConvertFrame(from.frame, from: from.superview ?? from, to: self.view)
         let yPosition: CGFloat = convertFrame.maxY
         
-        colorPickerView.frame = CGRect(
-            x: 6,
-            y: yPosition - size.height,
-            width: size.width,
-            height: size.height
+        let colorPickerView = ColorView(
+            frame: CGRect(
+                x: 6,
+                y: yPosition - size.height,
+                width: size.width,
+                height: size.height
+            )
         )
+        colorPickerView.currentColor = .white
         
         self.view.addSubview(colorPickerView)
         self.colorPickerView = colorPickerView
+        self.colorPickerView?.showAnimation()
     }
     
     func hideColorPicker() {
         if let colorPickerView = self.colorPickerView {
             self.toolbarView.selectColorButton.colorPickerResult = colorPickerView.currentColor
+            ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolbarView.toolsView.selectedTool)).color = colorPickerView.currentColor
+            self.toolbarView.toolsView.updateToolColor(colorPickerView.currentColor)
         }
         self.isColorPickerPresented = false
-        self.colorPickerView?.removeFromSuperview()
+        self.colorPickerView?.hideAnimation()
+        self.colorPickerView = nil
     }
 }

@@ -17,13 +17,21 @@ class SelectColorButton: Button {
         }
     }
     
-    var color: UIColor = .white {
+    private(set) var color: UIColor = .white {
         didSet {
             self.updateColor()
         }
     }
     
     private let colorView = UIView()
+    
+    override var isEnabled: Bool {
+        didSet {
+            self.longGesture.isEnabled = isEnabled
+        }
+    }
+    
+    private var longGesture: UILongPressGestureRecognizer!
     
     override func setUp() {
         self.addSubview(self.colorView)
@@ -41,6 +49,7 @@ class SelectColorButton: Button {
         let panGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.panGesture(_:)))
         panGesture.minimumPressDuration = 0.5
         self.addGestureRecognizer(panGesture)
+        self.longGesture = panGesture
     }
     
     @objc func panGesture(_ gesture: UILongPressGestureRecognizer) {

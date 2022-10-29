@@ -27,11 +27,18 @@ class ToolsView: View {
     }
     
     var stateUpdating: ((State) -> Void)?
+    var indexUpdating: IndexBlock?
     
     let shadowImageView = UIImageView()
     private let contentMaskView = UIView()
     
-    private var selectedToolIndex = 0
+    private var selectedToolIndex = 0 {
+        didSet {
+            if self.selectedToolIndex != oldValue {
+                self.indexUpdating?(selectedToolIndex)
+            }
+        }
+    }
     var selectedTool: Tool {
         return Tool(rawValue: self.selectedToolIndex) ?? .pen
     }
@@ -52,6 +59,13 @@ class ToolsView: View {
         let tool = self.tools[self.selectedToolIndex]
         if let toolView = tool as? ToolView {
             toolView.sizeProgress = value
+        }
+    }
+    
+    func updateToolColor(_ value: ColorPickerResult) {
+        let tool = self.tools[self.selectedToolIndex]
+        if let toolView = tool as? ToolView {
+            toolView.color = value
         }
     }
     

@@ -43,7 +43,7 @@ class ToolView: View {
         }
     }
     
-    var color: UIColor = .blue {
+    var color: ColorPickerResult = .blue {
         didSet {
             self.updateColor()
         }
@@ -96,8 +96,8 @@ class ToolView: View {
     
     private func updateColor() {
         let img = self.tipImageView.image!
-        self.tipImageView.image = img.withTintColor(color)
-        self.tipSizeView.backgroundColor = color
+        self.tipImageView.image = img.withTintColor(color.color)
+        self.tipSizeView.backgroundColor = color.color
     }
     
     private func updateTipSize() {
