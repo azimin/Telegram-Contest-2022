@@ -5,7 +5,7 @@
 //  Created by Alexander Zimin on 13/10/2022.
 //
 
-import Foundation
+import UIKit
 
 class ContextMenuController {
     var showDuration: TimeInterval = 0.8

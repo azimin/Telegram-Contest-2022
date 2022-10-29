@@ -28,8 +28,9 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     
     var drawMetalView: DrawMetalView!
     
-    // Text
+    var colorPickerView: ColorView?
     
+    // Text
     
     init(imageContainer: ImageContainer) {
         self.imageContainer = imageContainer
@@ -134,6 +135,19 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.topControlls.doneButton.addAction(action: {
             TextPresentationController.shared.presentedLabel?.textView.resignAction()
         })
+        
+        self.toolbarView.selectColorButton.presetQuickColorSelect = { [weak self] button, gesture in
+            guard let self else { return }
+            if gesture.state == .began {
+                self.presentColorPicker(from: button)
+            }
+            
+            if gesture.state == .ended || gesture.state == .failed || gesture.state == .cancelled {
+                self.hideColorPicker()
+            }
+            
+            self.colorPickerView?.gestureUpdated(gesture: gesture)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -190,5 +204,45 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     
     func shouldUpdateMask(frame: CGRect) {
         self.drawMetalView.updateMask(frame: frame)
+    }
+    
+    // MARK: - Color Picker View
+    
+    var isColorPickerPresented = false
+    
+    func presentColorPicker(from: UIView) {
+        guard !self.isColorPickerPresented else {
+            return
+        }
+        
+        let colorPickerView = ColorView()
+        colorPickerView.currentColor = .white
+        
+        let width = self.view.bounds.width - 8 - 32
+        let size = CGSize(
+            width: width,
+            height: width * 0.8335
+        )
+        
+        let convertFrame = self.view.hierarhyConvertFrame(from.frame, from: from.superview ?? from, to: self.view)
+        let yPosition: CGFloat = convertFrame.maxY
+        
+        colorPickerView.frame = CGRect(
+            x: 6,
+            y: yPosition - size.height,
+            width: size.width,
+            height: size.height
+        )
+        
+        self.view.addSubview(colorPickerView)
+        self.colorPickerView = colorPickerView
+    }
+    
+    func hideColorPicker() {
+        if let colorPickerView = self.colorPickerView {
+            self.toolbarView.selectColorButton.colorPickerResult = colorPickerView.currentColor
+        }
+        self.isColorPickerPresented = false
+        self.colorPickerView?.removeFromSuperview()
     }
 }
