@@ -533,7 +533,11 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         })
     }
     
+    var didCallAnimation: Bool = false
+    
     private func animateToEditPhase(info: KeyboardInfo?) {
+        self.didCallAnimation = true
+        
         var finalFrame: CGRect = .zero
         
         if self.createdFrame != .zero, info == nil {

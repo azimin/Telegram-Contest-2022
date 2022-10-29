@@ -12,6 +12,7 @@ import Lottie
 class GlobalConfig {
     static var textRecommendedFrame: CGRect = .zero
     static var textScreenFrame: CGRect = .zero
+    static var cachedKeyboardSize: CGSize = .zero
 }
 
 class EditImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditToolbarViewDelegate, DrawMetalViewDelegate, ZoomViewDelegate {
