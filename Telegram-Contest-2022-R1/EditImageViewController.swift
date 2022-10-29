@@ -9,6 +9,11 @@ import UIKit
 import PencilKit
 import Lottie
 
+class GlobalConfig {
+    static var textRecommendedFrame: CGRect = .zero
+    static var textScreenFrame: CGRect = .zero
+}
+
 class EditImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditToolbarViewDelegate, DrawMetalViewDelegate, ZoomViewDelegate {
     
     let rootTextView = RootTextView()
@@ -128,6 +133,24 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.topControlls.doneButton.addAction(action: {
             TextPresentationController.shared.presentedLabel?.textView.resignAction()
         })
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        GlobalConfig.textRecommendedFrame = CGRect(
+            x: 0,
+            y: self.topControlls.frame.maxY,
+            width: self.view.bounds.width,
+            height: self.toolbarView.frame.minY - self.topControlls.frame.maxY
+        )
+        
+        GlobalConfig.textScreenFrame = CGRect(
+            x: 0,
+            y: self.topControlls.frame.maxY,
+            width: self.view.bounds.width,
+            height: self.view.bounds.height - self.topControlls.frame.maxY
+        )
     }
 
     // MARK: - Image Picker

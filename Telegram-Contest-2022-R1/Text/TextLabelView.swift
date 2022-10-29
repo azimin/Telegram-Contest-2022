@@ -227,7 +227,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.isInDisapearState = true
         self.isUserInteractionEnabled = false
         
-        self.layer.animate(from: self.mutateValues.scale as NSNumber, to: 0 as NSNumber, keyPath: "transform.scale", duration: 0.25, completion: {
+        self.layer.animate(from: self.mutateValues.scale as NSNumber, to: 0 as NSNumber, keyPath: "transform.scale", duration: 0.25, removeOnCompletion: false, completion: {
             _ in
             self.removeFromSuperview()
         })
@@ -350,8 +350,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        //        self.textView.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
         
         self.outlineView.frame = self.bounds
         self.textView.frame = self.bounds
@@ -504,8 +502,8 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
             }
         case .frameChanged:
             // TODO: Check
-            self.frame = CGRect(x: 0, y: 84, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 84 - (info?.endFrame.height ?? 0) - 16)
-            //            self.lastFrame = self.frame
+            let frame = GlobalConfig.textScreenFrame
+            self.frame = CGRect(x: 0, y: frame.origin.y + 4, width: UIScreen.main.bounds.width, height: frame.size.height - (info?.endFrame.height ?? 0) - 8)
             break
         case .hidden:
             break
@@ -522,7 +520,8 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         if self.createdFrame != .zero, info == nil {
             finalFrame = self.createdFrame
         } else {
-            finalFrame = CGRect(x: 0, y: 84, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 84 - (info?.endFrame.height ?? 0) - 16)
+            let frame = GlobalConfig.textScreenFrame
+            finalFrame = CGRect(x: 0, y: frame.origin.y + 4, width: UIScreen.main.bounds.width, height: frame.size.height - (info?.endFrame.height ?? 0) - 8)
         }
         
         self.lastFrame = finalFrame
