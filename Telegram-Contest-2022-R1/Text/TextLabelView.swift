@@ -471,7 +471,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
             }
         case .background:
             self.outlineView.changeState(state: .hidden)
-            self.textView.customLayoutManager.backgroundColor = UIColor.black
+            self.textView.customLayoutManager.backgroundColor = self.colorResult.color.blackOrWhite
         case .alphaBackground:
             self.outlineView.changeState(state: .hidden)
             self.textView.customLayoutManager.backgroundColor = UIColor.white.withAlphaComponent(0.3)
@@ -596,6 +596,18 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     // Mark Text Field
     
+    private var colorResult: ColorPickerResult = .white
+    
+    func updateTextColor(colorResult: ColorPickerResult) {
+        self.colorResult = colorResult
+        self.outlineView.strokeColor = colorResult.color.blackOrWhite
+        self.textView.updateTextColor(color: colorResult.color)
+        self.outlineView.updateWithVisual(textView: self.textView)
+        self.outlineView.updateWith(text: self.textView.text, font: self.textView.font)
+        self.updateBackgroundStyle()
+        self.refreshLayoutBackground()
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         self.textView.adjustContentSize()
         self.refreshLayoutBackground()
@@ -697,5 +709,29 @@ extension NSTextAlignment {
         }
         
         return 0
+    }
+}
+
+extension UIColor {
+    var blackOrWhite: UIColor {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        if getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            // Special formula
+            if (red * 300 + green * 590 + blue * 115) / 1000 < 0.4 {
+                return .white
+            }
+        }
+        return .black
+    }
+    
+    private func changeColor(value: CGFloat) -> UIColor {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        if getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return UIColor(red: min(red + value, 1.0),
+                           green: min(green + value, 1.0),
+                           blue: min(blue + value, 1.0),
+                           alpha: alpha)
+        }
+        return self
     }
 }

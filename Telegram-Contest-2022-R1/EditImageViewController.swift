@@ -136,6 +136,17 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             TextPresentationController.shared.presentedLabel?.textView.resignAction()
         })
         
+        self.toolbarView.selectColorButton.addAction { [weak self] in
+            if #available(iOS 14.0, *) {
+                let colorPickerViewController = CustomColorPicker()
+                colorPickerViewController.delegate = self
+                self?.present(colorPickerViewController, animated: true)
+            } else {
+                // TODO: - Have something
+                // Fallback on earlier versions
+            }
+        }
+        
         self.toolbarView.selectColorButton.presetQuickColorSelect = { [weak self] button, gesture in
             guard let self else { return }
             if gesture.state == .began {
@@ -147,6 +158,19 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             }
             
             self.colorPickerView?.gestureUpdated(gesture: gesture)
+        }
+        
+        ColorSelectSystem.shared.subscribeOnEvent(self) { color in
+            if let textView = TextPresentationController.shared.presentedLabel {
+                textView.updateTextColor(colorResult: color)
+            } else if let selectedText = TextSelectionController.shared.selectedText {
+                self.toolbarView.selectColorButton.colorPickerResult = color
+                selectedText.updateTextColor(colorResult: color)
+            } else {
+                self.toolbarView.selectColorButton.colorPickerResult = color
+                ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolbarView.toolsView.selectedTool)).color = color
+                self.toolbarView.toolsView.updateToolColor(color)
+            }
         }
     }
     
@@ -241,12 +265,25 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     
     func hideColorPicker() {
         if let colorPickerView = self.colorPickerView {
-            self.toolbarView.selectColorButton.colorPickerResult = colorPickerView.currentColor
-            ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolbarView.toolsView.selectedTool)).color = colorPickerView.currentColor
-            self.toolbarView.toolsView.updateToolColor(colorPickerView.currentColor)
+            ColorSelectSystem.shared.fireColor(colorPickerView.currentColor)
         }
         self.isColorPickerPresented = false
         self.colorPickerView?.hideAnimation()
         self.colorPickerView = nil
+    }
+}
+
+@available(iOS 14.0, *)
+class CustomColorPicker: UIColorPickerViewController {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ColorSelectSystem.shared.fireColor(.init(color: self.selectedColor))
+    }
+}
+
+extension EditImageViewController: UIColorPickerViewControllerDelegate {
+    @available(iOS 14.0, *)
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        ColorSelectSystem.shared.fireColor(.init(color: viewController.selectedColor))
     }
 }

@@ -89,6 +89,7 @@
 		9FD45159290CA87200268AF9 /* FontSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45158290CA87200268AF9 /* FontSizeView.swift */; };
 		9FD4515B290CA9DE00268AF9 /* TextEnterFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */; };
 		9FD45182290D8BAA00268AF9 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45181290D8BAA00268AF9 /* ColorView.swift */; };
+		9FD45184290D9FD300268AF9 /* ColorSelectSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45183290D9FD300268AF9 /* ColorSelectSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -177,6 +178,7 @@
 		9FD45158290CA87200268AF9 /* FontSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeView.swift; sourceTree = "<group>"; };
 		9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEnterFrontView.swift; sourceTree = "<group>"; };
 		9FD45181290D8BAA00268AF9 /* ColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
+		9FD45183290D9FD300268AF9 /* ColorSelectSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				9F0246D8290C3539003119F9 /* NotificationSystem.swift */,
+				9FD45183290D9FD300268AF9 /* ColorSelectSystem.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				9F0246D6290C2C03003119F9 /* RootTextView.swift in Sources */,
 				9F6533AC28F63C0700E00574 /* SizeSegmentView.swift in Sources */,
 				9F9AE07B28F4E460004717E5 /* SendButton.swift in Sources */,
+				9FD45184290D9FD300268AF9 /* ColorSelectSystem.swift in Sources */,
 				9F9AE08C28F5CDC2004717E5 /* CAAnimationUtils.swift in Sources */,
 				9F0246CE290C17D7003119F9 /* TextLineAligmentView.swift in Sources */,
 				9F9AE08928F5BECE004717E5 /* ToolLassoView.swift in Sources */,
