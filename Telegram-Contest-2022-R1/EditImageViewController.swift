@@ -83,6 +83,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.view.layer.speed = Float(CALayer.currentSpeed())
         
         self.zoomView.updateWith(image: self.imageContainer.image)
+        self.rootTextView.isUserInteractionEnabled = false
         
         self.toolbarView.segmentItemSelected = { [weak self] index in
             guard let self else { return }

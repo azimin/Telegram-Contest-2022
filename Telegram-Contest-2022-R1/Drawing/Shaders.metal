@@ -38,7 +38,7 @@ vertex vector_float4 draw_vertex(
     
     if (vertexId > infos.offset) {
         uint index = vertexId - infos.offset;
-        float progress = float(index) / float(5000);
+        float progress = float(index) / float(1650);
         Vertex out2 = vertices2[index];
         out.position.x = out.position.x + (out2.position.x - out.position.x) * progress;
         out.position.y = out.position.y + (out2.position.y - out.position.y) * progress;

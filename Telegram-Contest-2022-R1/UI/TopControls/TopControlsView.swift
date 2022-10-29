@@ -35,7 +35,7 @@ class TopControlsView: View {
         }
     }
     
-    var isTextEnterState: TextEnterState = .firstTime {
+    var isTextEnterState: TextEnterState = .none {
         didSet {
             self.updateState()
         }

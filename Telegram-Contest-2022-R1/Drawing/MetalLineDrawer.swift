@@ -39,19 +39,19 @@ class MetalLineDrawer: UIView {
         
         static func penWith(width: CGFloat) -> PenSize {
             if width < 0.25 {
-                let first = PenSize(minSize: 0.4, maxSize: 1, sizeEffect: 5)
-                let second = PenSize(minSize: 3, maxSize: 5, sizeEffect: 5)
+                let first = PenSize(minSize: 0.4, maxSize: 1, sizeEffect: 2.6)
+                let second = PenSize(minSize: 3, maxSize: 5, sizeEffect: 2.4)
                 return first.findMiddle(anotherPen: second, width: width, lowerBound: 0, upperBound: 0.25)
             } else if width < 0.65 {
-                let first = PenSize(minSize: 3, maxSize: 5, sizeEffect: 5)
-                let second = PenSize(minSize: 10, maxSize: 18, sizeEffect: 2.5)
+                let first = PenSize(minSize: 3, maxSize: 5, sizeEffect: 2.4)
+                let second = PenSize(minSize: 10, maxSize: 18, sizeEffect: 1.6)
                 return first.findMiddle(anotherPen: second, width: width, lowerBound: 0.25, upperBound: 0.65)
             } else if width < 1.0 {
-                let first = PenSize(minSize: 10, maxSize: 18, sizeEffect: 2.5)
-                let second = PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.3)
+                let first = PenSize(minSize: 10, maxSize: 18, sizeEffect: 1.6)
+                let second = PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.1)
                 return first.findMiddle(anotherPen: second, width: width, lowerBound: 0.65, upperBound: 1)
             } else {
-                return PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.3)
+                return PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.25)
             }
         }
         
