@@ -101,16 +101,19 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             if index == 1 {
                 TextSelectionController.shared.deselectText()
                 self.rootTextView.isUserInteractionEnabled = true
-                self.rootTextView.createTextView()
+                self.rootTextView.createTextView(color: .white)
+                self.toolbarView.selectColorButton.colorPickerResult = .white
             }
         }
         
         NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
+            guard let self else { return }
             switch event {
             case .createText:
                 TextSelectionController.shared.deselectText()
-                self?.rootTextView.isUserInteractionEnabled = true
-                self?.rootTextView.createTextView()
+                self.rootTextView.isUserInteractionEnabled = true
+                self.rootTextView.createTextView(color: .white)
+                self.toolbarView.selectColorButton.colorPickerResult = .white
             default:
                 break
             }

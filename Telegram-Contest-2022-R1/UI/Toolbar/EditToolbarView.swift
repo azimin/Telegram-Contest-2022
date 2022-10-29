@@ -185,6 +185,7 @@ class EditToolbarView: View {
                 if isSelected, let textView = TextSelectionController.shared.selectedText {
                     self.textAligmentButton.updateStyle(alignState: textView.textView.textAlignment, animated: true)
                     self.textStyleButton.updateStyle(style: textView.backgroundStyle, animated: true)
+                    self.selectColorButton.colorPickerResult = textView.colorResult
                 }
             default:
                 break
@@ -269,14 +270,19 @@ class EditToolbarView: View {
         
         self.toolsView.indexUpdating = { [weak self] index in
             guard let self else { return }
-            ToolbarSettings.shared.selectedTool = self.toolsView.selectedTool
-            
-            if index > 3 {
-                self.selectColorButton.isEnabled = false
-            } else {
-                self.selectColorButton.isEnabled = true
-                self.selectColorButton.colorPickerResult = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool)).color
-            }
+            self.updateBrushColor()
+        }
+    }
+    
+    private func updateBrushColor() {
+        ToolbarSettings.shared.selectedTool = self.toolsView.selectedTool
+        let index = self.toolsView.selectedToolIndex
+        
+        if index > 3 {
+            self.selectColorButton.isEnabled = false
+        } else {
+            self.selectColorButton.isEnabled = true
+            self.selectColorButton.colorPickerResult = ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolsView.selectedTool)).color
         }
     }
     
@@ -382,6 +388,7 @@ class EditToolbarView: View {
         
         switch state {
         case .tools:
+            self.updateBrushColor()
             self.textAligmentButton.isUserInteractionEnabled = false
             self.textStyleButton.isUserInteractionEnabled = false
             self.toolsView.isUserInteractionEnabled = true

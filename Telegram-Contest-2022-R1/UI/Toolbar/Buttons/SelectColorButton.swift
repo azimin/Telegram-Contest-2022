@@ -17,7 +17,7 @@ class SelectColorButton: Button {
         }
     }
     
-    private(set) var color: UIColor = .white {
+    private var color: UIColor = .white {
         didSet {
             self.updateColor()
         }

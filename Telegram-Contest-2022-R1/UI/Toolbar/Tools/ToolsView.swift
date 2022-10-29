@@ -32,7 +32,7 @@ class ToolsView: View {
     let shadowImageView = UIImageView()
     private let contentMaskView = UIView()
     
-    private var selectedToolIndex = 0 {
+    private(set) var selectedToolIndex = 0 {
         didSet {
             if self.selectedToolIndex != oldValue {
                 self.indexUpdating?(selectedToolIndex)

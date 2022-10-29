@@ -596,7 +596,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     // Mark Text Field
     
-    private var colorResult: ColorPickerResult = .white
+    private(set) var colorResult: ColorPickerResult = .white
     
     func updateTextColor(colorResult: ColorPickerResult) {
         self.colorResult = colorResult
@@ -661,6 +661,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         view.state = self.state
         view.backgroundStyle = self.backgroundStyle
         view.firstKeyboardCall = false
+        view.updateTextColor(colorResult: self.colorResult)
         
         view.setupView()
         
