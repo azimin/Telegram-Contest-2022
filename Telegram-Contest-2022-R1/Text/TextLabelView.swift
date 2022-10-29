@@ -437,6 +437,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         if isOpen {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
                 self.isHidden = false
+                self.animateZoomIn()
             })
         }
         
@@ -490,6 +491,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     private var lastFrame: CGRect = .zero
     private var createdFrame: CGRect = .zero
+    private var firstKeyboardCall = true
     
     func updateKeyboardFrame(state: KeyboardState, info: KeyboardInfo?) {
         switch state {
@@ -498,6 +500,10 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
                 OperationQueue.main.addOperation {
                     self.animateToEditPhase(info: info)
                     self.isHidden = false
+                    if self.firstKeyboardCall {
+                        self.animateZoomIn()
+                        self.firstKeyboardCall = false
+                    }
                 }
             }
         case .frameChanged:
@@ -513,6 +519,19 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     func keyboardActiveInputViewChanged(input: UIView?, info: KeyboardInfo) { }
     
     var isPresentInProgress = false
+    
+    
+    var isScaleAnimateInProgress: Bool = false
+    private func animateZoomIn() {
+        if isScaleAnimateInProgress {
+            return
+        }
+        
+        self.isScaleAnimateInProgress = true
+        self.layer.animateSpring(from: 0 as NSNumber, to: self.mutateValues.scale as NSNumber, keyPath: "transform.scale", duration: 0.75, completion: { [weak self] _ in
+            self?.isScaleAnimateInProgress = false
+        })
+    }
     
     private func animateToEditPhase(info: KeyboardInfo?) {
         var finalFrame: CGRect = .zero
@@ -555,7 +574,9 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
             
             self.layer.animateSpring(from: self.mutateValues.translation.x - additionalTranslation as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.x", duration: 0.62)
             self.layer.animateSpring(from: self.mutateValues.translation.y as NSNumber, to: 0 as NSNumber, keyPath: "transform.translation.y", duration: 0.62)
-            self.layer.animateSpring(from: self.mutateValues.scale as NSNumber, to: 1 as NSNumber, keyPath: "transform.scale", duration: 0.62)
+            if self.isScaleAnimateInProgress == false {
+                self.layer.animateSpring(from: self.mutateValues.scale as NSNumber, to: 1 as NSNumber, keyPath: "transform.scale", duration: 0.62)
+            }
             self.layer.animateSpring(from: self.mutateValues.rotation as NSNumber, to: 0 as NSNumber, keyPath: "transform.rotation.z", duration: 0.62, completion: { _ in
                 self.isPresentInProgress = false
                 if self.state == .editingTransition {
@@ -623,6 +644,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         view.createdFrame = self.createdFrame
         view.state = self.state
         view.backgroundStyle = self.backgroundStyle
+        view.firstKeyboardCall = false
         
         view.setupView()
         
