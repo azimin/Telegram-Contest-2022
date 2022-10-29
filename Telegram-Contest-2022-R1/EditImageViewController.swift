@@ -114,6 +114,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                 self.rootTextView.isUserInteractionEnabled = true
                 self.rootTextView.createTextView(color: .white)
                 self.toolbarView.selectColorButton.colorPickerResult = .white
+            case .presentColorPicker(let color):
+                self.presentFullColorPicker(color: color)
             default:
                 break
             }
@@ -140,14 +142,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         })
         
         self.toolbarView.selectColorButton.addAction { [weak self] in
-            if #available(iOS 14.0, *) {
-                let colorPickerViewController = CustomColorPicker()
-                colorPickerViewController.delegate = self
-                self?.present(colorPickerViewController, animated: true)
-            } else {
-                // TODO: - Have something
-                // Fallback on earlier versions
-            }
+            guard let self else { return }
+            self.presentFullColorPicker(color: self.toolbarView.selectColorButton.colorPickerResult)
         }
         
         self.toolbarView.selectColorButton.presetQuickColorSelect = { [weak self] button, gesture in
@@ -164,16 +160,29 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         }
         
         ColorSelectSystem.shared.subscribeOnEvent(self) { color in
+            self.toolbarView.selectColorButton.colorPickerResult = color
+            
             if let textView = TextPresentationController.shared.presentedLabel {
                 textView.updateTextColor(colorResult: color)
             } else if let selectedText = TextSelectionController.shared.selectedText {
                 self.toolbarView.selectColorButton.colorPickerResult = color
                 selectedText.updateTextColor(colorResult: color)
             } else {
-                self.toolbarView.selectColorButton.colorPickerResult = color
                 ToolbarSettings.shared.getToolSetting(style: .fromTool(self.toolbarView.toolsView.selectedTool)).color = color
                 self.toolbarView.toolsView.updateToolColor(color)
             }
+        }
+    }
+    
+    private func presentFullColorPicker(color: ColorPickerResult) {
+        if #available(iOS 14.0, *) {
+            let colorPickerViewController = CustomColorPicker()
+            colorPickerViewController.selectedColor = color.color
+            colorPickerViewController.delegate = self
+            self.present(colorPickerViewController, animated: true)
+        } else {
+            // TODO: - Have something
+            // Fallback on earlier versions
         }
     }
     

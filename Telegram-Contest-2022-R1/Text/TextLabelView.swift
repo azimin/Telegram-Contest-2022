@@ -621,7 +621,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        textView.inputAccessoryView = TextKeybaordControllsView(textAligment: self.textView.textAlignment, style: self.backgroundStyle)
+        textView.inputAccessoryView = TextKeybaordControllsView(textAligment: self.textView.textAlignment, style: self.backgroundStyle, color: self.colorResult)
         return true
     }
     

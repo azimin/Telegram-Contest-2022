@@ -12,8 +12,9 @@ class TextKeybaordControllsView: View {
     let textStyleButton = TextStyleButton()
     let textAligmentButton = TextAligmentButton()
     
-    init(textAligment: NSTextAlignment, style: TextLabelView.BackgroundStyle) {
+    init(textAligment: NSTextAlignment, style: TextLabelView.BackgroundStyle, color: ColorPickerResult) {
         super.init(frame: .zero)
+        selectColorButton.colorPickerResult = color
         textStyleButton.updateStyle(style: style, animated: false)
         textAligmentButton.updateStyle(alignState: textAligment, animated: false)
     }
@@ -35,6 +36,11 @@ class TextKeybaordControllsView: View {
         self.addSubview(self.textStyleButton)
         self.addSubview(self.textAligmentButton)
         
+        self.selectColorButton.addAction(action: { [weak self] in
+            guard let self else { return }
+            NotificationSystem.shared.fireEvent(.presentColorPicker(color: self.selectColorButton.colorPickerResult))
+        })
+        
         self.textAligmentButton.addAction { [weak self] in
             guard let self else { return }
             let nextValue = self.textAligmentButton.alignState.next()
@@ -49,6 +55,10 @@ class TextKeybaordControllsView: View {
             self.textStyleButton.updateStyle(style: nextValue, animated: true)
             NotificationSystem.shared.fireEvent(.changeTextStyle(style: nextValue))
         })
+        
+        ColorSelectSystem.shared.subscribeOnEvent(self) { [weak self] color in
+            self?.selectColorButton.colorPickerResult = color
+        }
     }
     
     override func layoutSubviewsOnChangeBounds() {
