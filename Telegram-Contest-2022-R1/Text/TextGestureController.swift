@@ -109,20 +109,12 @@ class TextGestureController {
     var isMenuVisible: Bool = false
     
     private func detectTapLabel(_ gesture: UITapGestureRecognizer) {
-        var foundedLabel = false
-        
-        for textView in self.labels {
-            let point = gesture.location(in: textView)
-            if textView.isTouchedFromDrawer(point: point) {
-                foundedLabel = true
-                textView.isMenuVisible = self.isMenuVisible
-                textView.tapAction()
-                break
-            }
-        }
-        
-        isMenuVisible = false
-        if foundedLabel == false {
+        if let textView = self.textViewByTap(gesture: gesture) {
+            textView.isMenuVisible = self.isMenuVisible
+            textView.tapAction()
+            isMenuVisible = false
+        } else {
+            isMenuVisible = false
             TextSelectionController.shared.deselectText()
         }
     }
