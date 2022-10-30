@@ -181,8 +181,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             colorPickerViewController.delegate = self
             self.present(colorPickerViewController, animated: true)
         } else {
-            // TODO: - Have something
-            // Fallback on earlier versions
+            let colorPickerViewController = PoorColorViewController(color: color)
+            self.present(colorPickerViewController, animated: true)
         }
     }
     

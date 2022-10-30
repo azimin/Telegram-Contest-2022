@@ -42,17 +42,24 @@ class ColorPickerResult {
     }
 }
 
-class ColorView: UIView {
+class ColorView: View {
+    typealias ColorAction = (_ color: ColorPickerResult) -> Void
+    
     let image = UIImage(named: "gadient")!
     lazy var imageView = UIImageView(image: image)
     
     fileprivate let colorCircleView = ColorCircleView()
+    
+    var colorUpdated: ColorAction?
+    
+    var canBeMoved: Bool = true
     
     var currentColor: ColorPickerResult = .black {
         didSet {
             if currentColor.color == oldValue.color {
                 return
             }
+            self.colorUpdated?(currentColor)
             self.updateCircle()
         }
     }
@@ -62,7 +69,7 @@ class ColorView: UIView {
     private func updateCircle(moved: Bool = false) {
         self.colorCircleView.color = currentColor.color
         
-        let delta: CGFloat = moved ? -56 : 0
+        let delta: CGFloat = (moved && self.canBeMoved) ? -56 : 0
         
         self.colorCircleView.center = CGPoint(
             x: currentColor.position.x * self.bounds.width,
@@ -91,8 +98,7 @@ class ColorView: UIView {
 
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func layoutSubviewsOnChangeBounds() {
         self.imageView.frame = self.bounds
         self.maskLayer.frame = self.bounds
         
