@@ -35,6 +35,8 @@ class NotificationSystem {
         case changeTextAligment(aligment: NSTextAlignment)
         case changeTextStyle(style: TextLabelView.BackgroundStyle)
         case presentColorPicker(color: ColorPickerResult)
+        case showFeatureUnderDevelopment
+        case hideFeatureUnderDevelopment
     }
     
     func fireEvent(_ event: Event) {

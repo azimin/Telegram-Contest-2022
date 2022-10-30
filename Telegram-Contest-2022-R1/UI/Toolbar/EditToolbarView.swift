@@ -182,6 +182,8 @@ class EditToolbarView: View {
             case let .textSelectionStateChanged(isSelected):
                 self.textAligmentButton.isEnabled = isSelected
                 self.textStyleButton.isEnabled = isSelected
+                self.selectColorButton.isEnabled = isSelected
+                
                 if isSelected, let textView = TextSelectionController.shared.selectedText {
                     self.textAligmentButton.updateStyle(alignState: textView.textView.textAlignment, animated: true)
                     self.textStyleButton.updateStyle(style: textView.backgroundStyle, animated: true)
@@ -219,8 +221,9 @@ class EditToolbarView: View {
             
             let shapes = Shape.allCases
             let items: [ContextMenuView.Item] = shapes.map({ .init(title: $0.title, iconName: $0.iconName)} )
-            ContextMenuController.shared.showItems(items: items, fromView: self.addObjectButton, preferableWidth: 180) { [weak self] index in
-                print(shapes[index].title)
+            NotificationSystem.shared.fireEvent(.showFeatureUnderDevelopment)
+            ContextMenuController.shared.showItems(items: items, fromView: self.addObjectButton, preferableWidth: 180) { _ in
+                NotificationSystem.shared.fireEvent(.showFeatureUnderDevelopment)
             }
         })
         
@@ -270,6 +273,13 @@ class EditToolbarView: View {
         
         self.toolsView.indexUpdating = { [weak self] index in
             guard let self else { return }
+            
+            if self.toolsView.selectedTool != .pen {
+                NotificationSystem.shared.fireEvent(.showFeatureUnderDevelopment)
+            } else {
+                NotificationSystem.shared.fireEvent(.hideFeatureUnderDevelopment)
+            }
+            
             self.updateBrushColor()
         }
     }
@@ -402,7 +412,9 @@ class EditToolbarView: View {
                 self.animateTextButtons(isShow: false)
             }
         case .text:
+            NotificationSystem.shared.fireEvent(.hideFeatureUnderDevelopment)
             self.updateTextColor()
+            self.selectColorButton.isEnabled = false
             self.textAligmentButton.isHidden = false
             self.textAligmentButton.isUserInteractionEnabled = true
             self.textStyleButton.isHidden = false
