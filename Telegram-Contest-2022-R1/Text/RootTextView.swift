@@ -94,7 +94,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
             $0.removeFromSuperview()
         })
         
-        self.frontView.subviews.forEach({
+        self.frontView.labelsContentView.subviews.forEach({
             $0.removeFromSuperview()
         })
     }

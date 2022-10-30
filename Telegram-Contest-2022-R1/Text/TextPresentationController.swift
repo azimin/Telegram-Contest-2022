@@ -21,7 +21,7 @@ class TextPresentationController {
     
     func getTextView(id: Int) -> TextLabelView? {
         var subviews: [TextLabelView] = []
-        for view in (contentView?.subviews ?? []) + (frontView?.subviews ?? []) {
+        for view in (contentView?.subviews ?? []) + (frontView?.labelsContentView.subviews ?? []) {
             if let label = view as? TextLabelView {
                 subviews.append(label)
             }
@@ -42,7 +42,7 @@ class TextPresentationController {
         
         self.frontView?.isUserInteractionEnabled = true
         view.removeFromSuperview()
-        self.frontView?.insertSubview(view, at: 0)
+        self.frontView?.labelsContentView.addSubview(view)
         self.frontView?.performAnimation(isShowing: true)
         
         UIView.animate(withDuration: 0.2) {
@@ -63,8 +63,11 @@ class TextPresentationController {
             self.backgroundView?.alpha = 0
         }) {
             _ in
+            let wasRemoved = view.superview == nil
             view.removeFromSuperview()
-            self.contentView?.addSubview(view)
+            if !wasRemoved {
+                self.contentView?.addSubview(view)
+            }
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -73,6 +76,8 @@ class TextPresentationController {
     }
     
     func deleteView(view: TextLabelView) {
+        UndoManager.shared.removeCreateEvent(removeId: view.id)
+        
         self.presentedLabel = nil
         self.isTextPresented = false
         self.frontView?.performAnimation(isShowing: false)

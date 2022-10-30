@@ -113,6 +113,9 @@ class TopControlsView: View {
         self.cancelButton.isUserInteractionEnabled = false
         self.doneButton.isUserInteractionEnabled = false
         
+        self.undoButton.isUserInteractionEnabled = false
+        self.clearAllButton.isUserInteractionEnabled = false
+        
         if self.hasZoom && self.isTextEnterState.isActive == false {
             self.zoomOutButton.isHidden = false
         }
@@ -130,6 +133,8 @@ class TopControlsView: View {
         } else {
             self.undoButton.isHidden = false
             self.clearAllButton.isHidden = false
+            self.undoButton.isUserInteractionEnabled = true
+            self.clearAllButton.isUserInteractionEnabled = true
         }
     }
     

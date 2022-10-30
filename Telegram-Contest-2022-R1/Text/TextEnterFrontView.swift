@@ -9,8 +9,10 @@ import UIKit
 
 class TextEnterFrontView: View, KeyboardHandlerDelegate {
     let sizeView = FontSizeView()
+    var labelsContentView = UIView()
     
     override func setUp() {
+        self.addSubview(self.labelsContentView)
         self.addSubview(self.sizeView)
         self.sizeView.isHidden = false
         self.keyboardDelegate = self
@@ -33,6 +35,8 @@ class TextEnterFrontView: View, KeyboardHandlerDelegate {
     
     override func layoutSubviewsOnChangeBounds() {
         self.updateSize()
+        self.sizeView.layer.setTransform(translateX: -40)
+        self.labelsContentView.frame = self.bounds
     }
     
     var recommendedHeight: CGFloat = 339
@@ -77,9 +81,9 @@ class TextEnterFrontView: View, KeyboardHandlerDelegate {
         switch state {
         case .frameChanged, .opened:
             self.recommendedHeight = info.endFrame.height
+            self.updateSize()
         case .hidden:
             break
         }
-        self.updateSize()
     }
 }

@@ -32,6 +32,18 @@ class UndoManager {
         self.undoManagerUpdated?()
     }
     
+    func removeCreateEvent(removeId: Int) {
+        self.actions.removeAll { action in
+            switch action {
+            case .createdText(let id):
+                return id == removeId
+            default:
+                return false
+            }
+        }
+        self.undoManagerUpdated?()
+    }
+    
     func undo() {
         if self.actions.isEmpty {
             return
