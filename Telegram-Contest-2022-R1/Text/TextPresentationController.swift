@@ -12,7 +12,8 @@ class TextPresentationController {
     
     weak var contentView: UIView?
     weak var backgroundView: UIView?
-    weak var frontView: TextEnterFrontView?
+    weak var frontView: UIView?
+    weak var frontSizeControlView: TextEnterFrontView?
     
     weak var presentedLabel: TextLabelView?
     
@@ -21,7 +22,7 @@ class TextPresentationController {
     
     func getTextView(id: Int) -> TextLabelView? {
         var subviews: [TextLabelView] = []
-        for view in (contentView?.subviews ?? []) + (frontView?.labelsContentView.subviews ?? []) {
+        for view in (contentView?.subviews ?? []) + (frontView?.subviews ?? []) {
             if let label = view as? TextLabelView {
                 subviews.append(label)
             }
@@ -36,14 +37,15 @@ class TextPresentationController {
         self.isTextPresented = true
         
         NotificationSystem.shared.fireEvent(.textPresentationStateChanged(isPresenting: true))
-        self.frontView?.fontToProgress(textView: view)
+        self.frontSizeControlView?.fontToProgress(textView: view)
         
         self.isNextStepIsOpen = false
         
         self.frontView?.isUserInteractionEnabled = true
+        self.frontSizeControlView?.isUserInteractionEnabled = true
         view.removeFromSuperview()
-        self.frontView?.labelsContentView.addSubview(view)
-        self.frontView?.performAnimation(isShowing: true)
+        self.frontView?.addSubview(view)
+        self.frontSizeControlView?.performAnimation(isShowing: true)
         
         UIView.animate(withDuration: 0.2) {
             self.backgroundView?.alpha = 1
@@ -53,11 +55,12 @@ class TextPresentationController {
     func hideView(view: TextLabelView) {
         self.presentedLabel = nil
         self.isTextPresented = false
-        self.frontView?.performAnimation(isShowing: false)
+        self.frontSizeControlView?.performAnimation(isShowing: false)
         
         NotificationSystem.shared.fireEvent(.textPresentationStateChanged(isPresenting: false))
         
         self.frontView?.isUserInteractionEnabled = false
+        self.frontSizeControlView?.isUserInteractionEnabled = false
         
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView?.alpha = 0
@@ -80,11 +83,12 @@ class TextPresentationController {
         
         self.presentedLabel = nil
         self.isTextPresented = false
-        self.frontView?.performAnimation(isShowing: false)
+        self.frontSizeControlView?.performAnimation(isShowing: false)
         
         NotificationSystem.shared.fireEvent(.textPresentationStateChanged(isPresenting: false))
         
         self.frontView?.isUserInteractionEnabled = false
+        self.frontSizeControlView?.isUserInteractionEnabled = false
         
         view.deleteAnimation()
         UIView.animate(withDuration: 0.2, animations: {

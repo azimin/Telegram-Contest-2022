@@ -20,7 +20,8 @@ class RootTextView: View, UIGestureRecognizerDelegate {
     var holderView = UIView()
     let contentView = UIView()
     let backgroundView = UIView()
-    let frontView = TextEnterFrontView()
+    let frontView = UIView()
+    let frontSizeControlView = TextEnterFrontView()
     
     let gestureController = TextGestureController.shared
     
@@ -55,6 +56,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
         TextSelectionController.shared.labelsContentView = self.contentView
         
         self.addSubview(self.holderView)
+        self.addSubview(self.frontSizeControlView)
         
         TextLineAligmentView.shared = self.aligmentView
         self.holderView.addSubview(self.aligmentView)
@@ -70,6 +72,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
         TextPresentationController.shared.contentView = self.contentView
         TextPresentationController.shared.backgroundView = self.backgroundView
         TextPresentationController.shared.frontView = self.frontView
+        TextPresentationController.shared.frontSizeControlView = self.frontSizeControlView
         
         NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
             switch event {
@@ -94,7 +97,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
             $0.removeFromSuperview()
         })
         
-        self.frontView.labelsContentView.subviews.forEach({
+        self.frontView.subviews.forEach({
             $0.removeFromSuperview()
         })
     }
@@ -110,6 +113,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
         self.contentView.frame = self.bounds
         self.backgroundView.frame = self.bounds
         self.frontView.frame = self.bounds
+        self.frontSizeControlView.frame = self.bounds
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
