@@ -316,6 +316,12 @@ class EditToolbarView: View {
                 settings.state = state
                 self.toolDetailsButton.setContent(style: .fromTool(state), animated: true)
                 self.detailsStyle = .fromTool(state)
+                
+                if selectedIndex > 0 {
+                    NotificationSystem.shared.fireEvent(.showFeatureUnderDevelopment)
+                } else {
+                    NotificationSystem.shared.fireEvent(.hideFeatureUnderDevelopment)
+                }
             }
         case .eraiser:
             let items: [ContextMenuView.Item] = [
@@ -330,6 +336,7 @@ class EditToolbarView: View {
                 self.toolsView.eraser.setState(state: ToolbarSettings.shared.eraserSettings.mode, animated: true)
                 self.toolDetailsButton.setContent(style: .fromEraiser(state), animated: true)
                 self.detailsStyle = .fromEraiser(state)
+                NotificationSystem.shared.fireEvent(.showFeatureUnderDevelopment)
             }
         case .lasso:
             assertionFailure("Can't do this")
