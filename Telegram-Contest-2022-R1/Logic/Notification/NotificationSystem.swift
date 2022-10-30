@@ -28,6 +28,7 @@ class NotificationSystem {
         case none
         case textPresentationStateChanged(isPresenting: Bool)
         case textSelectionStateChanged(isSelected: Bool)
+        case selectTextTab
         case segmentTabChanged(index: Int)
         case maskUpdated(view: UIView, frame: CGRect)
         case createText

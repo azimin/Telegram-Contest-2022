@@ -85,6 +85,7 @@ class MetalLineDrawer: UIView {
     private var isEnding = false
     
     var gesture: UIPanGestureRecognizer!
+    var tapGesture: UITapGestureRecognizer!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -96,6 +97,7 @@ class MetalLineDrawer: UIView {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGesture))
         self.addGestureRecognizer(tapGestureRecognizer)
+        self.tapGesture = tapGestureRecognizer
     }
     
     required init?(coder: NSCoder) {
@@ -103,6 +105,13 @@ class MetalLineDrawer: UIView {
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == self.tapGesture {
+            if TextGestureController.shared.textViewByTap(gesture: self.tapGesture) != nil {
+                TextGestureController.shared.tapGesture(self.tapGesture)
+                NotificationSystem.shared.fireEvent(.selectTextTab)
+                return false
+            }
+        }
         return ToolbarSettings.shared.selectedTool == .pen
     }
     

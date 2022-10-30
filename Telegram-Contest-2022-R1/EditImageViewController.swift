@@ -117,17 +117,19 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.zoomView.updateWith(image: self.imageContainer.image)
         self.rootTextView.isUserInteractionEnabled = false
         
-        self.toolbarView.segmentItemSelected = { [weak self] index in
+        self.toolbarView.segmentItemSelected = { [weak self] (index, byTap) in
             guard let self else { return }
             if index == 0 {
                 TextSelectionController.shared.deselectText()
                 self.rootTextView.isUserInteractionEnabled = false
             }
             if index == 1 {
-                TextSelectionController.shared.deselectText()
                 self.rootTextView.isUserInteractionEnabled = true
-                self.rootTextView.createTextView(color: .white)
-                self.toolbarView.selectColorButton.colorPickerResult = .white
+                if byTap {
+                    TextSelectionController.shared.deselectText()
+                    self.rootTextView.createTextView(color: .white)
+                    self.toolbarView.selectColorButton.colorPickerResult = .white
+                }
             }
         }
         

@@ -22,7 +22,7 @@ class EditToolbarView: View {
         case text
     }
     
-    var segmentItemSelected: ((Int) -> Void)?
+    var segmentItemSelected: ((Int, Bool) -> Void)?
     
     weak var delegate: EditToolbarViewDelegate?
     
@@ -44,6 +44,7 @@ class EditToolbarView: View {
     let toolDetailsButton = SelectToolDetailsButton()
     
     let bottomView = UIView()
+    private var textSelected: Bool = false
     
     override func setUp() {
         self.autolayout {
@@ -177,6 +178,13 @@ class EditToolbarView: View {
         NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
             guard let self else { return }
             switch event {
+            case .selectTextTab:
+                self.textSelected = true
+                self.segmentsView.selectedItem = 1
+                self.selectColorButton.isEnabled = true
+                if let color = TextSelectionController.shared.selectedText?.colorResult {
+                    self.selectColorButton.colorPickerResult = color
+                }
             case let .textPresentationStateChanged(isPresenting):
                 self.isUserInteractionEnabled = !isPresenting
             case let .textSelectionStateChanged(isSelected):
@@ -245,7 +253,8 @@ class EditToolbarView: View {
         self.segmentsView.itemSelected = { [weak self] index in
             guard let self else { return }
             NotificationSystem.shared.fireEvent(.segmentTabChanged(index: index))
-            self.segmentItemSelected?(index)
+            self.segmentItemSelected?(index, !self.textSelected)
+            self.textSelected = false
             
             if index == 1 {
                 self.addObjectButton.updateState(state: .addText, animated: true)
