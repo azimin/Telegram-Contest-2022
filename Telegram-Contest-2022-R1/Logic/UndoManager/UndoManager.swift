@@ -17,7 +17,6 @@ class UndoManager {
     enum Action {
         case drawMetalLine
         case createdText(id: Int)
-        case changeText(id: Int, textInfo: TextInfo)
         case deleteText(id: Int, textInfo: TextInfo)
     }
     
@@ -42,8 +41,6 @@ class UndoManager {
             NotificationSystem.shared.fireEvent(.undoMetalLine)
         case let .createdText(id):
             TextPresentationController.shared.getTextView(id: id)?.deleteAction(shouldAddToUndo: false)
-        case let .changeText(id, textInfo):
-            break
         case let .deleteText(id, textInfo):
             TextLabelView.recreateLabelAction(info: textInfo, id: id)
         }

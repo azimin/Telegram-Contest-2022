@@ -307,6 +307,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     @objc
     func dublicateAction() {
         let textLabelView = self.copyView()
+        UndoManager.shared.addAction(.createdText(id: textLabelView.id))
         self.superview?.addSubview(textLabelView)
         TextPresentationController.shared.isNextStepIsOpen = true
         textLabelView.goToEditState()

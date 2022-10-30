@@ -41,6 +41,7 @@ class LinesView: UIView {
         
         images.removeLast()
         if self.images.count == 0 {
+            self.preveousImage = nil
             self.imageView.image = nil
             return
         }
