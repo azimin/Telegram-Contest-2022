@@ -166,6 +166,8 @@ class ToolsView: View {
             return
         }
         
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
         if self.selectedToolIndex == index && self.selectedTool != .lasso {
             self.showSpecificComponent(index: index)
         } else {

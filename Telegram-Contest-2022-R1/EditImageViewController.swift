@@ -341,6 +341,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         )
         colorPickerView.currentColor = .white
         colorPickerView.cachedOpacity = cachedOpacity
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         if isFromKeyboard {
             from.superview?.addSubview(colorPickerView)
@@ -354,18 +355,14 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         if isFromKeyboard {
             (self.view as? CaptureView)?.stopCapture = true
         }
-//        self.topControlls.isUserInteractionEnabled = false
-//        self.toolbarView.isUserInteractionEnabled = false
-//        self.rootTextView.tapGesture.isEnabled = false
     }
     
     func hideColorPicker(isFromKeyboard: Bool) {
         if isFromKeyboard {
             (self.view as? CaptureView)?.stopCapture = false
         }
-//        self.topControlls.isUserInteractionEnabled = true
-//        self.toolbarView.isUserInteractionEnabled = true
-//        self.rootTextView.tapGesture.isEnabled = true
+        
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         if let colorPickerView = self.colorPickerView {
             ColorSelectSystem.shared.fireColor(colorPickerView.currentColor)

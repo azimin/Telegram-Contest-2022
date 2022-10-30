@@ -277,8 +277,7 @@ class TextGestureController {
                 self.rotationProgress = 0
                 if activeLabel.alingGestureState == .freeform {
                     activeLabel.alingGestureState.toggle()
-                    let generator = UIImpactFeedbackGenerator(style: .light)
-                    generator.impactOccurred()
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
                 }
             }
         }

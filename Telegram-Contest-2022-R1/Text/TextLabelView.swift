@@ -239,6 +239,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     @objc
     func deleteMenuButtonAction() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         self.deleteAction(shouldAddToUndo: true)
     }
     
@@ -304,6 +305,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     @objc
     func dublicateAction() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         let id = Int.random(in: 0..<Int.max)
         var info = self.createTextInfo()
         info.transform = CATransform3DConcat(info.transform, CATransform3DMakeTranslation(50, 50, 0))
@@ -471,6 +473,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     func goToEditState(isOpen: Bool) {
         UIMenuController.shared.hideMenu()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         self.cacheTextAligment = self.textView.textAlignment
         self.textView.forceWidth = nil

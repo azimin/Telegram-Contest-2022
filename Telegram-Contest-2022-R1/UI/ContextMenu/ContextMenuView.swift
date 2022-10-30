@@ -85,6 +85,10 @@ class ContextMenuView: View {
     }
     
     func animateTransition(transition: Transition, duration: TimeInterval, completion: VoidBlock? = nil) {
+        if transition == .appear {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
+        
         let fromOpacityAndScale: CGFloat = transition == .appear ? 0 : 1
         let toOpacityAndScale: CGFloat = transition == .appear ? 1 : 0
         
@@ -107,6 +111,7 @@ class ContextMenuView: View {
     
     private func selected(index: Int?) {
         if let index = index {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
             ContextMenuController.shared.hideMenu()
             self.selection?(index)
         }
