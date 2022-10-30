@@ -341,7 +341,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.textView.textAlignment = .center
         self.textView.backgroundColor = .clear
         self.textView.recommendedFont = UIFont.sfProTextSemibold(36)
-        self.textView.text = "Yo\nSome Content\nThe"
+//        self.textView.text = "Yo\nSome Content\nThe"
         self.textView.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         self.textView.frame = self.bounds
         self.textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -415,6 +415,11 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     }
     
     func goToPresentState() {
+        if self.textView.text.isEmpty {
+            TextPresentationController.shared.deleteView(view: self)
+            return
+        }
+        
         self.state = .presentingTransition
         TextPresentationController.shared.hideView(view: self)
         

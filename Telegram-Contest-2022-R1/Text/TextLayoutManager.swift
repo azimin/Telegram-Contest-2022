@@ -23,6 +23,11 @@ class TextLayoutManager: NSLayoutManager {
     }
     
     func refreshBackground() {
+        if self.textView?.text.isEmpty == true {
+            self.backgroundView?.update(path: UIBezierPath(), color: self.backgroundColor ?? .clear)
+            return
+        }
+        
         if self.backgroundColor == nil {
             self.backgroundView?.update(path: UIBezierPath(), color: self.backgroundColor ?? .clear)
             return

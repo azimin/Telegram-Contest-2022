@@ -21,10 +21,38 @@ class UndoManager {
     }
     
     var actions: [Action] = []
+    var lastActionCreate: TimeInterval = 0
     
     func addAction(_ action: Action) {
-        self.actions.append(action)
-        self.undoManagerUpdated?()
+        var shouldRemove = false
+        
+        switch action {
+        case let .deleteText(id, info):
+            if let last = self.actions.last {
+                switch last {
+                case let .createdText(oldId):
+                    if oldId == id && info.transform.m41 == 0 && info.transform.m42 == 0 {
+                        let delta = CACurrentMediaTime() - lastActionCreate
+                        if delta < 10 {
+                            shouldRemove = true
+                        }
+                    }
+                default:
+                    break
+                }
+            }
+        default:
+            break
+        }
+        
+        if shouldRemove {
+            self.actions.removeLast()
+            self.undoManagerUpdated?()
+        } else {
+            self.lastActionCreate = CACurrentMediaTime()
+            self.actions.append(action)
+            self.undoManagerUpdated?()
+        }
     }
     
     func clearAll() {
