@@ -61,6 +61,7 @@
 		9F74F33C2909D39500092CFB /* MetalDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F33B2909D39500092CFB /* MetalDrawingView.swift */; };
 		9F8FF83F290DF0290091E391 /* PoorColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8FF83E290DF0290091E391 /* PoorColorViewController.swift */; };
 		9F8FF841290DFD910091E391 /* OpacitySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8FF840290DFD910091E391 /* OpacitySelectView.swift */; };
+		9F8FF844290E183D0091E391 /* SaveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8FF843290E183D0091E391 /* SaveController.swift */; };
 		9F9AE07928F4E45A004717E5 /* CancelBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07828F4E45A004717E5 /* CancelBackButton.swift */; };
 		9F9AE07B28F4E460004717E5 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07A28F4E460004717E5 /* SendButton.swift */; };
 		9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AE07C28F4E93A004717E5 /* SelectColorButton.swift */; };
@@ -148,6 +149,7 @@
 		9F74F33B2909D39500092CFB /* MetalDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalDrawingView.swift; sourceTree = "<group>"; };
 		9F8FF83E290DF0290091E391 /* PoorColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoorColorViewController.swift; sourceTree = "<group>"; };
 		9F8FF840290DFD910091E391 /* OpacitySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpacitySelectView.swift; sourceTree = "<group>"; };
+		9F8FF843290E183D0091E391 /* SaveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveController.swift; sourceTree = "<group>"; };
 		9F9AE07828F4E45A004717E5 /* CancelBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBackButton.swift; sourceTree = "<group>"; };
 		9F9AE07A28F4E460004717E5 /* SendButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
 		9F9AE07C28F4E93A004717E5 /* SelectColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorButton.swift; sourceTree = "<group>"; };
@@ -356,6 +358,14 @@
 			path = ZoomView;
 			sourceTree = "<group>";
 		};
+		9F8FF842290E18350091E391 /* SaveLogic */ = {
+			isa = PBXGroup;
+			children = (
+				9F8FF843290E183D0091E391 /* SaveController.swift */,
+			);
+			path = SaveLogic;
+			sourceTree = "<group>";
+		};
 		9F9AE07E28F4E958004717E5 /* Segment */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +429,7 @@
 		9FA0091C28F8BBCD00688479 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				9F8FF842290E18350091E391 /* SaveLogic */,
 				9F0246D7290C3530003119F9 /* Notification */,
 				9FA0092028F8D92C00688479 /* Draw */,
 				9FA0091D28F8BBD400688479 /* Settings */,
@@ -627,6 +638,7 @@
 				9F74F33C2909D39500092CFB /* MetalDrawingView.swift in Sources */,
 				9F0246C9290C17D7003119F9 /* TextSelectionController.swift in Sources */,
 				9F6533B928F7673000E00574 /* SaveButtonAnimator.swift in Sources */,
+				9F8FF844290E183D0091E391 /* SaveController.swift in Sources */,
 				9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */,
 				9F9AE08528F4F220004717E5 /* ToolView.swift in Sources */,
 				9F0246C8290C17D7003119F9 /* TextPresentationController.swift in Sources */,

@@ -151,6 +151,17 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             print("Clear all")
         })
         
+        self.toolbarView.sendButton.addAction { [weak self] in
+            guard let self else { return }
+            _ = SaveController.prepareAnsSavePhoto(
+                originalImage: self.imageContainer.image,
+                drawImage: self.zoomView.linesView.preveousImage,
+                textLayer: self.rootTextView.contentView,
+                maskContent: self.zoomView.contentView,
+                maskFrame: self.zoomView.imageView.frame
+            )
+        }
+        
         self.topControlls.cancelButton.addAction(action: {
             if let view = TextPresentationController.shared.presentedLabel {
                 TextPresentationController.shared.deleteView(view: view)
