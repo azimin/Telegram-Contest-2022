@@ -93,6 +93,9 @@ class MetalLineDrawer: UIView {
         panGestureRecognizer.maximumNumberOfTouches = 1
         self.addGestureRecognizer(panGestureRecognizer)
         self.gesture = panGestureRecognizer
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGesture))
+        self.addGestureRecognizer(tapGestureRecognizer)
     }
     
     required init?(coder: NSCoder) {
@@ -101,6 +104,25 @@ class MetalLineDrawer: UIView {
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return ToolbarSettings.shared.selectedTool == .pen
+    }
+    
+    @objc
+    func handleTapGesture(gesture: UITapGestureRecognizer) {
+        let point = gesture.location(in: self)
+        self.points.removeAll(keepingCapacity: true)
+        self.velocities.removeAll(keepingCapacity: true)
+        self.penSize = PenSize.penWith(width: ToolbarSettings.shared.getToolSetting(style: .pen).widthProgress)
+        self.sizeEffectCoef = self.penSize.sizeEffect
+        
+        let size = self.penSize.minSize
+        
+        self.connectingLine = false
+        self.addPoint(point, size: size)
+        self.addPoint(point, size: size)
+        self.addPoint(point, size: size)
+        self.addPoint(CGPoint(x: point.x + 0.01, y: point.y + 0.01), size: size)
+        self.finishingLine = true
+        self.isEnding = true
     }
     
     @objc
