@@ -16,15 +16,23 @@ class ZoomView: View, LinesViewDelegate {
     weak var delegate: ZoomViewDelegate?
     
     struct Offset {
-        // TODO: - Play with values
-        var topOffset: CGFloat = 20
-        var bottomOffset: CGFloat = 144
+        var topOffset: CGFloat = {
+            let window = UIApplication.shared.windows.first
+            return (window?.safeAreaInsets.top ?? 0) + 44
+        }()
+        var bottomOffset: CGFloat = {
+            let window = UIApplication.shared.windows.first
+            return (window?.safeAreaInsets.bottom ?? 0) + 40 + 136
+        }()
     }
     
     let contentView = UIView()
     let imageView = UIImageView()
     let linesView = LinesView()
     let maskTopView = UIView()
+    
+    let shadowTopOverlay = CAGradientLayer()
+    let shadowBottomOverlay = CAGradientLayer()
     
     override func setUp() {
         self.maskTopView.backgroundColor = .black
@@ -34,9 +42,12 @@ class ZoomView: View, LinesViewDelegate {
         contentView.addSubview(linesView)
         
         self.linesView.delegate = self
+        
+        self.layer.addSublayer(self.shadowTopOverlay)
+        self.layer.addSublayer(self.shadowBottomOverlay)
     }
     
-    override func layoutSubviews() {
+    override func layoutSubviewsOnChangeBounds() {
         self.contentView.frame = self.bounds
         self.linesView.frame = self.bounds
         
