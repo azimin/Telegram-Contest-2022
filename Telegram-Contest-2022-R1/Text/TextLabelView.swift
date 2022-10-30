@@ -600,7 +600,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     func updateTextColor(colorResult: ColorPickerResult) {
         self.colorResult = colorResult
-        self.outlineView.strokeColor = colorResult.color.blackOrWhite
+        self.outlineView.strokeColor = colorResult.color.blackOrWhite.withAlphaComponent(colorResult.color.alpha)
         self.textView.updateTextColor(color: colorResult.color)
         self.outlineView.updateWithVisual(textView: self.textView)
         self.outlineView.updateWith(text: self.textView.text, font: self.textView.font)
@@ -621,7 +621,9 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        textView.inputAccessoryView = TextKeybaordControllsView(textAligment: self.textView.textAlignment, style: self.backgroundStyle, color: self.colorResult)
+        let view = TextKeybaordControllsView(textAligment: self.textView.textAlignment, style: self.backgroundStyle, color: self.colorResult)
+        textView.inputAccessoryView = view
+        NotificationSystem.shared.fireEvent(.textInputViewCreate(view: view))
         return true
     }
     

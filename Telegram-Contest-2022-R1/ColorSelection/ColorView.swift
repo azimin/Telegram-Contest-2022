@@ -54,6 +54,8 @@ class ColorView: View {
     
     var canBeMoved: Bool = true
     
+    var cachedOpacity: CGFloat? = nil
+    
     var currentColor: ColorPickerResult = .black {
         didSet {
             if currentColor.color == oldValue.color {
@@ -174,18 +176,18 @@ class ColorView: View {
         }
     }
     
-    func hideAnimation() {
+    func hideAnimation(isFromKeyboard: Bool) {
         let colorView = UIView()
         colorView.frame = self.imageView.bounds
         colorView.backgroundColor = self.colorCircleView.color
-        colorView.layer.opacity = 0
+        colorView.layer.opacity = 1
         self.imageView.addSubview(colorView)
         
         self.isUserInteractionEnabled = false
         self.colorCircleView.isHidden = true
         self.imageView.layer.mask = self.maskLayer
         
-        let to = UIBezierPath(roundedRect: CGRect(x: 7, y: self.bounds.height - 27, width: 18, height: 18), cornerRadius: 10)
+        let to = UIBezierPath(roundedRect: CGRect(x: isFromKeyboard ? 14 : 7, y: self.bounds.height - 27, width: 18, height: 18), cornerRadius: 10)
         let from = UIBezierPath(roundedRect: self.maskLayer.bounds, cornerRadius: 8)
         
         self.maskLayer.path = to.cgPath

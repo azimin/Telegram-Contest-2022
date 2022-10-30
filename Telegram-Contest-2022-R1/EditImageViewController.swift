@@ -116,6 +116,9 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                 self.toolbarView.selectColorButton.colorPickerResult = .white
             case .presentColorPicker(let color):
                 self.presentFullColorPicker(color: color)
+            case .textInputViewCreate(let view):
+                view.selectColorButton.presetQuickColorSelect = self.selectColorButtonAction(isFromKeyboard: true)
+                break
             default:
                 break
             }
@@ -146,18 +149,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             self.presentFullColorPicker(color: self.toolbarView.selectColorButton.colorPickerResult)
         }
         
-        self.toolbarView.selectColorButton.presetQuickColorSelect = { [weak self] button, gesture in
-            guard let self else { return }
-            if gesture.state == .began {
-                self.presentColorPicker(from: button)
-            }
-            
-            if gesture.state == .ended || gesture.state == .failed || gesture.state == .cancelled {
-                self.hideColorPicker()
-            }
-            
-            self.colorPickerView?.gestureUpdated(gesture: gesture)
-        }
+        self.toolbarView.selectColorButton.presetQuickColorSelect = self.selectColorButtonAction(isFromKeyboard: false)
         
         ColorSelectSystem.shared.subscribeOnEvent(self) { color in
             self.toolbarView.selectColorButton.colorPickerResult = color
@@ -175,7 +167,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     private func presentFullColorPicker(color: ColorPickerResult) {
-        if #available(iOS 14.0, *) {
+        if #available(iOS 17.0, *) {
             let colorPickerViewController = CustomColorPicker()
             colorPickerViewController.selectedColor = color.color
             colorPickerViewController.delegate = self
@@ -183,6 +175,21 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         } else {
             let colorPickerViewController = PoorColorViewController(color: color)
             self.present(colorPickerViewController, animated: true)
+        }
+    }
+    
+    func selectColorButtonAction(isFromKeyboard: Bool) -> SelectColorButton.Action {
+        return { [weak self] button, gesture in
+            guard let self else { return }
+            if gesture.state == .began {
+                self.presentColorPicker(from: button, cachedOpacity: nil, isFromKeyboard: isFromKeyboard)
+            }
+            
+            if gesture.state == .ended || gesture.state == .failed || gesture.state == .cancelled {
+                self.hideColorPicker(isFromKeyboard: isFromKeyboard)
+            }
+            
+            self.colorPickerView?.gestureUpdated(gesture: gesture)
         }
     }
     
@@ -246,7 +253,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     
     var isColorPickerPresented = false
     
-    func presentColorPicker(from: UIView) {
+    func presentColorPicker(from: UIView, cachedOpacity: CGFloat?, isFromKeyboard: Bool) {
         guard !self.isColorPickerPresented else {
             return
         }
@@ -257,30 +264,50 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             height: width * 0.8335
         )
         
-        let convertFrame = self.view.hierarhyConvertFrame(from.frame, from: from.superview ?? from, to: self.view)
-        let yPosition: CGFloat = convertFrame.maxY
+        var frame: CGRect
         
-        let colorPickerView = ColorView(
-            frame: CGRect(
+        if isFromKeyboard {
+            let convertFrame = from.frame
+            let yPosition: CGFloat = convertFrame.maxY
+            frame = CGRect(
                 x: 6,
                 y: yPosition - size.height,
                 width: size.width,
                 height: size.height
             )
+        } else {
+            let convertFrame = self.view.hierarhyConvertFrame(from.frame, from: from.superview ?? from, to: self.view)
+            let yPosition: CGFloat = convertFrame.maxY
+            frame = CGRect(
+                x: 6,
+                y: yPosition - size.height,
+                width: size.width,
+                height: size.height
+            )
+        }
+        
+        let colorPickerView = ColorView(
+            frame: frame
         )
         colorPickerView.currentColor = .white
+        colorPickerView.cachedOpacity = cachedOpacity
         
-        self.view.addSubview(colorPickerView)
+        if isFromKeyboard {
+            from.superview?.addSubview(colorPickerView)
+        } else {
+            self.view.addSubview(colorPickerView)
+        }
+        
         self.colorPickerView = colorPickerView
         self.colorPickerView?.showAnimation()
     }
     
-    func hideColorPicker() {
+    func hideColorPicker(isFromKeyboard: Bool) {
         if let colorPickerView = self.colorPickerView {
             ColorSelectSystem.shared.fireColor(colorPickerView.currentColor)
         }
         self.isColorPickerPresented = false
-        self.colorPickerView?.hideAnimation()
+        self.colorPickerView?.hideAnimation(isFromKeyboard: isFromKeyboard)
         self.colorPickerView = nil
     }
 }

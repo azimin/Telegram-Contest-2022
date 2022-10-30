@@ -36,6 +36,7 @@ class PoorColorViewController: UIViewController, UIGestureRecognizerDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
     
+    private var tapGesture: UITapGestureRecognizer!
     private var panGesture: UIPanGestureRecognizer!
     private var opacityPanGesture: UIPanGestureRecognizer!
     
@@ -57,6 +58,9 @@ class PoorColorViewController: UIViewController, UIGestureRecognizerDelegate, UI
         
         let button = UIButton()
         button.setImage(UIImage(named: "close_button_color"), for: .normal)
+        button.addAction { [weak self] in
+            self?.dismiss(animated: true)
+        }
         self.view.addSubview(button)
         
         button.autolayout {
@@ -115,6 +119,11 @@ class PoorColorViewController: UIViewController, UIGestureRecognizerDelegate, UI
         self.currentColorView.frame = self.currentColorBackgroundView.frame
         self.currentColorView.layer.cornerRadius = 10
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.panGesture(_:)))
+        tapGesture.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
+        self.tapGesture = tapGesture
+        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGesture(_:)))
         panGesture.delegate = self
         self.view.addGestureRecognizer(panGesture)
@@ -165,7 +174,7 @@ class PoorColorViewController: UIViewController, UIGestureRecognizerDelegate, UI
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == self.panGesture {
+        if gestureRecognizer == self.panGesture || gestureRecognizer == self.tapGesture {
             let point = gestureRecognizer.location(in: self.view)
             if self.colorView.frame.contains(point) {
                 return true

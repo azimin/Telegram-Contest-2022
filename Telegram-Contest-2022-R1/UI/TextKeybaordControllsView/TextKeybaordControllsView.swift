@@ -24,6 +24,8 @@ class TextKeybaordControllsView: View {
     }
     
     override func setUp() {
+        self.layer.speed = Float(CALayer.currentSpeed())
+        
         self.frame.size.height = 48
         
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemChromeMaterial)

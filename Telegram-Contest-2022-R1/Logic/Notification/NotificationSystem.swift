@@ -31,6 +31,7 @@ class NotificationSystem {
         case segmentTabChanged(index: Int)
         case maskUpdated(view: UIView, frame: CGRect)
         case createText
+        case textInputViewCreate(view: TextKeybaordControllsView)
         case changeTextAligment(aligment: NSTextAlignment)
         case changeTextStyle(style: TextLabelView.BackgroundStyle)
         case presentColorPicker(color: ColorPickerResult)
