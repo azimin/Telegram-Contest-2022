@@ -160,7 +160,11 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         self.topControlls.clearAllButton.addAction(action: { [weak self] in
             guard let self else { return }
-            print("Clear all")
+            
+            NotificationSystem.shared.fireEvent(.clearAll)
+            UndoManager.shared.clearAll()
+            self.zoomView.linesView.clearAll()
+            self.rootTextView.clearAll()
         })
         
         UndoManager.shared.undoManagerUpdated = { [weak self] in

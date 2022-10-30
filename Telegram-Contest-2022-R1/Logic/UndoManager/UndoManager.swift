@@ -29,6 +29,7 @@ class UndoManager {
     
     func clearAll() {
         self.actions.removeAll()
+        self.undoManagerUpdated?()
     }
     
     func undo() {

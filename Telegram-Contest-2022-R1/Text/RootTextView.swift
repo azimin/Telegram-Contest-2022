@@ -85,8 +85,18 @@ class RootTextView: View, UIGestureRecognizerDelegate {
                 break
             }
         }
+    }
+    
+    func clearAll() {
+        TextSelectionController.shared.deselectText()
         
+        self.contentView.subviews.forEach({
+            $0.removeFromSuperview()
+        })
         
+        self.frontView.subviews.forEach({
+            $0.removeFromSuperview()
+        })
     }
     
     private func updateMask(view: UIView, frame: CGRect) {

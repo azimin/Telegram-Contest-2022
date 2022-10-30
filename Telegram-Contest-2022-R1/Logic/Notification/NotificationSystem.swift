@@ -38,6 +38,7 @@ class NotificationSystem {
         case showFeatureUnderDevelopment
         case hideFeatureUnderDevelopment
         case undoMetalLine
+        case clearAll
     }
     
     func fireEvent(_ event: Event) {

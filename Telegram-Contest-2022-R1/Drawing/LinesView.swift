@@ -34,6 +34,12 @@ class LinesView: UIView {
     var images: [Data] = []
     var preveousImage: UIImage?
     
+    func clearAll() {
+        self.imageView.image = nil
+        self.images.removeAll()
+        self.preveousImage = nil
+    }
+    
     func undo() {
         if self.images.isEmpty {
             return
