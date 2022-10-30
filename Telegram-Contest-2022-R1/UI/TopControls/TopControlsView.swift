@@ -80,6 +80,7 @@ class TopControlsView: View {
             self.clearAllButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).activate()
         }
         
+        self.doneButton.isExclusiveTouch = true
         self.doneButton.autolayout {
             self.doneButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12).activate()
             self.doneButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).activate()

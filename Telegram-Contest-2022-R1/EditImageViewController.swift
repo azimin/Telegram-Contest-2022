@@ -15,6 +15,17 @@ class GlobalConfig {
     static var cachedKeyboardSize: CGSize = .zero
 }
 
+class CaptureView: UIView {
+    var stopCapture: Bool = false
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if self.stopCapture {
+            return false
+        }
+        return super.point(inside: point, with: event)
+    }
+}
+
 class EditImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditToolbarViewDelegate, DrawMetalViewDelegate, ZoomViewDelegate {
     
     let rootTextView = RootTextView()
@@ -31,6 +42,12 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     var colorPickerView: ColorView?
     
     // Text
+    
+    override func loadView() {
+        self.view = CaptureView(
+            frame: UIScreen.main.bounds
+        )
+    }
     
     init(imageContainer: ImageContainer) {
         self.imageContainer = imageContainer
@@ -287,7 +304,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         }
         
         let colorPickerView = ColorView(
-            frame: frame
+            frame: frame,
+            shouldDisableGestures: true
         )
         colorPickerView.currentColor = .white
         colorPickerView.cachedOpacity = cachedOpacity
@@ -300,9 +318,23 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         self.colorPickerView = colorPickerView
         self.colorPickerView?.showAnimation()
+        
+        if isFromKeyboard {
+            (self.view as? CaptureView)?.stopCapture = true
+        }
+//        self.topControlls.isUserInteractionEnabled = false
+//        self.toolbarView.isUserInteractionEnabled = false
+//        self.rootTextView.tapGesture.isEnabled = false
     }
     
     func hideColorPicker(isFromKeyboard: Bool) {
+        if isFromKeyboard {
+            (self.view as? CaptureView)?.stopCapture = false
+        }
+//        self.topControlls.isUserInteractionEnabled = true
+//        self.toolbarView.isUserInteractionEnabled = true
+//        self.rootTextView.tapGesture.isEnabled = true
+        
         if let colorPickerView = self.colorPickerView {
             ColorSelectSystem.shared.fireColor(colorPickerView.currentColor)
         }

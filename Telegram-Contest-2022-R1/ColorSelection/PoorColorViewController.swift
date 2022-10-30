@@ -8,7 +8,7 @@
 import UIKit
 
 class PoorColorViewController: UIViewController, UIGestureRecognizerDelegate, UIAdaptivePresentationControllerDelegate {
-    let colorView = ColorView()
+    let colorView = ColorView(frame: .zero, shouldDisableGestures: false)
     var color: ColorPickerResult
     
     let currentColorBackgroundView = UIImageView(image: UIImage(named: "opacity_bg_alpha"))

@@ -53,7 +53,7 @@ class ColorView: View {
     var colorUpdated: ColorAction?
     
     var canBeMoved: Bool = true
-    
+    var shouldDisableGestures: Bool
     var cachedOpacity: CGFloat? = nil
     
     var currentColor: ColorPickerResult = .black {
@@ -81,7 +81,8 @@ class ColorView: View {
         self.isMoved = moved
     }
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, shouldDisableGestures: Bool) {
+        self.shouldDisableGestures = shouldDisableGestures
         super.init(frame: frame)
         self.setup()
         self.maskLayer.frame = self.bounds
@@ -196,6 +197,13 @@ class ColorView: View {
         }
         
         colorView.layer.animate(from: 0 as NSNumber, to: 1 as NSNumber, keyPath: "opacity", timingFunction: CAMediaTimingFunctionName.easeIn.rawValue, duration: 0.25)
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if self.shouldDisableGestures {
+            return true
+        }
+        return super.point(inside: point, with: event)
     }
 }
 
