@@ -84,7 +84,7 @@ class MetalLineDrawer: UIView {
     private var finishingLine = false
     private var isEnding = false
     
-    private var gesture: UIPanGestureRecognizer!
+    var gesture: UIPanGestureRecognizer!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -97,6 +97,10 @@ class MetalLineDrawer: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return ToolbarSettings.shared.selectedTool == .pen
     }
     
     @objc

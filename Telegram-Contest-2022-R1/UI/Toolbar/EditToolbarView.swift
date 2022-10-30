@@ -284,10 +284,6 @@ class EditToolbarView: View {
         }
     }
     
-    private func updateTextColor() {
-        self.selectColorButton.isEnabled = true
-    }
-    
     private func updateBrushColor() {
         ToolbarSettings.shared.selectedTool = self.toolsView.selectedTool
         let index = self.toolsView.selectedToolIndex
@@ -389,6 +385,7 @@ class EditToolbarView: View {
         self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: true)
         
         self.selectColorButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
+        self.selectColorButton.isEnabled = self.toolsView.selectedToolIndex < 4
         self.addObjectButton.animateButton(isHide: false, duration: self.toolsView.mainPartDuration)
         
         let frame = self.hierarhyConvertFrame(self.segmentsView.selectedView.frame, from: self.segmentsView, to: self.sizeSegmentView)
@@ -420,7 +417,6 @@ class EditToolbarView: View {
             }
         case .text:
             NotificationSystem.shared.fireEvent(.hideFeatureUnderDevelopment)
-            self.updateTextColor()
             self.selectColorButton.isEnabled = false
             self.textAligmentButton.isHidden = false
             self.textAligmentButton.isUserInteractionEnabled = true
