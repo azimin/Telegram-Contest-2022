@@ -206,7 +206,8 @@ class EditToolbarView: View {
     }
     
     func addActions() {
-        self.sizeSegmentView.progressUpdated = { value in
+        self.sizeSegmentView.progressUpdated = { [weak self] value in
+            guard let self else { return }
             self.toolsView.updateProgress(value: value)
             switch self.toolsView.selectedTool {
             case .eraiser:
@@ -272,8 +273,7 @@ class EditToolbarView: View {
             NotificationSystem.shared.fireEvent(.changeTextAligment(aligment: nextValue))
         }
         
-        self.textStyleButton.addAction(action: {
-            [weak self] in
+        self.textStyleButton.addAction(action: { [weak self] in
             guard let self else { return }
             let nextValue = self.textStyleButton.style.next()
             self.textStyleButton.updateStyle(style: nextValue, animated: true)
@@ -456,8 +456,8 @@ class EditToolbarView: View {
         self.textAligmentButton.layer.animateSpring(from: startScaleValue as NSNumber, to: endScaleValue as NSNumber, keyPath: "transform.scale", duration: 0.7, delay: delay)
         self.textAligmentButton.layer.animate(from: startValue as NSNumber, to: endValue as NSNumber, keyPath: "opacity", duration: 0.25, delay: delay)
         self.textStyleButton.layer.animateSpring(from: startScaleValue as NSNumber, to: endScaleValue as NSNumber, keyPath: "transform.scale", duration: 0.7, delay: delay)
-        self.textStyleButton.layer.animate(from: startValue as NSNumber, to: endValue as NSNumber, keyPath: "opacity", duration: 0.25, delay: delay, completion: {
-            success in
+        self.textStyleButton.layer.animate(from: startValue as NSNumber, to: endValue as NSNumber, keyPath: "opacity", duration: 0.25, delay: delay, completion: { [weak self] success in
+            guard let self else { return }
             if success && isShow == false {
                 self.textStyleButton.isHidden = true
                 self.textAligmentButton.isHidden = true

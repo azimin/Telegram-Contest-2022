@@ -80,7 +80,8 @@ class EditToolbarSegmentView: View {
             itemsCount: items.count,
             isVertical: false,
             canSelectMultiple: false,
-            highlited: { index in
+            highlited: { [weak self] index in
+                guard let self else { return }
                 self.mutatedLabel?.alpha = 1.0
                 self.mutatedLabel = nil
                 if let index = index {
@@ -88,7 +89,8 @@ class EditToolbarSegmentView: View {
                     self.mutatedLabel = self.labels[index]
                 }
             },
-            selected: { index in
+            selected: { [weak self] index in
+                guard let self else { return }
                 self.selectedItem = index
             }
         )

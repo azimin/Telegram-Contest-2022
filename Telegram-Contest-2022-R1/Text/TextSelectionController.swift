@@ -9,9 +9,9 @@ import UIKit
 
 class TextSelectionController {
     static var shared = TextSelectionController()
-    var labelsContentView: UIView?
+    weak var labelsContentView: UIView?
     
-    var selectedText: TextLabelView?
+    weak var selectedText: TextLabelView?
     
     func selectText(selectedText: TextLabelView) {
         if selectedText == self.selectedText {

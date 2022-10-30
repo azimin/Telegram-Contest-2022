@@ -9,16 +9,26 @@ import UIKit
 
 
 class ViewController: UIViewController {
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+        for i in 0..<6 {
             let imageContrainer = ImageContainer(image: UIImage(named: "img_template")!)
             let viewController = EditImageViewController(imageContainer: imageContrainer)
-            viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true)
-        })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1 + CGFloat(i) * 5, execute: {
+                viewController.modalPresentationStyle = .fullScreen
+                self.present(viewController, animated: true)
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + CGFloat(i) * 5 + 4, execute: {
+                viewController.clean()
+                self.dismiss(animated: true)
+            })
+        }
         
        
         // Do any additional setup after loading the view.

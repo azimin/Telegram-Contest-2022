@@ -201,7 +201,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         self.toolbarView.selectColorButton.presetQuickColorSelect = self.selectColorButtonAction(isFromKeyboard: false)
         
-        ColorSelectSystem.shared.subscribeOnEvent(self) { color in
+        ColorSelectSystem.shared.subscribeOnEvent(self) { [weak self] color in
+            guard let self else { return }
             self.toolbarView.selectColorButton.colorPickerResult = color
             
             if let textView = TextPresentationController.shared.presentedLabel {
@@ -214,6 +215,10 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                 self.toolbarView.toolsView.updateToolColor(color)
             }
         }
+    }
+    
+    func clean() {
+        UndoManager.shared.clearAll()
     }
     
     private func presentFullColorPicker(color: ColorPickerResult) {

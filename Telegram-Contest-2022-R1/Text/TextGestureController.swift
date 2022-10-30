@@ -26,11 +26,11 @@ extension UIGestureRecognizer {
 class TextGestureController {
     static var shared = TextGestureController()
     
-    var gesture: UIPanGestureRecognizer?
-    var tapGesture: UITapGestureRecognizer?
-    var rootView: UIView?
+    weak var gesture: UIPanGestureRecognizer?
+    weak var tapGesture: UITapGestureRecognizer?
+    weak var rootView: UIView?
     
-    var labelsContentView: UIView?
+    weak var labelsContentView: UIView?
     var labels: [TextLabelView] {
         let array = labelsContentView?.subviews.compactMap({ $0 as? TextLabelView }) ?? []
         return array.reversed()
@@ -48,7 +48,7 @@ class TextGestureController {
     private var preveousOneTouchPoint: CGPoint = .zero
     
     private var currentState: CurrentState = .none
-    private var activeLabel: TextLabelView?
+    private weak var activeLabel: TextLabelView?
     
     private var isCircleScrollCaptured: Bool = false
     
