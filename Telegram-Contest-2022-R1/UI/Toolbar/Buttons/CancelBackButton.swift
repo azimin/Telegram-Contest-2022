@@ -10,7 +10,7 @@ import Lottie
 
 class CancelBackButton: Button {
     let containerView = UIView()
-    let animationView = LottieAnimationView(animation: .named("backToCancel", animationCache: LRUAnimationCache.sharedCache))
+    let animationView = LottieAnimationView()
     
     override func setUp() {
         self.backgroundColor = UIColor.white.withAlphaComponent(0.02)
@@ -19,6 +19,7 @@ class CancelBackButton: Button {
         self.animationView.currentFrame = 30
         self.containerView.isUserInteractionEnabled = false
         self.animationView.isUserInteractionEnabled = false
+        self.switchToState(state: .back, duration: 0)
     }
     
     override func layoutSubviewsOnChangeBounds() {
@@ -32,21 +33,18 @@ class CancelBackButton: Button {
     }
     
     func switchToState(state: State, duration: TimeInterval) {
-        let from: AnimationFrameTime = state == .back ? 30 : 0
-        let to: AnimationFrameTime = state == .back ? 59 : 30
+        let animation = LottieAnimation.named(
+            state == .back ? "cancel_to_back" : "back_to_cancel",
+            bundle: .main,
+            animationCache: LRUAnimationCache.sharedCache
+        )
+        self.animationView.animation = animation
         
         if duration == 0 {
-            self.animationView.currentFrame = to
+            self.animationView.currentFrame = 0
             return
         }
         
-        let defaultDuration = self.animationView.animation?.duration ?? 1
-        self.animationView.animationSpeed = defaultDuration / duration * CALayer.currentSpeed()
-        
-        self.animationView.play(fromFrame: from, toFrame: to, completion: { success in
-            if (success) {
-                self.animationView.currentFrame = to
-            }
-        })
+        self.animationView.play()
     }
 }

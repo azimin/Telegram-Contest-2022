@@ -133,7 +133,7 @@ class EditToolbarView: View {
             case .componentPresented:
                 self.toolsState = .drawSpecificTools
                 
-                self.cancelBackButton.switchToState(state: .back, duration: self.toolsView.tillMiddleDuration)
+                self.cancelBackButton.switchToState(state: .back, duration: self.toolsView.tillMiddleDuration * 1.5)
                 
                 let widthProgress: CGFloat
                 switch self.toolsView.selectedTool {
@@ -389,7 +389,7 @@ class EditToolbarView: View {
     func showAllComponents() {
         self.toolsState = .drawAllTools
         
-        self.cancelBackButton.switchToState(state: .cancel, duration: self.toolsView.tillMiddleDuration)
+        self.cancelBackButton.switchToState(state: .cancel, duration: self.toolsView.tillMiddleDuration * 1.5)
         
         self.animateSendButton(duration: self.toolsView.tillMiddleDuration, disapear: true)
         
