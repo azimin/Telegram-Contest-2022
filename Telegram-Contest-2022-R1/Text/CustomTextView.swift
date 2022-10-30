@@ -92,7 +92,7 @@ class CustomTextView: UITextView, UIGestureRecognizerDelegate {
             )
             
             if height > self.bounds.size.height {
-                newFont = UIFont(name: newFont.familyName, size: newFont.pointSize - 0.5)!
+                newFont = UIFont(name: newFont.fontName, size: newFont.pointSize - 0.5)!
             } else {
                 break
             }

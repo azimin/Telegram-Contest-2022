@@ -34,6 +34,22 @@ class LinesView: UIView {
     var images: [Data] = []
     var preveousImage: UIImage?
     
+    func undo() {
+        if self.images.isEmpty {
+            return
+        }
+        
+        images.removeLast()
+        if self.images.count == 0 {
+            self.imageView.image = nil
+            return
+        }
+        
+        let preveous = images.last!
+        self.imageView.image = UIImage(data: preveous)
+        self.preveousImage = UIImage(data: preveous)
+    }
+    
     func addTexture(texture: MTLTexture?, color: UIColor) {
         guard let texture = texture else {
             print("No texture")
@@ -53,6 +69,8 @@ class LinesView: UIView {
         images.append(image.pngData()!)
         self.imageView.image = image
         self.delegate?.lineSavingCompleted()
+        
+        UndoManager.shared.addAction(.drawMetalLine)
     }
 }
 

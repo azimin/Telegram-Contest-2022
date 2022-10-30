@@ -19,6 +19,16 @@ class TextPresentationController {
     var isTextPresented: Bool = false
     var isNextStepIsOpen: Bool = false
     
+    func getTextView(id: Int) -> TextLabelView? {
+        var subviews: [TextLabelView] = []
+        for view in (contentView?.subviews ?? []) + (frontView?.subviews ?? []) {
+            if let label = view as? TextLabelView {
+                subviews.append(label)
+            }
+        }
+        return subviews.first(where: { $0.id == id })
+    }
+    
     func presentView(view: TextLabelView) {
         TextGestureController.shared.isEnable = false
         

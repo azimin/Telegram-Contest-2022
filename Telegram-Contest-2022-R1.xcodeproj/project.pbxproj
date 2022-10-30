@@ -60,6 +60,7 @@
 		9F74F33A2909C9DD00092CFB /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3392909C9DD00092CFB /* ZoomView.swift */; };
 		9F74F33C2909D39500092CFB /* MetalDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F33B2909D39500092CFB /* MetalDrawingView.swift */; };
 		9F85E2DD290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85E2DC290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift */; };
+		9F85E2E0290EE99D005989F6 /* UndoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85E2DF290EE99D005989F6 /* UndoManager.swift */; };
 		9F8FF83F290DF0290091E391 /* PoorColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8FF83E290DF0290091E391 /* PoorColorViewController.swift */; };
 		9F8FF841290DFD910091E391 /* OpacitySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8FF840290DFD910091E391 /* OpacitySelectView.swift */; };
 		9F8FF844290E183D0091E391 /* SaveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8FF843290E183D0091E391 /* SaveController.swift */; };
@@ -149,6 +150,7 @@
 		9F74F3392909C9DD00092CFB /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		9F74F33B2909D39500092CFB /* MetalDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalDrawingView.swift; sourceTree = "<group>"; };
 		9F85E2DC290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureUnderDevelopmentView.swift; sourceTree = "<group>"; };
+		9F85E2DF290EE99D005989F6 /* UndoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoManager.swift; sourceTree = "<group>"; };
 		9F8FF83E290DF0290091E391 /* PoorColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoorColorViewController.swift; sourceTree = "<group>"; };
 		9F8FF840290DFD910091E391 /* OpacitySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpacitySelectView.swift; sourceTree = "<group>"; };
 		9F8FF843290E183D0091E391 /* SaveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveController.swift; sourceTree = "<group>"; };
@@ -360,6 +362,14 @@
 			path = ZoomView;
 			sourceTree = "<group>";
 		};
+		9F85E2DE290EE997005989F6 /* UndoManager */ = {
+			isa = PBXGroup;
+			children = (
+				9F85E2DF290EE99D005989F6 /* UndoManager.swift */,
+			);
+			path = UndoManager;
+			sourceTree = "<group>";
+		};
 		9F8FF842290E18350091E391 /* SaveLogic */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +442,7 @@
 		9FA0091C28F8BBCD00688479 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				9F85E2DE290EE997005989F6 /* UndoManager */,
 				9F8FF842290E18350091E391 /* SaveLogic */,
 				9F0246D7290C3530003119F9 /* Notification */,
 				9FA0092028F8D92C00688479 /* Draw */,
@@ -668,6 +679,7 @@
 				9F74F32F2909A79F00092CFB /* CGExtensions.swift in Sources */,
 				9FA0091F28F8BBE400688479 /* ToolbarSettings.swift in Sources */,
 				9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */,
+				9F85E2E0290EE99D005989F6 /* UndoManager.swift in Sources */,
 				9FD4515B290CA9DE00268AF9 /* TextEnterFrontView.swift in Sources */,
 				9FA0091328F86CCA00688479 /* ContextMenuView.swift in Sources */,
 				9F0246E1290C7631003119F9 /* TextStyleButton.swift in Sources */,

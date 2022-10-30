@@ -37,6 +37,7 @@ class NotificationSystem {
         case presentColorPicker(color: ColorPickerResult)
         case showFeatureUnderDevelopment
         case hideFeatureUnderDevelopment
+        case undoMetalLine
     }
     
     func fireEvent(_ event: Event) {

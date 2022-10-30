@@ -147,20 +147,25 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                 self.underDevelopmentView.showView()
             case .hideFeatureUnderDevelopment:
                 self.underDevelopmentView.hideView(animated: true)
+            case .undoMetalLine:
+                self.zoomView.linesView.undo()
             default:
                 break
             }
         }
         
-        self.topControlls.undoButton.addAction(action: { [weak self] in
-            guard let self else { return }
-            print("Undo")
+        self.topControlls.undoButton.addAction(action: {
+            UndoManager.shared.undo()
         })
         
         self.topControlls.clearAllButton.addAction(action: { [weak self] in
             guard let self else { return }
             print("Clear all")
         })
+        
+        UndoManager.shared.undoManagerUpdated = { [weak self] in
+            self?.topControlls.hasChanges = UndoManager.shared.actions.count > 0
+        }
         
         self.toolbarView.sendButton.addAction { [weak self] in
             guard let self else { return }

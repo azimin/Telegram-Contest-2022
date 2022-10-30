@@ -25,7 +25,8 @@ class RootTextView: View, UIGestureRecognizerDelegate {
     let gestureController = TextGestureController.shared
     
     func createTextView(color: ColorPickerResult) {
-        let textLabelView = TextLabelView()
+        let textLabelView = TextLabelView(id: Int.random(in: 0..<Int.max))
+        UndoManager.shared.addAction(.createdText(id: textLabelView.id))
         textLabelView.updateTextColor(colorResult: color)
         self.contentView.addSubview(textLabelView)
         TextPresentationController.shared.isNextStepIsOpen = true

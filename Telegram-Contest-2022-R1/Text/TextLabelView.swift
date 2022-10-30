@@ -8,6 +8,23 @@
 import UIKit
 
 class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
+    
+    var id: Int
+    
+    struct TextInfo {
+        var frame: CGRect
+        var transform: CATransform3D
+        var text: String?
+        var textAligment: NSTextAlignment
+        var recommendedFont: UIFont
+        var lastScaleValue: CGFloat
+        var createdFrame: CGRect
+        var forceTextWidth: CGFloat?
+        var backgroundStyle: BackgroundStyle
+        var textColor: ColorPickerResult
+        var cachedRecommendedFont: UIFont?
+    }
+    
     enum BackgroundStyle {
         case none
         case background
@@ -75,6 +92,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     private var cacheMutateValues: MutateValues = .zero
     private var cacheTextAligment: NSTextAlignment = .center
+    private var frameAfterPresentation: CGRect = .zero
     
     var alingGestureState: AlingGestureState = .alignedVertically
     
@@ -119,8 +137,9 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(id: Int) {
+        self.id = id
+        super.init(frame: .zero)
         self.setup()
     }
     
@@ -194,7 +213,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         menu.menuItems = [
             UIMenuItem(
                 title: "Delete",
-                action: #selector(self.deleteAction)
+                action: #selector(self.deleteMenuButtonAction)
             ),
             UIMenuItem(
                 title: "Edit",
@@ -218,7 +237,16 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         return true
     }
     
-    @objc func deleteAction() {
+    @objc
+    func deleteMenuButtonAction() {
+        self.deleteAction(shouldAddToUndo: true)
+    }
+    
+    func deleteAction(shouldAddToUndo: Bool) {
+        if shouldAddToUndo {
+            UndoManager.shared.addAction(.deleteText(id: self.id, textInfo: self.createTextInfo()))
+        }
+        
         TextSelectionController.shared.deselectText()
         self.deleteAnimation()
     }
@@ -267,7 +295,17 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.goToEditState()
     }
     
-    @objc func dublicateAction() {
+    static func recreateLabelAction(info: TextInfo, id: Int) {
+        let textLabel = TextLabelView.createLabelFrom(info: info, id: id)
+        textLabel.state = .presentingTransition
+        textLabel.state = .presenting
+        TextPresentationController.shared.contentView?.addSubview(textLabel)
+        TextSelectionController.shared.deselectText()
+        textLabel.animateZoomIn()
+    }
+    
+    @objc
+    func dublicateAction() {
         let textLabelView = self.copyView()
         self.superview?.addSubview(textLabelView)
         TextPresentationController.shared.isNextStepIsOpen = true
@@ -363,8 +401,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.refreshLayoutBackground()
     }
     
-    private var contentOffset: CGPoint = .zero
-    
     func goToPresentState() {
         self.state = .presentingTransition
         TextPresentationController.shared.hideView(view: self)
@@ -400,6 +436,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         )
         
         self.frame = frame
+        self.frameAfterPresentation = frame
         
         if self.cacheMutateValues.scale * UIScreen.main.scale > 1 {
             self.applyScaleFactor(scale: self.cacheMutateValues.scale * UIScreen.main.scale)
@@ -646,8 +683,47 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.textView.customLayoutManager.refreshBackground()
     }
     
+    func createTextInfo() -> TextInfo {
+        return TextInfo(
+            frame: self.frameAfterPresentation,
+            transform: self.layer.transform,
+            text: self.textView.text,
+            textAligment: self.textView.textAlignment,
+            recommendedFont: self.textView.recommendedFont,
+            lastScaleValue: self.lastScaleValue,
+            createdFrame: self.createdFrame,
+            forceTextWidth: self.textView.forceWidth,
+            backgroundStyle: self.backgroundStyle,
+            textColor: self.colorResult,
+            cachedRecommendedFont: self.cachedRecommendedFont
+        )
+    }
+    
+    static func createLabelFrom(info: TextInfo, id: Int) -> TextLabelView {
+        let view = TextLabelView(id: id)
+        
+        view.frame = info.frame
+        view.layer.transform = info.transform
+        view.frameAfterPresentation = info.frame
+        
+        view.textView.text = info.text ?? ""
+        view.textView.textAlignment = info.textAligment
+        view.isHidden = false
+        view.lastScaleValue = info.lastScaleValue
+        view.createdFrame = info.createdFrame
+        view.backgroundStyle = info.backgroundStyle
+        view.firstKeyboardCall = false
+        view.updateTextColor(colorResult: info.textColor)
+        view.cachedRecommendedFont = info.cachedRecommendedFont
+        view.textView.forceWidth = info.forceTextWidth
+        view.textView.recommendedFont = info.recommendedFont
+        view.setupView()
+        
+        return view
+    }
+    
     func copyView() -> TextLabelView {
-        let view = TextLabelView()
+        let view = TextLabelView(id: Int.random(in: 0..<Int.max))
         
         view.frame = self.frame
         view.layer.transform = self.layer.transform
