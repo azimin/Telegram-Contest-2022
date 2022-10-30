@@ -30,9 +30,11 @@ class TextSelectionController {
     
     func deselectText() {
         UIMenuController.shared.hideMenu()
-        self.selectedText?.isSelected = false
-        self.selectedText = nil
         
-        NotificationSystem.shared.fireEvent(.textSelectionStateChanged(isSelected: false))
+        if self.selectedText != nil {
+            self.selectedText?.isSelected = false
+            self.selectedText = nil
+            NotificationSystem.shared.fireEvent(.textSelectionStateChanged(isSelected: false))
+        }
     }
 }

@@ -70,6 +70,8 @@ class LinesView: UIView {
         
         if let preveousImage = self.preveousImage {
             image = preveousImage.mergeWith(topImage: image)
+        } else {
+            image = image.mergeWith(topImage: UIImage())
         }
         self.preveousImage = image
          
