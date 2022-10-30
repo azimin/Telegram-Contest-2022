@@ -245,6 +245,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         dismiss(animated: true)
         
         guard let image = info[.originalImage] as? UIImage else { return }
+        self.imageContainer.image = image
         self.zoomView.updateWith(image: image)
     }
     
