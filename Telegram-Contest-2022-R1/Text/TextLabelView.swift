@@ -297,8 +297,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     static func recreateLabelAction(info: TextInfo, id: Int) {
         let textLabel = TextLabelView.createLabelFrom(info: info, id: id)
-        textLabel.state = .presentingTransition
-        textLabel.state = .presenting
         TextPresentationController.shared.contentView?.addSubview(textLabel)
         TextSelectionController.shared.deselectText()
         textLabel.animateZoomIn()
@@ -306,6 +304,18 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     @objc
     func dublicateAction() {
+        let id = Int.random(in: 0..<Int.max)
+        var info = self.createTextInfo()
+        info.transform = CATransform3DConcat(info.transform, CATransform3DMakeTranslation(50, 50, 0))
+        let textLabel = TextLabelView.createLabelFrom(info: info, id: id)
+        UndoManager.shared.addAction(.createdText(id: textLabel.id))
+        TextPresentationController.shared.contentView?.addSubview(textLabel)
+        TextSelectionController.shared.deselectText()
+        textLabel.animateZoomIn()
+    }
+    
+    @objc
+    func dublicateActionOld() {
         let textLabelView = self.copyView()
         UndoManager.shared.addAction(.createdText(id: textLabelView.id))
         self.superview?.addSubview(textLabelView)
@@ -719,6 +729,9 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         view.textView.forceWidth = info.forceTextWidth
         view.textView.recommendedFont = info.recommendedFont
         view.setupView()
+        
+        view.state = .presentingTransition
+        view.state = .presenting
         
         return view
     }
