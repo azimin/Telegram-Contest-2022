@@ -22,6 +22,8 @@ class TextLayoutManager: NSLayoutManager {
         var isSpace: Bool
     }
     
+    var touchBezierPath = UIBezierPath()
+    
     func refreshBackground() {
         if self.textView?.text.isEmpty == true {
             self.backgroundView?.update(path: UIBezierPath(), color: self.backgroundColor ?? .clear)
@@ -30,7 +32,6 @@ class TextLayoutManager: NSLayoutManager {
         
         if self.backgroundColor == nil {
             self.backgroundView?.update(path: UIBezierPath(), color: self.backgroundColor ?? .clear)
-            return
         }
         
         var frames: [[CGRect]] = []
@@ -82,10 +83,16 @@ class TextLayoutManager: NSLayoutManager {
         }
         
         let path = UIBezierPath()
+        let touchPath = UIBezierPath()
         
         var processed: [FrameInfo] = []
         for framesGroup in frames {
             processed.append(contentsOf: self.processGroupOfFrames(frames: framesGroup, radius: radius * 2))
+        }
+        
+        for value in processed {
+            touchPath.append(.init(rect: value.frame))
+            touchPath.close()
         }
         
         for value in processed {
@@ -131,7 +138,11 @@ class TextLayoutManager: NSLayoutManager {
             }
         }
         
-        self.backgroundView?.update(path: path, color: self.backgroundColor ?? .clear)
+        if self.backgroundColor != nil {
+            self.backgroundView?.update(path: path, color: self.backgroundColor ?? .clear)
+        }
+        
+        self.touchBezierPath = touchPath
     }
     
     class FrameInfo: CustomStringConvertible {

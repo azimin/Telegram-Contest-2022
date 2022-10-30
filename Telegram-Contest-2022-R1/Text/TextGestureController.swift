@@ -7,6 +7,22 @@
 
 import UIKit
 
+import ObjectiveC
+
+// Declare a global var to produce a unique address as the assoc object handle
+private var AssociatedObjectHandle: UInt8 = 0
+
+extension UIGestureRecognizer {
+    var isFromDrawer: Bool {
+        get {
+            return (objc_getAssociatedObject(self, &AssociatedObjectHandle) as? Bool) ?? false
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedObjectHandle, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
 class TextGestureController {
     static var shared = TextGestureController()
     
@@ -97,7 +113,7 @@ class TextGestureController {
         
         for textView in self.labels {
             let point = gesture.location(in: textView)
-            if textView.touchStyle(point: point, supportsResize: true) != .none {
+            if textView.isTouchedFromDrawer(point: point) {
                 foundedLabel = true
                 textView.isMenuVisible = self.isMenuVisible
                 textView.tapAction()
@@ -117,19 +133,28 @@ class TextGestureController {
         if gesture.numberOfTouches == 1 {
 //            self.isCircleScrollCaptured = true
             for textView in self.labels {
-                let point = gesture.location(in: textView)
-                switch textView.touchStyle(point: point, supportsResize: true) {
-                case .view:
-                    self.activeLabel = textView
-                    TextSelectionController.shared.selectText(selectedText: textView)
-                    return
-                case .viewResize:
-                    self.isCircleScrollCaptured = true
-                    self.activeLabel = textView
-                    TextSelectionController.shared.selectText(selectedText: textView)
-                    return
-                case .none:
-                    break
+                if textView.isSelected {
+                    let point = gesture.location(in: textView)
+                    switch textView.touchStyle(point: point, supportsResize: true) {
+                    case .view:
+                        self.activeLabel = textView
+                        TextSelectionController.shared.selectText(selectedText: textView)
+                        return
+                    case .viewResize:
+                        self.isCircleScrollCaptured = true
+                        self.activeLabel = textView
+                        TextSelectionController.shared.selectText(selectedText: textView)
+                        return
+                    case .none:
+                        break
+                    }
+                } else {
+                    let point = gesture.location(in: textView)
+                    if textView.isTouchedFromDrawer(point: point) {
+                        self.activeLabel = textView
+                        TextSelectionController.shared.selectText(selectedText: textView)
+                        return
+                    }
                 }
             }
         } else if gesture.numberOfTouches == 2 {

@@ -155,6 +155,14 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
     
     var isInDisapearState = false
     
+    func isTouchedFromDrawer(point: CGPoint) -> Bool {
+        if self.textView.customLayoutManager.touchBezierPath.contains(point) {
+            return true
+        }
+        
+        return false
+    }
+    
     func touchStyle(point: CGPoint, supportsResize: Bool) -> TouchStyle {
         if self.isInDisapearState {
             return .none
@@ -341,7 +349,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.textView.textAlignment = .center
         self.textView.backgroundColor = .clear
         self.textView.recommendedFont = UIFont.sfProTextSemibold(36)
-//        self.textView.text = "Yo\nSome Content\nThe"
+        self.textView.text = "Yo\nSome Content\nThe\n\nSjdsjdj"
         self.textView.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         self.textView.frame = self.bounds
         self.textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
