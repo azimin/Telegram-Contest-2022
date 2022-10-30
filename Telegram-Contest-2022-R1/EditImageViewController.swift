@@ -167,7 +167,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     private func presentFullColorPicker(color: ColorPickerResult) {
-        if #available(iOS 17.0, *) {
+        if #available(iOS 14.0, *) {
             let colorPickerViewController = CustomColorPicker()
             colorPickerViewController.selectedColor = color.color
             colorPickerViewController.delegate = self
