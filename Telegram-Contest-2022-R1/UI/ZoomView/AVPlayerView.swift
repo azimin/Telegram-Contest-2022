@@ -31,14 +31,21 @@ class AVPlayerView: View {
         playerLayer.player = player
         player.play()
         
-        if let track = player.currentItem?.asset.tracks(withMediaType: .video).first {
-            return track.naturalSize
-        }
-        
-        return .zero
+        return AVAsset(url: url).videoSize()
     }
     
     func stop() {
         self.playerLayer.player = nil
+    }
+}
+
+public extension AVAsset {
+    func videoSize() -> CGSize {
+        guard let videoAssetTrack = self.tracks(withMediaType: .video).first else {
+            return .zero
+        }
+        var videoSize = videoAssetTrack.naturalSize
+        videoSize = __CGSizeApplyAffineTransform(videoSize, videoAssetTrack.preferredTransform)
+        return CGSize(width: abs(videoSize.width), height: abs(videoSize.height))
     }
 }

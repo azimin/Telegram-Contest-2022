@@ -38,6 +38,8 @@ class ZoomView: View, LinesViewDelegate {
     let shadowTopOverlay = CAGradientLayer()
     let shadowBottomOverlay = CAGradientLayer()
     
+    private var contentContainer: ContentContainer?
+    
     override func setUp() {
         self.maskTopView.backgroundColor = .black
         
@@ -62,12 +64,15 @@ class ZoomView: View, LinesViewDelegate {
         self.updateCenter()
     }
     
-    func updateWith(videoURL: URL) {
+    func updateWith(videoURL: URL, contentContainer: ContentContainer) {
+        self.contentContainer = contentContainer
+        
         self.currentContentView = self.videoView
         self.imageView.isHidden = true
         self.videoView.isHidden = false
         
         let videoSize = self.videoView.play(url: videoURL)
+        self.contentContainer?.additionalInfo.append(.videoSize(size: videoSize))
         let offset = Offset()
         
         let expectedSize = CGSize(
@@ -90,7 +95,9 @@ class ZoomView: View, LinesViewDelegate {
         self.updateCenter()
     }
     
-    func updateWith(image: UIImage) {
+    func updateWith(image: UIImage, contentContainer: ContentContainer) {
+        self.contentContainer = contentContainer
+        
         self.currentContentView = self.imageView
         self.videoView.stop()
         self.imageView.isHidden = false

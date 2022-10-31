@@ -29,7 +29,8 @@ class CaptureView: UIView {
 class EditImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditToolbarViewDelegate, DrawMetalViewDelegate, ZoomViewDelegate {
     
     let underDevelopmentView = InfoMessageAlertView(style: .underDevelopment)
-//    let photoSavingView = InfoMessageAlertView(style: .photoSaving)
+    let photoSavingView = InfoMessageAlertView(style: .photoSaving)
+    let photoSavedResultView = InfoMessageAlertView(style: .photoSaved)
     
     let rootTextView = RootTextView()
     
@@ -113,12 +114,19 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             self.underDevelopmentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12).activate()
         }
         
-//        self.view.addSubview(self.photoSavingView)
-//        self.photoSavingView.autolayout {
-//            self.photoSavingView.topAnchor.constraint(equalTo: self.topControlls.bottomAnchor, constant: 16).activate()
-//            self.photoSavingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12).activate()
-//            self.photoSavingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12).activate()
-//        }
+        self.view.addSubview(self.photoSavingView)
+        self.photoSavingView.autolayout {
+            self.photoSavingView.topAnchor.constraint(equalTo: self.topControlls.bottomAnchor, constant: 16).activate()
+            self.photoSavingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12).activate()
+            self.photoSavingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12).activate()
+        }
+        
+        self.view.addSubview(self.photoSavedResultView)
+        self.photoSavedResultView.autolayout {
+            self.photoSavedResultView.topAnchor.constraint(equalTo: self.topControlls.bottomAnchor, constant: 16).activate()
+            self.photoSavedResultView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12).activate()
+            self.photoSavedResultView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12).activate()
+        }
         
         ContextMenuController.shared.attachToView(view: self.view)
         self.view.layer.speed = Float(CALayer.currentSpeed())
@@ -194,10 +202,27 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                     maskContent: self.zoomView.contentView,
                     maskFrame: self.zoomView.currentContentView.frame
                 )
+                self.view.isUserInteractionEnabled = true
             case .video(let url):
-                break
+                self.underDevelopmentView.hideView(animated: true)
+                self.photoSavingView.showView()
+                
+                SaveController.prepareAnsSaveVideo(
+                    url: url,
+                    contentContainer: self.contentContainer,
+                    drawImage: self.zoomView.linesView.preveousImage,
+                    textLayer: self.rootTextView.contentView,
+                    maskContent: self.zoomView.contentView,
+                    maskFrame: self.zoomView.currentContentView.frame,
+                    completion: { [weak self] success in
+                        guard let self else { return }
+                        self.photoSavingView.hideView(animated: true)
+                        self.photoSavedResultView.updateTitle(style: success ? .photoSaved : .photoSavedError)
+                        self.photoSavedResultView.showView()
+                        self.view.isUserInteractionEnabled = true
+                    }
+                )
             }
-            self.view.isUserInteractionEnabled = true
         }
         
         self.topControlls.cancelButton.addAction(action: {
@@ -241,9 +266,9 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     private func updateZoomViewWithData() {
         switch self.contentContainer.content {
         case let .image(image):
-            self.zoomView.updateWith(image: image)
+            self.zoomView.updateWith(image: image, contentContainer: self.contentContainer)
         case let .video(url):
-            self.zoomView.updateWith(videoURL: url)
+            self.zoomView.updateWith(videoURL: url, contentContainer: self.contentContainer)
         }
     }
     

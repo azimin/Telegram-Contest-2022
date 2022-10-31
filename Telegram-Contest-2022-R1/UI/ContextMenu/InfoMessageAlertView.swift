@@ -12,6 +12,7 @@ class InfoMessageAlertView: View {
         case underDevelopment
         case photoSaving
         case photoSaved
+        case photoSavedError
         
         var icon: String {
             switch self {
@@ -21,6 +22,8 @@ class InfoMessageAlertView: View {
                 return "💾"
             case .photoSaved:
                 return "✅"
+            case .photoSavedError:
+                return "🛑"
             }
         }
         
@@ -32,6 +35,8 @@ class InfoMessageAlertView: View {
                 return "Saving..."
             case .photoSaved:
                 return "Saved"
+            case .photoSavedError:
+                return "Problem with saving"
             }
         }
     }
@@ -48,6 +53,11 @@ class InfoMessageAlertView: View {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateTitle(style: Style) {
+        self.iconLabel.text = style.icon
+        self.titleLabel.text = style.title
     }
     
     override func setUp() {
@@ -112,9 +122,9 @@ class InfoMessageAlertView: View {
             if self.isViewIsPresented {
                 return
             }
-        case .photoSaved:
+        case .photoSaved, .photoSavedError:
             self.timer?.invalidate()
-            let timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.hideViewAction), userInfo: nil, repeats: false)
+            let timer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(self.hideViewAction), userInfo: nil, repeats: false)
             RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
             self.timer = timer
             

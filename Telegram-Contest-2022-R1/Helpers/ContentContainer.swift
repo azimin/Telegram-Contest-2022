@@ -13,7 +13,22 @@ class ContentContainer {
         case video(url: URL)
     }
     
+    enum AdditionalInfo {
+        case videoSize(size: CGSize)
+    }
+    
     var content: Content
+    var additionalInfo: [AdditionalInfo] = []
+    
+    var getVideoSize: CGSize? {
+        for info in self.additionalInfo {
+            switch info {
+            case .videoSize(let size):
+                return size
+            }
+        }
+        return nil
+    }
     
     init(image: UIImage) {
         self.content = .image(image: image)

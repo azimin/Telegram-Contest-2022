@@ -8,6 +8,7 @@
 import UIKit
 
 typealias VoidBlock = () -> Void
+typealias CompletionBlock = (Bool) -> Void
 typealias IndexBlock = (Int) -> Void
 typealias ProgressBlock = (CGFloat) -> Void
 
