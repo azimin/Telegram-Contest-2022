@@ -219,6 +219,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     
     func clean() {
         UndoManager.shared.clearAll()
+        TextPresentationController.shared.clearAll()
     }
     
     private func presentFullColorPicker(color: ColorPickerResult) {

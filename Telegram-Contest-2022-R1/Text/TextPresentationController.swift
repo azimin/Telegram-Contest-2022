@@ -99,4 +99,9 @@ class TextPresentationController {
             TextGestureController.shared.isEnable = true
         })
     }
+    
+    func clearAll() {
+        self.isTextPresented = false
+        self.isNextStepIsOpen = false
+    }
 }

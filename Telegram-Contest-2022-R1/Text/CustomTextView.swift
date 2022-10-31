@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomTextView: UITextView, UIGestureRecognizerDelegate {
-    var rootView: TextLabelView?
+    weak var rootView: TextLabelView?
     
     var shouldReduceAlpha: Bool = false {
         didSet {
