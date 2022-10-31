@@ -97,6 +97,7 @@
 		9FD4515B290CA9DE00268AF9 /* TextEnterFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */; };
 		9FD45182290D8BAA00268AF9 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45181290D8BAA00268AF9 /* ColorView.swift */; };
 		9FD45184290D9FD300268AF9 /* ColorSelectSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45183290D9FD300268AF9 /* ColorSelectSystem.swift */; };
+		9FD5E257290F52AD007E920D /* AVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD5E256290F52AD007E920D /* AVPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -193,6 +194,7 @@
 		9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEnterFrontView.swift; sourceTree = "<group>"; };
 		9FD45181290D8BAA00268AF9 /* ColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 		9FD45183290D9FD300268AF9 /* ColorSelectSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectSystem.swift; sourceTree = "<group>"; };
+		9FD5E256290F52AD007E920D /* AVPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				9F74F3392909C9DD00092CFB /* ZoomView.swift */,
+				9FD5E256290F52AD007E920D /* AVPlayerView.swift */,
 			);
 			path = ZoomView;
 			sourceTree = "<group>";
@@ -685,6 +688,7 @@
 				9FD45182290D8BAA00268AF9 /* ColorView.swift in Sources */,
 				9F0246CF290C17D7003119F9 /* TextLabelView.swift in Sources */,
 				9F74F32F2909A79F00092CFB /* CGExtensions.swift in Sources */,
+				9FD5E257290F52AD007E920D /* AVPlayerView.swift in Sources */,
 				9FA0091F28F8BBE400688479 /* ToolbarSettings.swift in Sources */,
 				9F9AE07D28F4E93A004717E5 /* SelectColorButton.swift in Sources */,
 				9F85E2E0290EE99D005989F6 /* UndoManager.swift in Sources */,

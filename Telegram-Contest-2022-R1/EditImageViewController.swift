@@ -184,13 +184,15 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         self.toolbarView.sendButton.addAction { [weak self] in
             guard let self else { return }
+            self.view.isUserInteractionEnabled = false
             _ = SaveController.prepareAnsSavePhoto(
                 originalImage: self.imageContainer.image,
                 drawImage: self.zoomView.linesView.preveousImage,
                 textLayer: self.rootTextView.contentView,
                 maskContent: self.zoomView.contentView,
-                maskFrame: self.zoomView.imageView.frame
+                maskFrame: self.zoomView.currentContentView.frame
             )
+            self.view.isUserInteractionEnabled = true
         }
         
         self.topControlls.cancelButton.addAction(action: {
@@ -280,6 +282,10 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true)
+        
+        if let videoPath = info[.mediaURL] as? URL {
+            self.zoomView.updateWith(videoURL: videoPath)
+        }
         
         guard let image = info[.originalImage] as? UIImage else { return }
         self.imageContainer.image = image

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 protocol ZoomViewDelegate: NSObjectProtocol {
     func lineSavingCompleted()
@@ -27,9 +28,12 @@ class ZoomView: View, LinesViewDelegate {
     }
     
     let contentView = UIView()
-    let imageView = UIImageView()
+    private let imageView = UIImageView()
+    private let videoView = AVPlayerView()
     let linesView = LinesView()
     let maskTopView = UIView()
+    
+    var currentContentView: UIView!
     
     let shadowTopOverlay = CAGradientLayer()
     let shadowBottomOverlay = CAGradientLayer()
@@ -37,8 +41,11 @@ class ZoomView: View, LinesViewDelegate {
     override func setUp() {
         self.maskTopView.backgroundColor = .black
         
+        self.currentContentView = imageView
+        
         self.addSubview(contentView)
         contentView.addSubview(imageView)
+        contentView.addSubview(videoView)
         contentView.addSubview(linesView)
         
         self.linesView.delegate = self
@@ -50,11 +57,45 @@ class ZoomView: View, LinesViewDelegate {
     override func layoutSubviewsOnChangeBounds() {
         self.contentView.frame = self.bounds
         self.linesView.frame = self.bounds
+        self.videoView.frame = self.bounds
         
         self.updateCenter()
     }
     
+    func updateWith(videoURL: URL) {
+        self.currentContentView = self.videoView
+        self.imageView.isHidden = true
+        self.videoView.isHidden = false
+        
+        let videoSize = self.videoView.play(url: videoURL)
+        let offset = Offset()
+        
+        let expectedSize = CGSize(
+            width: self.bounds.width,
+            height: self.bounds.height - offset.topOffset - offset.bottomOffset
+        )
+        
+        var expectedSizeFinal = expectedSize
+        
+        let mW = expectedSize.width / videoSize.width
+        let mH = expectedSize.height / videoSize.height
+        
+        if (mH < mW) {
+            expectedSizeFinal.width = mH * videoSize.width
+        } else if (mW < mH) {
+            expectedSizeFinal.height = mW * videoSize.height
+        }
+        
+        self.videoView.frame.size = expectedSizeFinal
+        self.updateCenter()
+    }
+    
     func updateWith(image: UIImage) {
+        self.currentContentView = self.imageView
+        self.videoView.stop()
+        self.imageView.isHidden = false
+        self.videoView.isHidden = true
+        
         let offset = Offset()
         
         let expectedSize = CGSize(
@@ -81,17 +122,19 @@ class ZoomView: View, LinesViewDelegate {
     
     private func updateCenter() {
         let offset = Offset()
-        self.imageView.center = self.contentView.center
-        self.imageView.center.y += (offset.topOffset - offset.bottomOffset) / 2
+        var centerPoint = self.contentView.center
+        centerPoint.y += (offset.topOffset - offset.bottomOffset) / 2
+        self.imageView.center = centerPoint
+        self.videoView.center = centerPoint
         self.updateMask()
     }
     
     private func updateMask() {
-        self.maskTopView.frame = self.imageView.frame
+        self.maskTopView.frame = self.currentContentView.frame
         self.linesView.mask = self.maskTopView
-        self.delegate?.shouldUpdateMask(frame: self.imageView.frame)
+        self.delegate?.shouldUpdateMask(frame: self.currentContentView.frame)
         
-        NotificationSystem.shared.fireEvent(.maskUpdated(view: self.contentView, frame: self.imageView.frame))
+        NotificationSystem.shared.fireEvent(.maskUpdated(view: self.contentView, frame: self.currentContentView.frame))
     }
     
     func lineSavingCompleted() {
