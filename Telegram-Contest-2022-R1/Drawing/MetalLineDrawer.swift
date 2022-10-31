@@ -87,6 +87,8 @@ class MetalLineDrawer: UIView {
     var gesture: UIPanGestureRecognizer!
     var tapGesture: UITapGestureRecognizer!
     
+    weak var editToolsbarView: EditToolbarView?
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
@@ -113,7 +115,7 @@ class MetalLineDrawer: UIView {
             return false
         }
         
-        if gestureRecognizer == self.tapGesture {
+        if gestureRecognizer == self.tapGesture && self.editToolsbarView?.toolsState != .drawSpecificTools {
             if TextGestureController.shared.textViewByTap(gesture: self.tapGesture, includingFrame: false) != nil {
                 TextGestureController.shared.drawTapGesture(self.tapGesture)
                 NotificationSystem.shared.fireEvent(.selectTextTab)

@@ -82,6 +82,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         self.drawMetalView = DrawMetalView(frame: self.view.bounds)
         self.drawMetalView.delegate = self
+        self.drawMetalView.lineDrawer.editToolsbarView = self.toolbarView
         self.view.addSubview(self.drawMetalView)
         
         self.view.addSubview(self.rootTextView)
