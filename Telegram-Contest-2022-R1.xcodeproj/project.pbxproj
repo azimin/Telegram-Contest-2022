@@ -92,7 +92,7 @@
 		9FCF57E328F46A0A00A9DD38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF57E228F46A0A00A9DD38 /* Assets.xcassets */; };
 		9FCF57E628F46A0A00A9DD38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF57E428F46A0A00A9DD38 /* LaunchScreen.storyboard */; };
 		9FCF57EE28F46CF400A9DD38 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57ED28F46CF400A9DD38 /* EditImageViewController.swift */; };
-		9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57EF28F46D3300A9DD38 /* ImageContainer.swift */; };
+		9FCF57F028F46D3300A9DD38 /* ContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF57EF28F46D3300A9DD38 /* ContentContainer.swift */; };
 		9FD45159290CA87200268AF9 /* FontSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45158290CA87200268AF9 /* FontSizeView.swift */; };
 		9FD4515B290CA9DE00268AF9 /* TextEnterFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */; };
 		9FD45182290D8BAA00268AF9 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD45181290D8BAA00268AF9 /* ColorView.swift */; };
@@ -189,7 +189,7 @@
 		9FCF57E528F46A0A00A9DD38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FCF57E728F46A0A00A9DD38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FCF57ED28F46CF400A9DD38 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
-		9FCF57EF28F46D3300A9DD38 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
+		9FCF57EF28F46D3300A9DD38 /* ContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentContainer.swift; sourceTree = "<group>"; };
 		9FD45158290CA87200268AF9 /* FontSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeView.swift; sourceTree = "<group>"; };
 		9FD4515A290CA9DE00268AF9 /* TextEnterFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEnterFrontView.swift; sourceTree = "<group>"; };
 		9FD45181290D8BAA00268AF9 /* ColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
@@ -280,7 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				9F74F32E2909A79F00092CFB /* CGExtensions.swift */,
-				9FCF57EF28F46D3300A9DD38 /* ImageContainer.swift */,
+				9FCF57EF28F46D3300A9DD38 /* ContentContainer.swift */,
 				9F0E953F28F4B3BC00177E7C /* UIKitHelpers.swift */,
 				9F6533A928F5EBCE00E00574 /* View.swift */,
 				9F0E954128F4B53000177E7C /* Fonts.swift */,
@@ -664,7 +664,7 @@
 				9F0246C9290C17D7003119F9 /* TextSelectionController.swift in Sources */,
 				9F6533B928F7673000E00574 /* SaveButtonAnimator.swift in Sources */,
 				9F8FF844290E183D0091E391 /* SaveController.swift in Sources */,
-				9FCF57F028F46D3300A9DD38 /* ImageContainer.swift in Sources */,
+				9FCF57F028F46D3300A9DD38 /* ContentContainer.swift in Sources */,
 				9F9AE08528F4F220004717E5 /* ToolView.swift in Sources */,
 				9F0246C8290C17D7003119F9 /* TextPresentationController.swift in Sources */,
 				9FCF57DA28F46A0900A9DD38 /* AppDelegate.swift in Sources */,

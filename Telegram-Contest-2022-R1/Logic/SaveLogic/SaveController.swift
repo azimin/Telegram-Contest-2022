@@ -8,7 +8,11 @@
 import UIKit
 
 class SaveController {
-    static func prepareAnsSavePhoto(originalImage: UIImage, drawImage: UIImage?, textLayer: UIView, maskContent: UIView, maskFrame: CGRect) -> UIImage {
+    static func prepareAnsSaveVideo(url: URL, drawImage: UIImage?, textLayer: UIView, maskContent: UIView, maskFrame: CGRect) {
+        
+    }
+
+    static func prepareAnsSavePhoto(originalImage: UIImage, drawImage: UIImage?, textLayer: UIView, maskContent: UIView, maskFrame: CGRect) {
         TextSelectionController.shared.deselectText()
         
         let scale = UIScreen.main.scale
@@ -30,7 +34,6 @@ class SaveController {
         }
         
         UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil)
-        return newImage
     }
     
 }

@@ -36,7 +36,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     let topControlls = TopControlsView()
     let zoomView = ZoomView()
     
-    let imageContainer: ImageContainer
+    var contentContainer: ContentContainer
     let bottomView = UIView()
     let toolbarView = EditToolbarView()
     
@@ -52,13 +52,13 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         )
     }
     
-    init(imageContainer: ImageContainer) {
-        self.imageContainer = imageContainer
+    init(imageContainer: ContentContainer) {
+        self.contentContainer = imageContainer
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        self.imageContainer = .init(image: UIImage(named: "img_template")!)
+        self.contentContainer = .init(image: UIImage(named: "img_template")!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -123,7 +123,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         ContextMenuController.shared.attachToView(view: self.view)
         self.view.layer.speed = Float(CALayer.currentSpeed())
         
-        self.zoomView.updateWith(image: self.imageContainer.image)
+        self.updateZoomViewWithData()
         self.rootTextView.isUserInteractionEnabled = false
         
         self.toolbarView.segmentItemSelected = { [weak self] (index, byTap) in
@@ -185,13 +185,18 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.toolbarView.sendButton.addAction { [weak self] in
             guard let self else { return }
             self.view.isUserInteractionEnabled = false
-            _ = SaveController.prepareAnsSavePhoto(
-                originalImage: self.imageContainer.image,
-                drawImage: self.zoomView.linesView.preveousImage,
-                textLayer: self.rootTextView.contentView,
-                maskContent: self.zoomView.contentView,
-                maskFrame: self.zoomView.currentContentView.frame
-            )
+            switch self.contentContainer.content {
+            case let .image(image):
+                SaveController.prepareAnsSavePhoto(
+                    originalImage: image,
+                    drawImage: self.zoomView.linesView.preveousImage,
+                    textLayer: self.rootTextView.contentView,
+                    maskContent: self.zoomView.contentView,
+                    maskFrame: self.zoomView.currentContentView.frame
+                )
+            case .video(let url):
+                break
+            }
             self.view.isUserInteractionEnabled = true
         }
         
@@ -231,6 +236,15 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     func clean() {
         UndoManager.shared.clearAll()
         TextPresentationController.shared.clearAll()
+    }
+    
+    private func updateZoomViewWithData() {
+        switch self.contentContainer.content {
+        case let .image(image):
+            self.zoomView.updateWith(image: image)
+        case let .video(url):
+            self.zoomView.updateWith(videoURL: url)
+        }
     }
     
     private func presentFullColorPicker(color: ColorPickerResult) {
@@ -284,12 +298,14 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         dismiss(animated: true)
         
         if let videoPath = info[.mediaURL] as? URL {
-            self.zoomView.updateWith(videoURL: videoPath)
+            self.contentContainer = ContentContainer(videoURL: videoPath)
+            self.updateZoomViewWithData()
+            return
         }
         
         guard let image = info[.originalImage] as? UIImage else { return }
-        self.imageContainer.image = image
-        self.zoomView.updateWith(image: image)
+        self.contentContainer = ContentContainer(image: image)
+        self.updateZoomViewWithData()
     }
     
     // MARK: - EditToolbarViewDelegate

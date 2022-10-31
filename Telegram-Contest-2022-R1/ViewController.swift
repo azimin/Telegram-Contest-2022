@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         }
         
         button.addAction {
-            let imageContrainer = ImageContainer(image: UIImage(named: "img_template")!)
+            let imageContrainer = ContentContainer(image: UIImage(named: "img_template")!)
             let viewController = EditImageViewController(imageContainer: imageContrainer)
             viewController.modalPresentationStyle = .fullScreen
             self.present(viewController, animated: true)
