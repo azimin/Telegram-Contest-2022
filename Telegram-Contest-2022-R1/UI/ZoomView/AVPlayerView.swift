@@ -19,6 +19,10 @@ class AVPlayerView: View {
             self?.playerLayer.player?.seek(to: CMTime.zero)
             self?.playerLayer.player?.play()
         }
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
+            self?.playerLayer.player?.play()
+        }
     }
     
     override func layoutSubviewsOnChangeBounds() {
@@ -27,7 +31,7 @@ class AVPlayerView: View {
     
     func play(url: URL) -> CGSize {
         let player = AVPlayer(url: url)
-        player.volume = 0 // TODO: - FIX
+//        player.volume = 0 // TODO: - FIX
         playerLayer.player = player
         player.play()
         
