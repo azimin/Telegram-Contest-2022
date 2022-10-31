@@ -77,9 +77,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.presentPicker()
         }
     
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
-            self.presentEditVC(container: .init(image: UIImage(named: "img_template")!))
-        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
+//            self.presentEditVC(container: .init(image: UIImage(named: "img_template")!))
+//        })
     }
     
     func presentPicker() {

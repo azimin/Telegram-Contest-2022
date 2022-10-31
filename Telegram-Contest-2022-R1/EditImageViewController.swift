@@ -145,7 +145,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             }
             if index == 1 {
                 self.rootTextView.isUserInteractionEnabled = true
-                if byTap {
+                if byTap && TextPresentationController.shared.labelsCount == 0 {
                     TextSelectionController.shared.deselectText()
                     self.rootTextView.createTextView(color: .white)
                     self.toolbarView.selectColorButton.colorPickerResult = .white

@@ -20,6 +20,10 @@ class TextPresentationController {
     var isTextPresented: Bool = false
     var isNextStepIsOpen: Bool = false
     
+    var labelsCount: Int {
+        return (contentView?.subviews.count ?? 0) + (frontView?.subviews.count ?? 0)
+    }
+    
     func getTextView(id: Int) -> TextLabelView? {
         var subviews: [TextLabelView] = []
         for view in (contentView?.subviews ?? []) + (frontView?.subviews ?? []) {
