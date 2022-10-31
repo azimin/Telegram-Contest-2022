@@ -23,7 +23,7 @@ class InfoMessageAlertView: View {
             case .photoSaved:
                 return "✅"
             case .photoSavedError:
-                return "🛑"
+                return "🚫"
             }
         }
         

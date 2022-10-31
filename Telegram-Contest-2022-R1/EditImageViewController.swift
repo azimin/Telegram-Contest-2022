@@ -216,6 +216,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                     maskFrame: self.zoomView.currentContentView.frame,
                     completion: { [weak self] success in
                         guard let self else { return }
+                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                         self.photoSavingView.hideView(animated: true)
                         self.photoSavedResultView.updateTitle(style: success ? .photoSaved : .photoSavedError)
                         self.photoSavedResultView.showView()
