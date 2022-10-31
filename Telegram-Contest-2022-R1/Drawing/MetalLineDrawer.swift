@@ -105,6 +105,14 @@ class MetalLineDrawer: UIView {
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let location = gestureRecognizer.location(in: self)
+        let window = UIApplication.shared.windows.first
+        let offset = (window?.safeAreaInsets.bottom ?? 0) + 136
+        
+        if location.y > (self.frame.height - offset) {
+            return false
+        }
+        
         if gestureRecognizer == self.tapGesture {
             if TextGestureController.shared.textViewByTap(gesture: self.tapGesture, includingFrame: false) != nil {
                 TextGestureController.shared.drawTapGesture(self.tapGesture)
