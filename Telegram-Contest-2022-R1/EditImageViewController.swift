@@ -7,6 +7,7 @@
 
 import UIKit
 import PencilKit
+import Photos
 import Lottie
 
 class GlobalConfig {
@@ -199,6 +200,26 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         
         self.toolbarView.sendButton.addAction { [weak self] in
             guard let self else { return }
+            
+            var hasAccess: Bool = true
+            
+            if #available(iOS 14, *) {
+                let addPermissions = PHPhotoLibrary.authorizationStatus(for: .addOnly)
+                if addPermissions == .denied || addPermissions == .restricted {
+                    hasAccess = false
+                }
+            } else {
+                let addPermissions = PHPhotoLibrary.authorizationStatus()
+                if addPermissions == .denied || addPermissions == .restricted {
+                    hasAccess = false
+                }
+            }
+            
+            if !hasAccess {
+                self.askForCameraAccess()
+                return
+            }
+            
             self.view.isUserInteractionEnabled = false
             switch self.contentContainer.content {
             case let .image(image):
@@ -207,14 +228,19 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                     drawImage: self.zoomView.linesView.preveousImage,
                     textLayer: self.rootTextView.contentView,
                     maskContent: self.zoomView.contentView,
-                    maskFrame: self.zoomView.currentContentView.frame
+                    maskFrame: self.zoomView.currentContentView.frame, completion: { [weak self] success in
+                        guard let self else { return }
+                        if success {
+                            UndoManager.shared.saved = true
+                        }
+                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                        self.photoSavedResultView.updateTitle(style: success ? .photoSaved : .photoSavedError)
+                        self.photoSavedResultView.showView()
+                        self.view.isUserInteractionEnabled = true
+                    }
                 )
                 
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                self.photoSavedResultView.updateTitle(style: .photoSaved)
-                self.photoSavedResultView.showView()
-                self.view.isUserInteractionEnabled = true
-                UndoManager.shared.saved = true
+                
             case .video(let url):
                 self.underDevelopmentView.hideView(animated: true)
                 self.photoSavingView.showView()
@@ -278,6 +304,17 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     func clean() {
         UndoManager.shared.clearAll()
         TextPresentationController.shared.clearAll()
+    }
+    
+    private func askForCameraAccess() {
+        let alert = UIAlertController(title: "Please Allow Access", message: "App needs access to your photo library so that you can save photos and videos.\n\nPlease go to your device's settings > Privacy > Photos and set to ON.", preferredStyle: .alert)
+        alert.addAction(.init(title: "Settings", style: .default, handler: { _ in
+            if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settingsUrl)
+            }
+        }))
+        alert.addAction(.init(title: "Not Now", style: .cancel))
+        self.present(alert, animated: true)
     }
     
     private func updateZoomViewWithData() {

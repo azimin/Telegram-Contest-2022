@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 import Photos
 
-class SaveController {
+class SaveController: NSObject {
     static func prepareAnsSaveVideo(url: URL, contentContainer: ContentContainer, drawImage: UIImage?, textLayer: UIView, maskContent: UIView, maskFrame: CGRect, completion: CompletionBlock?) {
         TextSelectionController.shared.deselectText()
         
@@ -70,8 +70,10 @@ class SaveController {
             }
         }
     }
+    
+    private static var photoCompletion: CompletionBlock?
 
-    static func prepareAnsSavePhoto(originalImage: UIImage, drawImage: UIImage?, textLayer: UIView, maskContent: UIView, maskFrame: CGRect) {
+    static func prepareAnsSavePhoto(originalImage: UIImage, drawImage: UIImage?, textLayer: UIView, maskContent: UIView, maskFrame: CGRect, completion: CompletionBlock?) {
         TextSelectionController.shared.deselectText()
         
         let scale = UIScreen.main.scale
@@ -92,7 +94,16 @@ class SaveController {
             newImage = newImage.mergeWith(topImage: cropped)
         }
         
-        UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil)
+        self.photoCompletion = completion
+        UIImageWriteToSavedPhotosAlbum(newImage, self, #selector(self.savedImage(_:error:context:)), nil)
+    }
+    
+    @objc static func savedImage(_ im: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
+        if error != nil {
+            self.photoCompletion?(false)
+            return
+        }
+        self.photoCompletion?(true)
     }
     
     
