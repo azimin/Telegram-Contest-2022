@@ -182,10 +182,15 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
         self.topControlls.clearAllButton.addAction(action: { [weak self] in
             guard let self else { return }
             
-            NotificationSystem.shared.fireEvent(.clearAll)
-            UndoManager.shared.clearAll()
-            self.zoomView.linesView.clearAll()
-            self.rootTextView.clearAll()
+            let alert = UIAlertController(title: "Clear all?", message: "All drawings and text will be removed. This action cannot be undone.", preferredStyle: .alert)
+            alert.addAction(.init(title: "Clear", style: .destructive, handler: { [weak self] _ in
+                NotificationSystem.shared.fireEvent(.clearAll)
+                UndoManager.shared.clearAll()
+                self?.zoomView.linesView.clearAll()
+                self?.rootTextView.clearAll()
+            }))
+            alert.addAction(.init(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
         })
         
         UndoManager.shared.undoManagerUpdated = { [weak self] in
@@ -339,6 +344,19 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     // MARK: - EditToolbarViewDelegate
     
     func exitImageButtonClicked() {
+        if UndoManager.shared.actions.isEmpty {
+            self.exitAction()
+        } else {
+            let alert = UIAlertController(title: "Discard media?", message: "If you go back now, you will lose any changes that you've made.", preferredStyle: .alert)
+            alert.addAction(.init(title: "Discard", style: .destructive, handler: { [weak self] _ in
+                self?.exitAction()
+            }))
+            alert.addAction(.init(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        }
+    }
+    
+    private func exitAction() {
         self.clean()
         self.dismiss(animated: true)
     }
