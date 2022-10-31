@@ -48,7 +48,7 @@ class MetalLineDrawer: UIView {
                 return first.findMiddle(anotherPen: second, width: width, lowerBound: 0.25, upperBound: 0.65)
             } else if width < 1.0 {
                 let first = PenSize(minSize: 10, maxSize: 18, sizeEffect: 1.6)
-                let second = PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.1)
+                let second = PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.25)
                 return first.findMiddle(anotherPen: second, width: width, lowerBound: 0.65, upperBound: 1)
             } else {
                 return PenSize(minSize: 16.125, maxSize: 29.375, sizeEffect: 1.25)
