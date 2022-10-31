@@ -70,6 +70,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.black
+        
         self.view.addSubview(self.zoomView)
         self.zoomView.frame = self.view.bounds
         self.zoomView.delegate = self
@@ -337,10 +339,8 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     // MARK: - EditToolbarViewDelegate
     
     func exitImageButtonClicked() {
-        let picker = UIImagePickerController()
-        picker.mediaTypes = ["public.image", "public.movie"]
-        picker.delegate = self
-        present(picker, animated: true)
+        self.clean()
+        self.dismiss(animated: true)
     }
     
     // MARK: - DrawMetalViewDelegate

@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let contentView = UIView()
     let lottieAnimation = LottieAnimationView(animation:  LottieAnimation.named(
@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     let label = UILabel()
     let button = AllowAccessButton()
     
+    let imagePicker = UIImagePickerController()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.lottieAnimation.play()
@@ -26,6 +28,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.imagePicker.delegate = self
+        self.imagePicker.mediaTypes = ["public.image", "public.movie"]
+        self.imagePicker.allowsEditing = false
         
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
             self?.lottieAnimation.play()
@@ -68,36 +74,38 @@ class ViewController: UIViewController {
         }
         
         button.addAction {
-            let imageContrainer = ContentContainer(image: UIImage(named: "img_template")!)
-            let viewController = EditImageViewController(imageContainer: imageContrainer)
-            viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
-                viewController.clean()
-                self.dismiss(animated: true)
-            })
+            self.presentPicker()
         }
-        
-//        for i in 0..<1 {
-//            let imageContrainer = ImageContainer(image: UIImage(named: "img_template")!)
-//            let viewController = EditImageViewController(imageContainer: imageContrainer)
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1 + CGFloat(i) * 5 + 10, execute: {
-//                viewController.modalPresentationStyle = .fullScreen
-//                self.present(viewController, animated: true)
-//            })
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + CGFloat(i) * 5 + 10, execute: {
-//                viewController.clean()
-//                self.dismiss(animated: true)
-//            })
-//        }
-        
-       
-        // Do any additional setup after loading the view.
+    
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
+//            self.presentEditVC(container: .init(image: UIImage(named: "img_template")!))
+//        })
     }
     
+    func presentPicker() {
+        self.present(self.imagePicker, animated: true, completion: nil)
+    }
+    
+    func presentEditVC(container: ContentContainer) {
+        let viewController = EditImageViewController(imageContainer: container)
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true)
+    }
 
+    // MARK: - Image Picker
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true)
+        
+        if let videoPath = info[.mediaURL] as? URL {
+            let contentContainer = ContentContainer(videoURL: videoPath)
+            self.presentEditVC(container: contentContainer)
+            return
+        }
+        
+        guard let image = info[.originalImage] as? UIImage else { return }
+        let contentContainer = ContentContainer(image: image)
+        self.presentEditVC(container: contentContainer)
+    }
 }
 
