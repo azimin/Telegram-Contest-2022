@@ -75,8 +75,7 @@ class Renderer: NSObject, MTKViewDelegate {
         
         super.init()
         
-        // TODO: - Investigate
-//        mtkView.preferredFramesPerSecond = 120
+        mtkView.preferredFramesPerSecond = 120
         mtkView.framebufferOnly = false
         mtkView.sampleCount = self.smapleCount
     

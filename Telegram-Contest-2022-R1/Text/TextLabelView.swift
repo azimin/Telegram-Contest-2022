@@ -370,7 +370,6 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         
         self.outlineView.textLabelView = self
         
-        // TODO: Color
         self.textView.customLayoutManager.backgroundColor = .clear
         
         self.isSelected = false
