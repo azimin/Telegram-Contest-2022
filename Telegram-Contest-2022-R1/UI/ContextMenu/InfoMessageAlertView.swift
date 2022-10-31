@@ -7,9 +7,48 @@
 
 import UIKit
 
-class FeatureUnderDevelopmentView: View {
+class InfoMessageAlertView: View {
+    enum Style {
+        case underDevelopment
+        case photoSaving
+        case photoSaved
+        
+        var icon: String {
+            switch self {
+            case .underDevelopment:
+                return "🚧"
+            case .photoSaving:
+                return "💾"
+            case .photoSaved:
+                return "✅"
+            }
+        }
+        
+        var title: String {
+            switch self {
+            case .underDevelopment:
+                return "This feature is under development"
+            case .photoSaving:
+                return "Saving..."
+            case .photoSaved:
+                return "Saved"
+            }
+        }
+    }
+    
     let iconLabel = UILabel()
     let titleLabel = UILabel()
+    
+    let style: Style
+    
+    init(style: Style) {
+        self.style = style
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func setUp() {
         self.autolayout {
@@ -34,8 +73,8 @@ class FeatureUnderDevelopmentView: View {
         self.iconLabel.font = .sfProTextRegular(17)
         self.titleLabel.font = .sfProTextRegular(17)
         
-        self.iconLabel.text = "🚧"
-        self.titleLabel.text = "This feature is under development"
+        self.iconLabel.text = style.icon
+        self.titleLabel.text = style.title
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
         
@@ -58,14 +97,30 @@ class FeatureUnderDevelopmentView: View {
     var timer: Timer? = nil
     
     func showView() {
-        self.timer?.invalidate()
-        let timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.hideViewAction), userInfo: nil, repeats: false)
-        RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
-        self.timer = timer
-        
-        if self.isViewIsPresented {
-            self.shake()
-            return
+        switch style {
+        case .underDevelopment:
+            self.timer?.invalidate()
+            let timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.hideViewAction), userInfo: nil, repeats: false)
+            RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
+            self.timer = timer
+            
+            if self.isViewIsPresented {
+                self.shake()
+                return
+            }
+        case .photoSaving:
+            if self.isViewIsPresented {
+                return
+            }
+        case .photoSaved:
+            self.timer?.invalidate()
+            let timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.hideViewAction), userInfo: nil, repeats: false)
+            RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
+            self.timer = timer
+            
+            if self.isViewIsPresented {
+                return
+            }
         }
         
         self.isViewIsPresented = true

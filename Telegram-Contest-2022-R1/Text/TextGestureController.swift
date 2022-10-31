@@ -66,7 +66,11 @@ class TextGestureController {
     }
     
     @objc func tapGesture(_ gesture: UITapGestureRecognizer) {
-        self.detectTapLabel(gesture)
+        self.detectTapLabel(gesture, includingFrame: true)
+    }
+    
+    @objc func drawTapGesture(_ gesture: UITapGestureRecognizer) {
+        self.detectTapLabel(gesture, includingFrame: false)
     }
     
     @objc func fingerGesture(_ gesture: UIPanGestureRecognizer) {
@@ -108,8 +112,8 @@ class TextGestureController {
     
     var isMenuVisible: Bool = false
     
-    private func detectTapLabel(_ gesture: UITapGestureRecognizer) {
-        if let textView = self.textViewByTap(gesture: gesture) {
+    func detectTapLabel(_ gesture: UITapGestureRecognizer, includingFrame: Bool) {
+        if let textView = self.textViewByTap(gesture: gesture, includingFrame: includingFrame) {
             textView.isMenuVisible = self.isMenuVisible
             textView.tapAction()
             isMenuVisible = false
@@ -119,13 +123,23 @@ class TextGestureController {
         }
     }
     
-    func textViewByTap(gesture: UITapGestureRecognizer) -> TextLabelView? {
+    func textViewByTap(gesture: UITapGestureRecognizer, includingFrame: Bool) -> TextLabelView? {
         for textView in self.labels {
             let point = gesture.location(in: textView)
             if textView.isTouchedFromDrawer(point: point) {
                 return textView
             }
         }
+        
+        if includingFrame {
+            for textView in self.labels {
+                let point = gesture.location(in: textView)
+                if textView.touchStyle(point: point, supportsResize: true) != .none {
+                    return textView
+                }
+            }
+        }
+        
         return nil
     }
     

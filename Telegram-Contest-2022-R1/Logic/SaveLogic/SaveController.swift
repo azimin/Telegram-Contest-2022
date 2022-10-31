@@ -32,6 +32,7 @@ class SaveController {
         UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil)
         return newImage
     }
+    
 }
 
 fileprivate extension UIImage {

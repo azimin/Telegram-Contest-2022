@@ -28,7 +28,9 @@ class CaptureView: UIView {
 
 class EditImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditToolbarViewDelegate, DrawMetalViewDelegate, ZoomViewDelegate {
     
-    let underDevelopmentView = FeatureUnderDevelopmentView()
+    let underDevelopmentView = InfoMessageAlertView(style: .underDevelopment)
+//    let photoSavingView = InfoMessageAlertView(style: .photoSaving)
+    
     let rootTextView = RootTextView()
     
     let topControlls = TopControlsView()
@@ -110,6 +112,13 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
             self.underDevelopmentView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12).activate()
             self.underDevelopmentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12).activate()
         }
+        
+//        self.view.addSubview(self.photoSavingView)
+//        self.photoSavingView.autolayout {
+//            self.photoSavingView.topAnchor.constraint(equalTo: self.topControlls.bottomAnchor, constant: 16).activate()
+//            self.photoSavingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12).activate()
+//            self.photoSavingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12).activate()
+//        }
         
         ContextMenuController.shared.attachToView(view: self.view)
         self.view.layer.speed = Float(CALayer.currentSpeed())

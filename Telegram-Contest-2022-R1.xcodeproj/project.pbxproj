@@ -59,7 +59,7 @@
 		9F74F3372909A89A00092CFB /* LinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3362909A89A00092CFB /* LinesView.swift */; };
 		9F74F33A2909C9DD00092CFB /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F3392909C9DD00092CFB /* ZoomView.swift */; };
 		9F74F33C2909D39500092CFB /* MetalDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F74F33B2909D39500092CFB /* MetalDrawingView.swift */; };
-		9F85E2DD290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85E2DC290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift */; };
+		9F85E2DD290ECD0A005989F6 /* InfoMessageAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85E2DC290ECD0A005989F6 /* InfoMessageAlertView.swift */; };
 		9F85E2E0290EE99D005989F6 /* UndoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85E2DF290EE99D005989F6 /* UndoManager.swift */; };
 		9F85E2E3290F3EA3005989F6 /* back_to_cancel.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F85E2E1290F3EA3005989F6 /* back_to_cancel.json */; };
 		9F85E2E4290F3EA3005989F6 /* cancel_to_back.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F85E2E2290F3EA3005989F6 /* cancel_to_back.json */; };
@@ -151,7 +151,7 @@
 		9F74F3362909A89A00092CFB /* LinesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesView.swift; sourceTree = "<group>"; };
 		9F74F3392909C9DD00092CFB /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		9F74F33B2909D39500092CFB /* MetalDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalDrawingView.swift; sourceTree = "<group>"; };
-		9F85E2DC290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureUnderDevelopmentView.swift; sourceTree = "<group>"; };
+		9F85E2DC290ECD0A005989F6 /* InfoMessageAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMessageAlertView.swift; sourceTree = "<group>"; };
 		9F85E2DF290EE99D005989F6 /* UndoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoManager.swift; sourceTree = "<group>"; };
 		9F85E2E1290F3EA3005989F6 /* back_to_cancel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = back_to_cancel.json; sourceTree = "<group>"; };
 		9F85E2E2290F3EA3005989F6 /* cancel_to_back.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cancel_to_back.json; sourceTree = "<group>"; };
@@ -418,7 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				9FA0091228F86CCA00688479 /* ContextMenuView.swift */,
-				9F85E2DC290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift */,
+				9F85E2DC290ECD0A005989F6 /* InfoMessageAlertView.swift */,
 				9FA0091628F8824F00688479 /* ContextMenuController.swift */,
 			);
 			path = ContextMenu;
@@ -670,7 +670,7 @@
 				9F0E954228F4B53000177E7C /* Fonts.swift in Sources */,
 				9F8FF83F290DF0290091E391 /* PoorColorViewController.swift in Sources */,
 				9F0246D9290C3539003119F9 /* NotificationSystem.swift in Sources */,
-				9F85E2DD290ECD0A005989F6 /* FeatureUnderDevelopmentView.swift in Sources */,
+				9F85E2DD290ECD0A005989F6 /* InfoMessageAlertView.swift in Sources */,
 				9F0246DC290C7543003119F9 /* TextKeybaordControllsView.swift in Sources */,
 				9F9AE09028F5CF99004717E5 /* UIKitUtils.m in Sources */,
 				9F0246D1290C17D7003119F9 /* CustomTextView.swift in Sources */,

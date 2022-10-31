@@ -106,8 +106,8 @@ class MetalLineDrawer: UIView {
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == self.tapGesture {
-            if TextGestureController.shared.textViewByTap(gesture: self.tapGesture) != nil {
-                TextGestureController.shared.tapGesture(self.tapGesture)
+            if TextGestureController.shared.textViewByTap(gesture: self.tapGesture, includingFrame: false) != nil {
+                TextGestureController.shared.drawTapGesture(self.tapGesture)
                 NotificationSystem.shared.fireEvent(.selectTextTab)
                 return false
             }
