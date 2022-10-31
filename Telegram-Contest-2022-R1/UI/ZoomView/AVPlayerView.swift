@@ -25,7 +25,7 @@ class AVPlayerView: View {
         }
     }
     
-    override func layoutSubviewsOnChangeBounds() {
+    override func layoutSubviews() {
         self.playerLayer.frame = self.bounds
     }
     

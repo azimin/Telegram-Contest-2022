@@ -57,10 +57,7 @@ class ZoomView: View, LinesViewDelegate {
     }
     
     override func layoutSubviewsOnChangeBounds() {
-        self.contentView.frame = self.bounds
         self.linesView.frame = self.bounds
-        self.videoView.frame = self.bounds
-        
         self.updateCenter()
     }
     
@@ -129,7 +126,7 @@ class ZoomView: View, LinesViewDelegate {
     
     private func updateCenter() {
         let offset = Offset()
-        var centerPoint = self.contentView.center
+        var centerPoint = self.center
         centerPoint.y += (offset.topOffset - offset.bottomOffset) / 2
         self.imageView.center = centerPoint
         self.videoView.center = centerPoint
