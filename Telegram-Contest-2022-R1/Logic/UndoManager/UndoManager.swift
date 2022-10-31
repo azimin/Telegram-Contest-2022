@@ -22,6 +22,7 @@ class UndoManager {
     
     var actions: [Action] = []
     var lastActionCreate: TimeInterval = 0
+    var saved: Bool = false
     
     func addAction(_ action: Action) {
         var shouldRemove = false
@@ -45,6 +46,7 @@ class UndoManager {
             break
         }
         
+        self.saved = false
         if shouldRemove {
             self.actions.removeLast()
             self.undoManagerUpdated?()
@@ -56,6 +58,7 @@ class UndoManager {
     }
     
     func clearAll() {
+        self.saved = false
         self.actions.removeAll()
         self.undoManagerUpdated?()
     }
@@ -76,6 +79,7 @@ class UndoManager {
         if self.actions.isEmpty {
             return
         }
+        self.saved = false
         let last = self.actions.removeLast()
         switch last {
         case .drawMetalLine:

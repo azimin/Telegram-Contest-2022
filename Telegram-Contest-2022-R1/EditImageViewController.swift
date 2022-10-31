@@ -209,7 +209,12 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                     maskContent: self.zoomView.contentView,
                     maskFrame: self.zoomView.currentContentView.frame
                 )
+                
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                self.photoSavedResultView.updateTitle(style: .photoSaved)
+                self.photoSavedResultView.showView()
                 self.view.isUserInteractionEnabled = true
+                UndoManager.shared.saved = true
             case .video(let url):
                 self.underDevelopmentView.hideView(animated: true)
                 self.photoSavingView.showView()
@@ -223,6 +228,10 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
                     maskFrame: self.zoomView.currentContentView.frame,
                     completion: { [weak self] success in
                         guard let self else { return }
+                        if success {
+                            UndoManager.shared.saved = true
+                        }
+                        
                         UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                         self.photoSavingView.hideView(animated: true)
                         self.photoSavedResultView.updateTitle(style: success ? .photoSaved : .photoSavedError)
@@ -344,7 +353,7 @@ class EditImageViewController: UIViewController, UIImagePickerControllerDelegate
     // MARK: - EditToolbarViewDelegate
     
     func exitImageButtonClicked() {
-        if UndoManager.shared.actions.isEmpty {
+        if UndoManager.shared.actions.isEmpty || UndoManager.shared.saved {
             self.exitAction()
         } else {
             let alert = UIAlertController(title: "Discard media?", message: "If you go back now, you will lose any changes that you've made.", preferredStyle: .alert)
