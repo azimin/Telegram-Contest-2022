@@ -13,6 +13,7 @@ class TextPresentationController {
     weak var contentView: UIView?
     weak var backgroundView: UIView?
     weak var frontView: UIView?
+    weak var frontMaskView: MaskView?
     weak var frontSizeControlView: TextEnterFrontView?
     
     weak var presentedLabel: TextLabelView?
@@ -54,6 +55,7 @@ class TextPresentationController {
         UIView.animate(withDuration: 0.2) {
             self.backgroundView?.alpha = 1
         }
+        self.frontMaskView?.animate(isAppear: true, duration: 0.2)
     }
     
     func hideView(view: TextLabelView) {
@@ -66,6 +68,7 @@ class TextPresentationController {
         self.frontView?.isUserInteractionEnabled = false
         self.frontSizeControlView?.isUserInteractionEnabled = false
         
+        self.frontMaskView?.animate(isAppear: false, duration: 0.2)
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView?.alpha = 0
         }) {
@@ -95,6 +98,7 @@ class TextPresentationController {
         self.frontSizeControlView?.isUserInteractionEnabled = false
         
         view.deleteAnimation()
+        self.frontMaskView?.animate(isAppear: false, duration: 0.2)
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView?.alpha = 0
         })

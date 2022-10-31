@@ -11,11 +11,30 @@ class MaskView: View {
     override func setUp() {
         self.backgroundColor = .black
     }
+    
+    var isAppear: Bool = false
+    var fullFrame: CGRect = .zero
+    var recommendedFrame: CGRect = .zero {
+        didSet {
+            self.update()
+        }
+    }
+    
+    func update() {
+        self.frame = isAppear ? fullFrame : recommendedFrame
+    }
+    
+    func animate(isAppear: Bool, duration: CGFloat) {
+        self.isAppear = isAppear
+        self.layer.animateFrame(from: isAppear ? recommendedFrame : fullFrame, to: isAppear ? fullFrame : recommendedFrame, duration: duration)
+        self.frame = isAppear ? fullFrame : recommendedFrame
+    }
 }
 
 class RootTextView: View, UIGestureRecognizerDelegate {
     let aligmentView = TextLineAligmentView()
     let maskTopView = MaskView()
+    let maskContentView = MaskView()
     
     var holderView = UIView()
     let contentView = UIView()
@@ -67,12 +86,13 @@ class RootTextView: View, UIGestureRecognizerDelegate {
         self.backgroundView.backgroundColor = .black.withAlphaComponent(0.5)
         self.backgroundView.alpha = 0
         
-        self.holderView.addSubview(self.frontView)
+        self.addSubview(self.frontView)
         
         TextPresentationController.shared.contentView = self.contentView
         TextPresentationController.shared.backgroundView = self.backgroundView
         TextPresentationController.shared.frontView = self.frontView
         TextPresentationController.shared.frontSizeControlView = self.frontSizeControlView
+        TextPresentationController.shared.frontMaskView = self.maskContentView
         
         NotificationSystem.shared.subscribeOnEvent(self) { [weak self] event in
             switch event {
@@ -105,6 +125,9 @@ class RootTextView: View, UIGestureRecognizerDelegate {
     private func updateMask(view: UIView, frame: CGRect) {
         self.maskTopView.frame = frame
         self.holderView.mask = self.maskTopView
+        
+        self.maskContentView.recommendedFrame = frame
+        self.frontView.mask = self.maskContentView
     }
     
     override func layoutSubviewsOnChangeBounds() {
@@ -114,6 +137,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
         self.backgroundView.frame = self.bounds
         self.frontView.frame = self.bounds
         self.frontSizeControlView.frame = self.bounds
+        self.maskContentView.fullFrame = self.bounds
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
