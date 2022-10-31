@@ -75,7 +75,6 @@ class RootTextView: View, UIGestureRecognizerDelegate {
         TextSelectionController.shared.labelsContentView = self.contentView
         
         self.addSubview(self.holderView)
-        self.addSubview(self.frontSizeControlView)
         
         TextLineAligmentView.shared = self.aligmentView
         self.holderView.addSubview(self.aligmentView)
@@ -87,6 +86,7 @@ class RootTextView: View, UIGestureRecognizerDelegate {
         self.backgroundView.alpha = 0
         
         self.addSubview(self.frontView)
+        self.addSubview(self.frontSizeControlView)
         
         TextPresentationController.shared.contentView = self.contentView
         TextPresentationController.shared.backgroundView = self.backgroundView
