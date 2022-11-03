@@ -868,22 +868,26 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 11111001002;
 				DEVELOPMENT_TEAM = 5MGEMLZRS4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Telegram-Contest-2022-R1/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "TG Drawer";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save young Picasso works";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save young Picasso works";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.alexander.Telegram-Contest-2022-R1";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alex.telegram-context.TelegramContest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -903,22 +907,26 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 11111001002;
 				DEVELOPMENT_TEAM = 5MGEMLZRS4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Telegram-Contest-2022-R1/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "TG Drawer";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save young Picasso works";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save young Picasso works";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.alexander.Telegram-Contest-2022-R1";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alex.telegram-context.TelegramContest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

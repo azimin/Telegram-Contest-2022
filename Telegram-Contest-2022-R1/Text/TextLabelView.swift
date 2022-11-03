@@ -349,7 +349,7 @@ class TextLabelView: UIView, KeyboardHandlerDelegate, UITextViewDelegate, UIGest
         self.textView.textAlignment = .center
         self.textView.backgroundColor = .clear
         self.textView.recommendedFont = UIFont.sfProTextSemibold(36)
-        self.textView.text = "Yo\nSome Content\nThe\n\nSjdsjdj"
+        self.textView.text = ""
         self.textView.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         self.textView.frame = self.bounds
         self.textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
